@@ -36,7 +36,7 @@ class TestCurrencyRateService(TestCase):
         self.assertEqual(result1, dummy_response)
 
         result2 = self.service.fetch_rates(date=datetime.date.today())
-        self.assertEqual(result1, dummy_response)
+        self.assertEqual(result2, dummy_response)
 
         # Check that the live URL is used and the date parameter is missing
         args, kwargs = mock_get.call_args
