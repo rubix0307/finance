@@ -5,7 +5,7 @@ from django.test import TestCase, override_settings
 from unittest.mock import patch, MagicMock
 
 from currency.models import Currency, CurrencyRateHistory
-from currency.service import CurrencyRateService
+from currency.services import CurrencyRateService
 
 
 @override_settings(APILAYER_API_KEYS=['81e7e9b0_fake_key'])
