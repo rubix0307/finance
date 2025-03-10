@@ -42,7 +42,7 @@ class CurrencyRateService:
             except requests.exceptions.RequestException as e:
                 logger.error(f'Request error to API: {e}')
                 continue
-            except json.decoder.JSONDecodeError as e:
+            except json.decoder.JSONDecodeError:
                 continue
 
         logger.error('All API keys have failed.')

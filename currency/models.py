@@ -7,7 +7,7 @@ class Currency(models.Model):
     class Meta:
         db_table = 'currency'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.code
 
 
@@ -20,6 +20,6 @@ class CurrencyRateHistory(models.Model):
         get_latest_by = ['date']
         db_table = 'currency_rate_history'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.id}: {self.per_usd}'
 
