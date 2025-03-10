@@ -13,7 +13,7 @@ class TestCurrencyRateService(TestCase):
     def setUp(self) -> None:
         self.service = CurrencyRateService()
 
-    @patch('currency.service.requests.get')
+    @patch('currency.services.requests.get')
     def test_fetch_rates_live(self, mock_get: MagicMock) -> None:
         """
         We check that API_URL_LIVE is used if there is no date.
@@ -43,7 +43,7 @@ class TestCurrencyRateService(TestCase):
         self.assertEqual(args[0], self.service.API_URL_LIVE)
         self.assertNotIn('date', kwargs['params'])
 
-    @patch('currency.service.requests.get')
+    @patch('currency.services.requests.get')
     def test_fetch_rates_historical(self, mock_get: MagicMock) -> None:
         """
         Check that API_URL_HISTORICAL is used when passing a date other than today's date.
@@ -69,7 +69,7 @@ class TestCurrencyRateService(TestCase):
         self.assertEqual(args[0], self.service.API_URL_HISTORICAL)
         self.assertEqual(kwargs['params'].get('date'), test_date.strftime('%Y-%m-%d'))
 
-    @patch('currency.service.CurrencyRateService.fetch_rates')
+    @patch('currency.services.CurrencyRateService.fetch_rates')
     def test_save_rates_creates_objects(self, mock_fetch_rates: MagicMock) -> None:
         """
         Check that currency objects and rate history records are created if data retrieval is successful.
@@ -99,7 +99,7 @@ class TestCurrencyRateService(TestCase):
         # Check that history records have been created for both courses
         self.assertEqual(CurrencyRateHistory.objects.count(), 2)
 
-    @patch('currency.service.CurrencyRateService.fetch_rates')
+    @patch('currency.services.CurrencyRateService.fetch_rates')
     def test_save_rates_error_in_fetch(self, mock_fetch_rates: MagicMock) -> None:
         """
         If fetch_rates returns None (data fetch error), save_rates should return False.
@@ -108,7 +108,7 @@ class TestCurrencyRateService(TestCase):
         result = self.service.save_rates(date=datetime.date(2025, 1, 1))
         self.assertFalse(result)
 
-    @patch('currency.service.CurrencyRateService.save_rates')
+    @patch('currency.services.CurrencyRateService.save_rates')
     def test_check_or_fetch_currency_data_already_exists(self, mock_save_rates: MagicMock) -> None:
         """
         If a history record already exists for a given date, save_rates is not called.
@@ -126,7 +126,7 @@ class TestCurrencyRateService(TestCase):
         self.assertTrue(result)
         mock_save_rates.assert_not_called()
 
-    @patch('currency.service.CurrencyRateService.save_rates')
+    @patch('currency.services.CurrencyRateService.save_rates')
     def test_check_or_fetch_currency_data_not_exists(self, mock_save_rates: MagicMock) -> None:
         """
         If there is no history record for a given date, save_rates must be called.
