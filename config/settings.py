@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'currency',
     'section',
     'user',
+    'chart',
 ]
 
 MIDDLEWARE = [
