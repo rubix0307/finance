@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'section',
     'user',
     'chart',
+    'receipt',
 ]
 
 MIDDLEWARE = [
