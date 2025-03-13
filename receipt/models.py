@@ -48,9 +48,6 @@ class Receipt(models.Model):
     def __str__(self) -> str:
         return f'{self.pk}'
 
-    def save(self, *args) -> None: # type: ignore
-        return super(Receipt, self).save(*args)
-
     class Meta:
         db_table = 'receipt'
 
