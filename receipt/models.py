@@ -1,7 +1,11 @@
-from typing import Optional, cast, Annotated
+from typing import Optional, cast, Annotated, Any
 
+from django.contrib.auth import get_user_model
 from django.contrib.postgres.search import TrigramSimilarity
 from django.db import models
+
+from currency.models import Currency
+
 
 class Shop(models.Model):
     name = models.CharField(max_length=255, unique=True, db_index=True)
@@ -32,3 +36,41 @@ class Shop(models.Model):
 
     class Meta:
         db_table = 'shop'
+
+
+class Receipt(models.Model):
+    photo = models.ImageField(upload_to='receipt/', null=True, blank=True, max_length=1024)
+    shop = models.ForeignKey(Shop, on_delete=models.SET_NULL, null=True, blank=True)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
+    currency = models.ForeignKey(Currency, on_delete=models.SET_NULL, null=True, blank=True)
+    date = models.DateTimeField()
+
+    def __str__(self) -> str:
+        return f'{self.pk}'
+
+    def save(self, *args) -> None: # type: ignore
+        return super(Receipt, self).save(*args)
+
+    class Meta:
+        db_table = 'receipt'
+
+
+class ReceiptItem(models.Model):
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=20, decimal_places=2)
+    category = models.ForeignKey('ReceiptItemCategory', on_delete=models.SET_NULL, null=True, blank=True)
+    receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE, related_name='items')
+
+    class Meta:
+        db_table = 'receipt_item'
+        ordering = ['id']
+
+
+class ReceiptItemCategory(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self) -> str:
+        return self.name
+
+    class Meta:
+        db_table = 'receipt_item_category'
