@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from receipt.models import Receipt
+
+
+@admin.register(Receipt)
+class ReceiptAdmin(admin.ModelAdmin): # type: ignore
+    list_display = ('id', )
+

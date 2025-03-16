@@ -98,6 +98,12 @@ USE_TZ = True
 # Static files
 STATIC_URL = 'static/'
 
+# Media TMP
+MEDIA_ROOT = os.path.join(BASE_DIR, 'config', 'media')
+if not os.path.exists(MEDIA_ROOT):
+    os.mkdir(MEDIA_ROOT)
+MEDIA_URL = '/media/'
+
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
