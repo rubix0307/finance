@@ -1,10 +1,11 @@
-from typing import Optional, cast, Annotated, Any
+from typing import Optional, cast, Annotated, Any, LiteralString, Protocol, runtime_checkable
 
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.search import TrigramSimilarity
 from django.db import models
 
 from currency.models import Currency
+from .common import get_photo_upload_path
 
 
 class Shop(models.Model):
@@ -39,7 +40,7 @@ class Shop(models.Model):
 
 
 class Receipt(models.Model):
-    photo = models.ImageField(upload_to='receipt/', null=True, blank=True, max_length=1024)
+    photo = models.ImageField(upload_to=get_photo_upload_path, null=True, blank=True, max_length=1024)
     shop = models.ForeignKey(Shop, on_delete=models.SET_NULL, null=True, blank=True)
     owner = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
     currency = models.ForeignKey(Currency, on_delete=models.SET_NULL, null=True, blank=True)
