@@ -19,9 +19,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import URLPattern, path, include
 
+from receipt.views import process_receipt_view
+
 urlpatterns = [
        path('admin/', admin.site.urls),
        path('chart/', include('chart.urls')),
+       path('process_receipt_view/<int:receipt_pk>/', process_receipt_view),
 ]
 
 if settings.DEBUG:
