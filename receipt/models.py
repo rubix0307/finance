@@ -11,6 +11,7 @@ from .common import get_photo_upload_path
 class Shop(models.Model):
     name = models.CharField(max_length=255, unique=True, db_index=True)
     address = models.CharField(max_length=1024, blank=True, null=True)
+    taxpayer_id = models.CharField(max_length=1024, blank=True, null=True)
 
     objects = models.Manager()
 
