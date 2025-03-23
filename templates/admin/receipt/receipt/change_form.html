@@ -1,0 +1,35 @@
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <style>
+    .sticky-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: transparent;
+        padding: 10px 20px;
+        text-align: center;
+        z-index: 9999;
+    }
+    .sticky-nav a.button {
+        margin: 0 10px;
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+  </style>
+{% endblock %}
+
+{% block submit_buttons_bottom %}
+  {{ block.super }}
+
+  <div class="sticky-nav">
+    {% if prev_obj %}
+      <a class="button" href="{% url 'admin:receipt_receipt_change' prev_obj.id %}#photo_preview">← Предыдущий</a>
+    {% endif %}
+    {% if next_obj %}
+      <a class="button" href="{% url 'admin:receipt_receipt_change' next_obj.id %}#photo_preview">Следующий →</a>
+    {% endif %}
+  </div>
+{% endblock %}
