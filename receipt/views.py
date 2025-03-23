@@ -1,7 +1,14 @@
-from django.http import JsonResponse
-from .tasks import process_receipt_task
+from django.shortcuts import render, redirect
+from django.utils.timezone import now
 
-def process_receipt_view(request, receipt_pk=123):
-    # Постановка задачи в очередь
-    process_receipt_task.delay(receipt_pk=receipt_pk)
-    return JsonResponse({"status": "Задача поставлена в очередь"})
+from .models import Receipt
+
+
+
+def upload_receipts(request):
+    if request.method == 'POST':
+        files = request.FILES.getlist('photos')
+        for f in files:
+            Receipt.objects.create(photo=f, owner=request.user, date=now())
+        return redirect('admin')
+    return render(request, 'receipt/upload.html')
