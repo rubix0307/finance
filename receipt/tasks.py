@@ -4,42 +4,45 @@ import logging
 from celery import shared_task, Task
 from celery.exceptions import MaxRetriesExceededError
 
-from ai.managers.schemes import ProcessPhotoResponse
 from ai.managers.schemes import ProcessPhotoResponse, ProcessPhotoError
-from .models import Receipt
-from .services import process_receipt_photo
+from ai.services.open_ai.service import OpenAIService
 
+from .schemes import ReceiptSchema
+from user.models import User
+from receipt.services.receipt_schema.save import ReceiptSchemaService
+from .models import Receipt
 
 logger = logging.getLogger(__name__)
 
 
 
-
-@shared_task(
+@shared_task(  # type: ignore
     bind=True,
     autoretry_for=(Exception,),
     retry_kwargs={"max_retries": 3, "countdown": 100},
     acks_late=True
 )
-def process_receipt_task(self: Task, receipt_pk: int) -> ProcessPhotoResponse | ProcessPhotoError:
-    """
-    Processes a receipt photo with retry logic.
+def update_receipt_data(self: Task, receipt_pk: int, user_pk: int) -> None | ProcessPhotoResponse | ProcessPhotoError:
 
-    :param receipt_pk: pk of Receipt
-    :param self: Celery Task instance.
-    :return: ProcessPhotoResponse on success or ProcessPhotoError if retries fail.
-    """
     try:
+        user = User.objects.get(pk=user_pk)
         receipt = Receipt.objects.get(pk=receipt_pk)
-        response = process_receipt_photo(str(receipt.photo))
-        if response is not None:
-            return response
+
+        ai_service = OpenAIService()
+        schema: ReceiptSchema | None = ai_service.analyze_receipt(image_path=receipt.photo.path)
+
+        if schema:
+            ReceiptSchemaService(receipt_schema=schema, user=user).update_receipt(receipt)
         else:
-            return {"error": "Other error"}
+            return ProcessPhotoError(error='Receipt schema is not available')
 
     except Receipt.DoesNotExist:
         logger.error("Receipt not found")
         return {"error": "Receipt not found"}
+
+    except User.DoesNotExist:
+        logger.error("User does not exist")
+        return {"error": "User does not exist"}
 
     except MaxRetriesExceededError:
         logger.error(f"Task {self.request.id} failed after max retries")
@@ -48,7 +51,9 @@ def process_receipt_task(self: Task, receipt_pk: int) -> ProcessPhotoResponse | 
     except Exception as e:
         logger.warning(f"Task {self.request.id} failed. Retrying... ({self.request.retries}/5)")
         try:
-            raise self.retry(exc=e)  # Повторяем задачу
+            raise self.retry(exc=e)
         except MaxRetriesExceededError:
             logger.error(f"Task {self.request.id} permanently failed after 5 attempts.")
             return {"error": "Permanent failure after max retries"}
+
+    return ProcessPhotoResponse(status="success")
