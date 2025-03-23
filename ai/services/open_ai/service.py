@@ -55,7 +55,7 @@ class OpenAIService(BaseOpenAIMethods):
                     'type': 'image_file',
                     'image_file': {
                         'file_id': tmp_file.id,
-                        'detail': 'auto',
+                        'detail': 'high',
                     }
                 }
                 content: list[MessageContentPartParam] = [file_data]
