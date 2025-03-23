@@ -62,7 +62,7 @@ class Receipt(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.SET_NULL, null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     currency = models.ForeignKey(Currency, on_delete=models.SET_NULL, null=True, blank=True)
-    date = models.DateTimeField()
+    date = models.DateTimeField(null=True)
 
     def __str__(self) -> str:
         return f'{self.pk}'

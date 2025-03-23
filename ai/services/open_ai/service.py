@@ -11,8 +11,11 @@ from openai.types.beta.threads import (
     Text, Message, MessageContent,
 )
 from openai.types.beta.threads.run import Usage
+
+from ai.logger import AIUsageLogger
 from ai.services.open_ai.decorators import handle_openai_errors
 from ai.services.open_ai.managers import TmpFileManager, TmpThreadManager
+from ai.services.open_ai.strategies import OpenAI4oMiniStrategy, OpenAI4oStrategy
 from receipt.schemes import ReceiptSchema
 
 
@@ -45,6 +48,8 @@ class OpenAIService(BaseOpenAIMethods):
         super().__init__(**kwargs)
         self.analyze_receipt_assistant: Assistant = self.client.beta.assistants.retrieve(os.getenv('OPENAI_ANALYZE_RECEIPT_ASSISTANT_ID', ''))
         self.usage: list[Usage] = []
+        self.logger = AIUsageLogger(OpenAI4oStrategy())
+
 
     @handle_openai_errors
     def analyze_receipt(self, image_path: str, prompt: str = '', poll_interval_ms: int = 1000) -> ReceiptSchema:
@@ -73,6 +78,10 @@ class OpenAIService(BaseOpenAIMethods):
                     )
                     if run.usage:
                         self.usage.append(run.usage)
+                        self.logger.log_usage(
+                            prompt_tokens=run.usage.prompt_tokens,
+                            completion_tokens=run.usage.completion_tokens,
+                        )
 
                     response_message = self._get_response(run.thread_id)
                     return ReceiptSchema(**json.loads(response_message or ''))
