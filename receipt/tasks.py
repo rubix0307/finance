@@ -5,6 +5,7 @@ from celery import shared_task, Task
 from celery.exceptions import MaxRetriesExceededError
 
 from ai.managers.schemes import ProcessPhotoResponse
+from ai.managers.schemes import ProcessPhotoResponse, ProcessPhotoError
 from .models import Receipt
 from .services import process_receipt_photo
 
@@ -12,8 +13,6 @@ from .services import process_receipt_photo
 logger = logging.getLogger(__name__)
 
 
-class ProcessPhotoError(TypedDict):
-    error: str
 
 
 @shared_task(

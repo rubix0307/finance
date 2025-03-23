@@ -10,5 +10,7 @@ Keys: TypeAlias = Dict[KeyName, KeyFull]
 
 class ProcessPhotoResponse(TypedDict):
     status: str
-    api_key: str | None
+
+class ProcessPhotoError(TypedDict):
+    error: str
 
