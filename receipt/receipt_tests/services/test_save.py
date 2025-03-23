@@ -5,7 +5,7 @@ from typing import cast
 from django.test import TestCase
 from currency.models import Currency
 from receipt.models import Receipt, ReceiptItem, ReceiptItemCategory, Shop
-from receipt.schemes import ReceiptSchema
+from receipt.schemes import ReceiptSchema, ItemSchema
 from receipt.services.receipt_schema.exceptions import MissingItemsError, MissingCurrencyError
 from receipt.services.receipt_schema.save import ReceiptSchemaService
 from user.models import User
@@ -173,9 +173,88 @@ class ReceiptSchemaServiceTest(TestCase):
         self.assertEqual(receipt.owner, self.user)
         self.assertEqual(receipt.currency, self.currency)
         expected_date = datetime.strptime("01/03/2025 15:30", "%d/%m/%Y %H:%M").date()
-        self.assertEqual(receipt.date, expected_date)
+        self.assertEqual(receipt.date.date(), expected_date)
 
         self.assertIsNotNone(receipt.shop)
         self.assertEqual(receipt.shop.name, "Test Shop")
 
         self.assertEqual(ReceiptItem.objects.filter(receipt=receipt).count(), 1)
+
+    def test_update_receipt_items(self):
+        """Check that update_receipt_items updates only the specified receipt and does not affect other receipts"""
+        data1 = self.get_valid_data(extra={"items": [
+            {"name": "Item1", "price": 10.0, "category_id": self.category.id},
+            {"name": "Item2", "price": 20.0, "category_id": self.category.id},
+        ]})
+        receipt_schema1 = ReceiptSchema(**data1)
+        service1 = ReceiptSchemaService(receipt_schema1, self.user)
+        receipt1 = service1.save()
+
+        data2 = self.get_valid_data(extra={"items": [
+            {"name": "OtherItem", "price": 30.0, "category_id": self.category.id},
+        ]})
+        receipt_schema2 = ReceiptSchema(**data2)
+        service2 = ReceiptSchemaService(receipt_schema2, self.user)
+        receipt2 = service2.save()
+
+        # Update receipt1 by changing the list of products
+        new_items = [
+            {"name": "UpdatedItem", "price": 15.0, "category_id": self.category.id},
+        ]
+        service1.receipt_schema.items = [ItemSchema(**item) for item in new_items]
+        updated_items = service1.update_receipt_items(receipt1)
+
+        # Check that receipt1 now has only 1 item with new data
+        self.assertEqual(len(updated_items), 1)
+        self.assertEqual(updated_items[0].name, "UpdatedItem")
+        self.assertEqual(ReceiptItem.objects.filter(receipt=receipt1).count(), 1)
+
+        # Check that receipt2 is unaffected and has the original quantity of items
+        self.assertEqual(ReceiptItem.objects.filter(receipt=receipt2).count(), 1)
+
+    def test_update_receipt(self):
+        """Check that update_receipt updates only the passed check and does not affect other checks"""
+        # Create two checks:
+        data = self.get_valid_data(extra={
+            "shop": {"name": "Old Shop", "address": "Old Address", "taxpayer_id": "000000"},
+            "items": [{"name": "OldItem", "price": 5.0, "category_id": self.category.id}],
+        })
+        receipt_schema = ReceiptSchema(**data)
+        service = ReceiptSchemaService(receipt_schema, self.user)
+        receipt = service.save()
+
+        data_other = self.get_valid_data(extra={
+            "shop": {"name": "Other Shop", "address": "Other Address", "taxpayer_id": "222222"},
+            "items": [{"name": "OtherItem", "price": 15.0, "category_id": self.category.id}],
+        })
+        receipt_schema_other = ReceiptSchema(**data_other)
+        service_other = ReceiptSchemaService(receipt_schema_other, self.user)
+        receipt_other = service_other.save()
+
+        # Updating data for the first check
+        updated_data = self.get_valid_data(extra={
+            "shop": {"name": "New Shop", "address": "New Address", "taxpayer_id": "111111"},
+            "items": [
+                {"name": "NewItem1", "price": 25.0, "category_id": self.category.id},
+                {"name": "NewItem2", "price": 35.0, "category_id": self.category.id},
+            ],
+        })
+        # Update the service for the first check with new data
+        service.receipt_schema = ReceiptSchema(**updated_data)
+        service.receipt_data = service.receipt_schema.model_dump()
+
+        updated_receipt = service.update_receipt(receipt)
+
+        # Check that the check fields are updated
+        self.assertEqual(updated_receipt.shop.name, "New Shop")
+        self.assertEqual(updated_receipt.currency, self.currency)
+        expected_date = datetime.strptime("01/03/2025 15:30", "%d/%m/%Y %H:%M").date()
+        if hasattr(updated_receipt.date, "date"):
+            self.assertEqual(updated_receipt.date.date(), expected_date)
+        else:
+            self.assertEqual(updated_receipt.date, expected_date)
+        self.assertEqual(ReceiptItem.objects.filter(receipt=updated_receipt).count(), 2)
+
+        # Additionally check that the second check is unaffected
+        self.assertEqual(receipt_other.shop.name, "Other Shop")
+        self.assertEqual(ReceiptItem.objects.filter(receipt=receipt_other).count(), 1)

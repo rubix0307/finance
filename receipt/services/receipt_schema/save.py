@@ -1,5 +1,8 @@
 from datetime import datetime, date
 from decimal import Decimal
+
+from django.db import transaction
+
 from currency.models import Currency
 from receipt.services.receipt_schema.exceptions import MissingItemsError, MissingCurrencyError
 from user.models import User
@@ -94,4 +97,19 @@ class ReceiptSchemaService:
             owner=self.user,
         )
         self.save_receipt_items(receipt)
+        return receipt
+
+    def update_receipt_items(self, receipt: Receipt) -> list[ReceiptItem]:
+        with transaction.atomic():
+            ReceiptItem.objects.filter(receipt=receipt).delete()
+            receipt_items = self.save_receipt_items(receipt=receipt)
+        return receipt_items
+
+    def update_receipt(self, receipt: Receipt) -> Receipt:
+        receipt.shop = self.get_shop()
+        receipt.currency = self.currency
+        receipt.date = self.get_date()
+        receipt.save(update_fields=['shop', 'currency', 'date'])
+
+        self.update_receipt_items(receipt)
         return receipt
