@@ -1,10 +1,11 @@
-from typing import Optional, cast, Annotated
+from typing import Optional, cast, Annotated, Iterable
 
 from django.contrib.postgres.search import TrigramSimilarity
-from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models.base import ModelBase
 
 from currency.models import Currency
+from user.models import User
 from .common import get_photo_upload_path
 
 class Shop(models.Model):
@@ -59,12 +60,33 @@ class Shop(models.Model):
 class Receipt(models.Model):
     photo = models.ImageField(upload_to=get_photo_upload_path, null=True, blank=True, max_length=1024)
     shop = models.ForeignKey(Shop, on_delete=models.SET_NULL, null=True, blank=True)
-    owner = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     currency = models.ForeignKey(Currency, on_delete=models.SET_NULL, null=True, blank=True)
     date = models.DateTimeField()
 
     def __str__(self) -> str:
         return f'{self.pk}'
+
+    def save(
+        self,
+        force_insert: bool | tuple[ModelBase, ...] = False,
+        force_update: bool = False,
+        using: str | None = None,
+        update_fields: Iterable[str] | None = None,
+    ) -> None:
+        from . import tasks
+
+        is_new = self.pk is None
+        super().save(
+            force_insert=force_insert,
+            force_update=force_update,
+            using=using,
+            update_fields=update_fields,
+        )
+
+        if is_new:
+            self.refresh_from_db()
+            tasks.update_receipt_data.delay(receipt_pk=self.pk, user_pk=self.owner.pk)
 
     class Meta:
         db_table = 'receipt'
