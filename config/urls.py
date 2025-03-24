@@ -23,6 +23,7 @@ from receipt.views import upload_receipts
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('section.urls')),
     path('chart/', include('chart.urls')),
     path('upload/', upload_receipts, name='upload_receipts'),
 ]
