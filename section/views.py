@@ -5,4 +5,4 @@ from django.shortcuts import render
 # Create your views here.
 
 def index(request: WSGIRequest) -> HttpResponse:
-    return render(request, 'base.html', {})
+    return render(request, 'section/index.html', {})

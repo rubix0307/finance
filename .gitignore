@@ -138,3 +138,5 @@ GitHub.sublime-settings
 .history
 
 /staticfiles/
+
+*hot_reload*

@@ -1,0 +1,22 @@
+<header>
+
+  <div @click="setTab(tab === 'menu' ? 'main' : 'menu')" class="icon">
+    <template x-if="tab === 'menu'">
+        {% include "svg/home.svg" %}
+    </template>
+    <template x-if="tab !== 'menu'">
+        {% include "svg/toast.svg" %}
+    </template>
+  </div>
+
+  <a href="{% url 'index' %}">FINANCE LENS</a>
+
+  <div @click="setTab(tab === 'account' ? 'main' : 'account')" class="icon">
+    <template x-if="tab === 'account'">
+      {% include "svg/home.svg" %}
+    </template>
+    <template x-if="tab !== 'account'">
+      {% include "svg/account.svg" %}
+    </template>
+  </div>
+</header>
