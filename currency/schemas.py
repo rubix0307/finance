@@ -1,4 +1,5 @@
 from typing import TypedDict, Dict, Optional
+from ninja import Schema
 
 class CurrencyResponseError(TypedDict):
     code: int
@@ -12,3 +13,7 @@ class CurrencyResponse(TypedDict):
     source: str
     quotes: Dict[str, float]
     error: Optional[CurrencyResponseError]
+
+class CurrencySchema(Schema):
+    id: int
+    code: str

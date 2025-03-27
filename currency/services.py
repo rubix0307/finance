@@ -7,7 +7,7 @@ from datetime import timezone, date as type_date, datetime
 from django.conf import settings
 from django.db import IntegrityError, transaction
 from .models import Currency, CurrencyRateHistory
-from .schemes import CurrencyResponse
+from .schemas import CurrencyResponse
 
 logger = logging.getLogger(__name__)
 

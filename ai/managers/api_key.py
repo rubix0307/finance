@@ -3,7 +3,7 @@ import uuid
 import redis
 
 from .exceptions import KeyNotFoundError
-from .schemes import Keys, Seconds, KeyName, KeyFull, KeyIdentifier
+from .schemas import Keys, Seconds, KeyName, KeyFull, KeyIdentifier
 
 
 redis_client = redis.Redis(host='localhost', port=6379, db=0)

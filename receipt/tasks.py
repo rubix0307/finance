@@ -4,10 +4,10 @@ import logging
 from celery import shared_task, Task
 from celery.exceptions import MaxRetriesExceededError
 
-from ai.managers.schemes import ProcessPhotoResponse, ProcessPhotoError
+from ai.managers.schemas import ProcessPhotoResponse, ProcessPhotoError
 from ai.services.open_ai.service import OpenAIService
 
-from .schemes import ReceiptSchema
+from .schemas import ReceiptSchema
 from user.models import User
 from receipt.services.receipt_schema.save import ReceiptSchemaService
 from .models import Receipt

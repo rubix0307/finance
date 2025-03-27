@@ -5,7 +5,7 @@ from typing import cast
 from django.test import TestCase
 from currency.models import Currency
 from receipt.models import Receipt, ReceiptItem, ReceiptItemCategory, Shop
-from receipt.schemes import ReceiptSchema, ItemSchema
+from receipt.schemas import ReceiptSchema, ItemSchema
 from receipt.services.receipt_schema.exceptions import MissingItemsError, MissingCurrencyError
 from receipt.services.receipt_schema.save import ReceiptSchemaService
 from user.models import User

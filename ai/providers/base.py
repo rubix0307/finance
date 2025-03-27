@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from ai.managers.schemes import ProcessPhotoResponse
+from ai.managers.schemas import ProcessPhotoResponse
 
 
 class AIProvider(ABC):

@@ -1,0 +1,20 @@
+{% load static %}
+<div class="team">
+    <template x-for="person in getSortedSectionUsers" :key="person.id">
+        <div class="main_block person_card">
+            <div class="top">
+                <div class="data">
+                    <div class="row">
+                        <template x-if="person.is_owner">
+                            <div>Владелец</div>
+                        </template>
+                        <div><strong>Имя:</strong> <span x-text="person.username"></span></div>
+                    </div>
+                </div>
+                <div class="photo">
+                    <img :src="person?.photo || '{% static 'img/avatar.png' %}'" alt="">
+                </div>
+            </div>
+        </div>
+    </template>
+</div>

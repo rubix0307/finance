@@ -7,7 +7,7 @@ from currency.models import Currency
 from receipt.services.receipt_schema.exceptions import MissingItemsError, MissingCurrencyError
 from user.models import User
 from receipt.models import Shop, Receipt, ReceiptItem, ReceiptItemCategory
-from receipt.schemes import ReceiptSchema
+from receipt.schemas import ReceiptSchema
 
 
 class ReceiptSchemaService:

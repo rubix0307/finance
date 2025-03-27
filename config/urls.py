@@ -18,14 +18,23 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import URLPattern, path, include
-
+from ninja import NinjaAPI
+from currency.api import router as currency_router
+from section.api import router as section_router
+from user.api import router as user_router
 from receipt.views import upload_receipts
+
+api = NinjaAPI()
+api.add_router("/currencies/", currency_router)
+api.add_router("/sections/", section_router)
+api.add_router("/users/", user_router)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('section.urls')),
     path('chart/', include('chart.urls')),
     path('upload/', upload_receipts, name='upload_receipts'),
+    path("api/", api.urls),
 ]
 
 if settings.DEBUG:

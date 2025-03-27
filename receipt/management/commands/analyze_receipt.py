@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from ai.services.open_ai.service import OpenAIService
 import concurrent.futures
 
-from receipt.schemes import ReceiptSchema
+from receipt.schemas import ReceiptSchema
 from receipt.services.receipt_schema.save import ReceiptSchemaService
 
 

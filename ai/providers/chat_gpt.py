@@ -1,7 +1,7 @@
 import time
 
 from .base import AIProvider
-from ai.managers.schemes import ProcessPhotoResponse
+from ai.managers.schemas import ProcessPhotoResponse
 
 
 class ChatGPTProvider(AIProvider):

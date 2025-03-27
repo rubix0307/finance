@@ -16,7 +16,7 @@ from ai.logger import AIUsageLogger
 from ai.services.open_ai.decorators import handle_openai_errors
 from ai.services.open_ai.managers import TmpFileManager, TmpThreadManager
 from ai.services.open_ai.strategies import OpenAI4oMiniStrategy, OpenAI4oStrategy
-from receipt.schemes import ReceiptSchema
+from receipt.schemas import ReceiptSchema
 
 
 class BaseOpenAIMethods:

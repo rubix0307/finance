@@ -1,0 +1,41 @@
+<div x-data="currencyHandler()" class="main_block menu currency" :style="open ? 'padding-bottom: 0;' : ''">
+
+    <div class="head" @click="currencyToggle">
+        <div class="title">Валюта:</div>
+        <div class="name">
+            <div x-text="getCurrentCurrency?.code || '—'"></div>
+            <div class="arrow fleep" :class="{ 'fleep180x': open }">
+
+            <template x-if="getCurrentCurrency?.code">
+                {% include 'svg/arrow_down.svg' %}
+            </template>
+
+            </div>
+        </div>
+    </div>
+
+    <div x-show="open" class="choose">
+
+        <div class="info">*для отображения графиков</div>
+
+        <div class="search">
+            <div class="id">{% include 'svg/search.svg' %}</div>
+            <input
+                type="text"
+                placeholder="Название валюты"
+                x-model="query"
+            >
+        </div>
+        <div class="groups" x-ref="currencyList">
+            <template x-for="currency in getFilteredCurrencies" :key="currency.id">
+                <div
+                    class="option_group"
+                    :class="{ 'active': currency.id === getCurrentCurrency?.id }"
+                >
+                    <div class="id" x-text="currency.id"></div>
+                    <div class="code" x-text="currency.code"></div>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
