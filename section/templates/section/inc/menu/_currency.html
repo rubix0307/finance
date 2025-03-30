@@ -27,12 +27,11 @@
             >
         </div>
         <div class="groups" x-ref="currencyList">
-            <template x-for="currency in getFilteredCurrencies" :key="currency.id">
+            <template x-for="currency in getFilteredCurrencies" :key="currency.code">
                 <div
                     class="option_group"
-                    :class="{ 'active': currency.id === getCurrentCurrency?.id }"
+                    :class="{ 'active': currency.code === getCurrentCurrency?.code }"
                 >
-                    <div class="id" x-text="currency.id"></div>
                     <div class="code" x-text="currency.code"></div>
                 </div>
             </template>

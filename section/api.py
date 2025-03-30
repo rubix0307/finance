@@ -69,7 +69,6 @@ def get_sections_menu(request: WSGIRequest) -> list[SectionSchema]:
                     id=membership.user.id,
                     username=membership.user.username,
                     currency=CurrencySchema(
-                        id=membership.currency.id,
                         code=membership.currency.code
                     ) if membership.currency else None,
                     is_owner=(section.owner_id == membership.user.id)

@@ -15,5 +15,4 @@ class CurrencyResponse(TypedDict):
     error: Optional[CurrencyResponseError]
 
 class CurrencySchema(Schema):
-    id: int
     code: str

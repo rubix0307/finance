@@ -28,7 +28,7 @@ function currencyHandler() {
 
             let filtered = all.filter(c =>
                 c.code.toLowerCase().includes(query) &&
-                (!current || c.id !== current.id)
+                (!current || c.code !== current.code)
             );
 
             if (current && current.code.toLowerCase().includes(query)) {
