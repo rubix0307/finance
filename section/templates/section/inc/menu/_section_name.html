@@ -1,1 +1,4 @@
-<p x-text="Alpine.store('appData').current_section?.name || '—'" class="font-semibold"></p>
+<div class="main_block section_name">
+    <label for="section_name" class="title">Название: </label>
+    <input type="text" name="section_name" id="section_name" :value="Alpine.store('appData').current_section?.name || '—'">
+</div>
