@@ -3,6 +3,7 @@ from django.db import models
 
 class Currency(models.Model):
     code = models.CharField(max_length=3, unique=True, primary_key=True)
+    symbol = models.CharField(max_length=3, null=True, blank=True)
 
     class Meta:
         db_table = 'currency'

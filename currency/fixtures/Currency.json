@@ -1,0 +1,1192 @@
+[
+{
+    "model": "currency.currency",
+    "pk": "AED",
+    "fields": {
+        "symbol": "AED"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "AFN",
+    "fields": {
+        "symbol": "؋"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "ALL",
+    "fields": {
+        "symbol": "ALL"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "AMD",
+    "fields": {
+        "symbol": "AMD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "ANG",
+    "fields": {
+        "symbol": "ANG"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "AOA",
+    "fields": {
+        "symbol": "AOA"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "ARS",
+    "fields": {
+        "symbol": "ARS"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "AUD",
+    "fields": {
+        "symbol": "AUD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "AWG",
+    "fields": {
+        "symbol": "AWG"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "AZN",
+    "fields": {
+        "symbol": "₼"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BAM",
+    "fields": {
+        "symbol": "BAM"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BBD",
+    "fields": {
+        "symbol": "BBD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BDT",
+    "fields": {
+        "symbol": "BDT"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BGN",
+    "fields": {
+        "symbol": "BGN"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BHD",
+    "fields": {
+        "symbol": "BHD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BIF",
+    "fields": {
+        "symbol": "BIF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BMD",
+    "fields": {
+        "symbol": "BMD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BND",
+    "fields": {
+        "symbol": "BND"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BOB",
+    "fields": {
+        "symbol": "BOB"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BRL",
+    "fields": {
+        "symbol": "BRL"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BSD",
+    "fields": {
+        "symbol": "BSD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BTC",
+    "fields": {
+        "symbol": "BTC"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BTN",
+    "fields": {
+        "symbol": "BTN"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BWP",
+    "fields": {
+        "symbol": "BWP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BYN",
+    "fields": {
+        "symbol": "BYN"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BYR",
+    "fields": {
+        "symbol": "BYR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "BZD",
+    "fields": {
+        "symbol": "BZD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CAD",
+    "fields": {
+        "symbol": "CAD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CDF",
+    "fields": {
+        "symbol": "CDF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CHF",
+    "fields": {
+        "symbol": "CHF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CLF",
+    "fields": {
+        "symbol": "CLF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CLP",
+    "fields": {
+        "symbol": "CLP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CNH",
+    "fields": {
+        "symbol": "CNH"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CNY",
+    "fields": {
+        "symbol": "¥"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "COP",
+    "fields": {
+        "symbol": "COP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CRC",
+    "fields": {
+        "symbol": "₡"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CUC",
+    "fields": {
+        "symbol": "CUC"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CUP",
+    "fields": {
+        "symbol": "CUP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CVE",
+    "fields": {
+        "symbol": "CVE"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "CZK",
+    "fields": {
+        "symbol": "CZK"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "DJF",
+    "fields": {
+        "symbol": "DJF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "DKK",
+    "fields": {
+        "symbol": "DKK"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "DOP",
+    "fields": {
+        "symbol": "DOP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "DZD",
+    "fields": {
+        "symbol": "DZD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "EGP",
+    "fields": {
+        "symbol": "EGP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "ERN",
+    "fields": {
+        "symbol": "ERN"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "ETB",
+    "fields": {
+        "symbol": "ETB"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "EUR",
+    "fields": {
+        "symbol": "€"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "FJD",
+    "fields": {
+        "symbol": "FJD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "FKP",
+    "fields": {
+        "symbol": "FKP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "GBP",
+    "fields": {
+        "symbol": "£"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "GEL",
+    "fields": {
+        "symbol": "₾"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "GGP",
+    "fields": {
+        "symbol": "GGP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "GHS",
+    "fields": {
+        "symbol": "₵"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "GIP",
+    "fields": {
+        "symbol": "GIP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "GMD",
+    "fields": {
+        "symbol": "GMD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "GNF",
+    "fields": {
+        "symbol": "GNF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "GTQ",
+    "fields": {
+        "symbol": "GTQ"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "GYD",
+    "fields": {
+        "symbol": "GYD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "HKD",
+    "fields": {
+        "symbol": "HKD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "HNL",
+    "fields": {
+        "symbol": "HNL"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "HRK",
+    "fields": {
+        "symbol": "HRK"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "HTG",
+    "fields": {
+        "symbol": "HTG"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "HUF",
+    "fields": {
+        "symbol": "HUF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "IDR",
+    "fields": {
+        "symbol": "IDR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "ILS",
+    "fields": {
+        "symbol": "₪"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "IMP",
+    "fields": {
+        "symbol": "IMP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "INR",
+    "fields": {
+        "symbol": "₹"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "IQD",
+    "fields": {
+        "symbol": "IQD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "IRR",
+    "fields": {
+        "symbol": "﷼"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "ISK",
+    "fields": {
+        "symbol": "ISK"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "JEP",
+    "fields": {
+        "symbol": "JEP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "JMD",
+    "fields": {
+        "symbol": "JMD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "JOD",
+    "fields": {
+        "symbol": "JOD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "JPY",
+    "fields": {
+        "symbol": "¥"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "KES",
+    "fields": {
+        "symbol": "KES"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "KGS",
+    "fields": {
+        "symbol": "KGS"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "KHR",
+    "fields": {
+        "symbol": "KHR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "KMF",
+    "fields": {
+        "symbol": "KMF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "KPW",
+    "fields": {
+        "symbol": "KPW"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "KRW",
+    "fields": {
+        "symbol": "₩"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "KWD",
+    "fields": {
+        "symbol": "KWD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "KYD",
+    "fields": {
+        "symbol": "KYD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "KZT",
+    "fields": {
+        "symbol": "₸"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "LAK",
+    "fields": {
+        "symbol": "₭"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "LBP",
+    "fields": {
+        "symbol": "LBP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "LKR",
+    "fields": {
+        "symbol": "LKR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "LRD",
+    "fields": {
+        "symbol": "LRD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "LSL",
+    "fields": {
+        "symbol": "LSL"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "LTL",
+    "fields": {
+        "symbol": "LTL"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "LVL",
+    "fields": {
+        "symbol": "LVL"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "LYD",
+    "fields": {
+        "symbol": "LYD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MAD",
+    "fields": {
+        "symbol": "MAD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MDL",
+    "fields": {
+        "symbol": "MDL"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MGA",
+    "fields": {
+        "symbol": "MGA"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MKD",
+    "fields": {
+        "symbol": "MKD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MMK",
+    "fields": {
+        "symbol": "MMK"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MNT",
+    "fields": {
+        "symbol": "₮"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MOP",
+    "fields": {
+        "symbol": "MOP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MRU",
+    "fields": {
+        "symbol": "MRU"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MUR",
+    "fields": {
+        "symbol": "MUR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MVR",
+    "fields": {
+        "symbol": "MVR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MWK",
+    "fields": {
+        "symbol": "MWK"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MXN",
+    "fields": {
+        "symbol": "MXN"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MYR",
+    "fields": {
+        "symbol": "MYR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "MZN",
+    "fields": {
+        "symbol": "MZN"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "NAD",
+    "fields": {
+        "symbol": "NAD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "NGN",
+    "fields": {
+        "symbol": "₦"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "NIO",
+    "fields": {
+        "symbol": "NIO"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "NOK",
+    "fields": {
+        "symbol": "NOK"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "NPR",
+    "fields": {
+        "symbol": "NPR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "NZD",
+    "fields": {
+        "symbol": "NZD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "OMR",
+    "fields": {
+        "symbol": "OMR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "PAB",
+    "fields": {
+        "symbol": "PAB"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "PEN",
+    "fields": {
+        "symbol": "PEN"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "PGK",
+    "fields": {
+        "symbol": "PGK"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "PHP",
+    "fields": {
+        "symbol": "₱"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "PKR",
+    "fields": {
+        "symbol": "PKR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "PLN",
+    "fields": {
+        "symbol": "PLN"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "PYG",
+    "fields": {
+        "symbol": "₲"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "QAR",
+    "fields": {
+        "symbol": "QAR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "RON",
+    "fields": {
+        "symbol": "RON"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "RSD",
+    "fields": {
+        "symbol": "RSD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "RUB",
+    "fields": {
+        "symbol": "₽"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "RWF",
+    "fields": {
+        "symbol": "RWF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SAR",
+    "fields": {
+        "symbol": "﷼"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SBD",
+    "fields": {
+        "symbol": "SBD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SCR",
+    "fields": {
+        "symbol": "SCR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SDG",
+    "fields": {
+        "symbol": "SDG"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SEK",
+    "fields": {
+        "symbol": "SEK"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SGD",
+    "fields": {
+        "symbol": "SGD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SHP",
+    "fields": {
+        "symbol": "SHP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SLE",
+    "fields": {
+        "symbol": "SLE"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SLL",
+    "fields": {
+        "symbol": "SLL"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SOS",
+    "fields": {
+        "symbol": "SOS"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SRD",
+    "fields": {
+        "symbol": "SRD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "STD",
+    "fields": {
+        "symbol": "STD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SVC",
+    "fields": {
+        "symbol": "SVC"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SYP",
+    "fields": {
+        "symbol": "SYP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "SZL",
+    "fields": {
+        "symbol": "SZL"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "THB",
+    "fields": {
+        "symbol": "฿"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "TJS",
+    "fields": {
+        "symbol": "TJS"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "TMT",
+    "fields": {
+        "symbol": "TMT"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "TND",
+    "fields": {
+        "symbol": "TND"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "TOP",
+    "fields": {
+        "symbol": "TOP"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "TRY",
+    "fields": {
+        "symbol": "₺"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "TTD",
+    "fields": {
+        "symbol": "TTD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "TWD",
+    "fields": {
+        "symbol": "TWD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "TZS",
+    "fields": {
+        "symbol": "TZS"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "UAH",
+    "fields": {
+        "symbol": "UAH"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "UGX",
+    "fields": {
+        "symbol": "UGX"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "USD",
+    "fields": {
+        "symbol": "$"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "UYU",
+    "fields": {
+        "symbol": "UYU"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "UZS",
+    "fields": {
+        "symbol": "UZS"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "VES",
+    "fields": {
+        "symbol": "VES"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "VND",
+    "fields": {
+        "symbol": "VND"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "VUV",
+    "fields": {
+        "symbol": "VUV"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "WST",
+    "fields": {
+        "symbol": "WST"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "XAF",
+    "fields": {
+        "symbol": "XAF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "XAG",
+    "fields": {
+        "symbol": "XAG"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "XAU",
+    "fields": {
+        "symbol": "XAU"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "XCD",
+    "fields": {
+        "symbol": "XCD"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "XDR",
+    "fields": {
+        "symbol": "XDR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "XOF",
+    "fields": {
+        "symbol": "XOF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "XPF",
+    "fields": {
+        "symbol": "XPF"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "YER",
+    "fields": {
+        "symbol": "YER"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "ZAR",
+    "fields": {
+        "symbol": "ZAR"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "ZMK",
+    "fields": {
+        "symbol": "ZMK"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "ZMW",
+    "fields": {
+        "symbol": "ZMW"
+    }
+},
+{
+    "model": "currency.currency",
+    "pk": "ZWL",
+    "fields": {
+        "symbol": "ZWL"
+    }
+}
+]
