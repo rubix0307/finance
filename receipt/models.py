@@ -5,6 +5,7 @@ from django.db import models
 from django.db.models.base import ModelBase
 
 from currency.models import Currency
+from section.models import Section
 from user.models import User
 from .common import get_photo_upload_path
 
@@ -62,6 +63,7 @@ class Receipt(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.SET_NULL, null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     currency = models.ForeignKey(Currency, on_delete=models.SET_NULL, null=True, blank=True)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, null=True, blank=True)
     date = models.DateTimeField(null=True)
 
     def __str__(self) -> str:
