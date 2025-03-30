@@ -1,6 +1,6 @@
 <template x-if="Alpine.store('appData').sections.length > 1">
     <div class="main_block as_caption menu caption_block" style="border-radius: 0;">
-         {% include 'section/inc/menu/_section_name.html' %}
+        <p>Комнаты</p>
         <div
             x-data="{ animate: false }"
             @click="
@@ -19,8 +19,8 @@
     </div>
 </template>
 
-    <template x-if="Alpine.store('appData').sections.length <= 1">
-        <div class="main_block as_caption menu caption_block" style="border-radius: 0;">
-            {% include 'section/inc/menu/_section_name.html' %}
-        </div>
-    </template>
+<template x-if="Alpine.store('appData').sections.length === 1">
+    <div class="main_block as_caption menu caption_block" style="border-radius: 0;">
+        <p>Комната</p>
+    </div>
+</template>

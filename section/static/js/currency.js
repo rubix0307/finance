@@ -1,30 +1,47 @@
-function currencyHandler() {
-    return {
+document.addEventListener('alpine:init', () => {
+    Alpine.store('currency', {
         open: false,
         query: '',
+        isReady: false,
 
         init() {
-            this.$watch(() => Alpine.store('appData').current_section, () => {
-                queueMicrotask(() => {
-                    this.$refs.currencyList?.scrollTo({ top: 0, behavior: 'auto' });
-                });
+            Alpine.watch(() => Alpine.store('appData').currencies, (currencies) => {
+                if (currencies && currencies.length) {
+                    this.isReady = true;
+                    Alpine.watch(() => Alpine.store('appData').current_section, () => {
+                        queueMicrotask(() => {
+                            document.querySelector('[x-ref="currencyList"]')?.scrollTo({ top: 0, behavior: 'auto' });
+                        });
+                    });
+                }
             });
         },
 
         currencyToggle() {
-            if (!this.getCurrentCurrency?.code) {
-                return;
-            }
+            if (!this.isReady) return;
 
             this.open = !this.open;
             if (!this.open) this.query = '';
-            this.$refs.currencyList?.scrollTo({ top: 0, behavior: 'auto' });
-        },
+            document.querySelector('[x-ref="currencyList"]')?.scrollTo({ top: 0, behavior: 'auto' });
+        }
+    });
 
-        get getFilteredCurrencies() {
+    Object.defineProperty(Alpine.store('currency'), 'getCurrentCurrency', {
+        get() {
+            const currentSection = Alpine.store('appData').current_section;
+            const me = Alpine.store('appData').me;
+            const sectionMe = currentSection?.users.find(user => user.id === me.id);
+            return sectionMe?.currency || null;
+        }
+    });
+
+    Object.defineProperty(Alpine.store('currency'), 'getFilteredCurrencies', {
+        get() {
+            if (!Alpine.store('currency').isReady) return [];
+
             const all = Alpine.store('appData').currencies || [];
-            const query = this.query.toLowerCase();
-            const current = this.getCurrentCurrency;
+            const query = Alpine.store('currency').query.toLowerCase();
+            const current = Alpine.store('currency').getCurrentCurrency;
 
             let filtered = all.filter(c =>
                 c.code.toLowerCase().includes(query) &&
@@ -36,14 +53,6 @@ function currencyHandler() {
             }
 
             return filtered;
-        },
-
-        get getCurrentCurrency() {
-            let currentSection = Alpine.store('appData').current_section;
-            let me = Alpine.store('appData').me;
-            let section_me = currentSection?.users.find(user => user.id === me.id);
-
-            return section_me?.currency || null;
         }
-    }
-}
+    });
+});

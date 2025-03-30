@@ -1,9 +1,11 @@
 <div x-show="$store.tabs.tab === 'main'" style="display: none;">
 
-    <div class="main_block">
-        <div>Траты:</div>
-        <div>На $237 меньше, чем в прошлом месяце</div>
-        <div>$734.64</div>
+    <div class="main_block expenses">
+        <div class="row">
+            <div class="title">Траты:</div>
+            <div class="value">$734.64</div>
+        </div>
+        <div class="note">На $237 меньше, чем за прошлый период</div>
     </div>
 
     <div x-data>

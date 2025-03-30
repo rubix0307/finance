@@ -1,12 +1,17 @@
-<div x-data="currencyHandler()" class="main_block menu currency" :style="open ? 'padding-bottom: 0;' : ''">
+<div
+    x-data
+    x-init="Alpine.store('currency').init()"
+    class="main_block menu currency"
+    :style="Alpine.store('currency').open ? 'padding-bottom: 5px;' : ''"
+>
 
-    <div class="head" @click="currencyToggle">
+    <div class="head" @click="Alpine.store('currency').currencyToggle()">
         <div class="title">Валюта:</div>
         <div class="name">
-            <div x-text="getCurrentCurrency?.code || '—'"></div>
-            <div class="arrow fleep" :class="{ 'fleep180x': open }">
+            <div x-text="Alpine.store('currency').getCurrentCurrency?.code || '—'"></div>
+            <div class="arrow fleep" :class="{ 'fleep180x': Alpine.store('currency').open }">
 
-            <template x-if="getCurrentCurrency?.code">
+            <template x-if="Alpine.store('currency').getCurrentCurrency?.code">
                 {% include 'svg/arrow_down.svg' %}
             </template>
 
@@ -14,8 +19,7 @@
         </div>
     </div>
 
-    <div x-show="open" class="choose">
-
+    <div x-show="Alpine.store('currency').open" class="choose" x-transition>
         <div class="info">*для отображения графиков</div>
 
         <div class="search">
@@ -23,14 +27,15 @@
             <input
                 type="text"
                 placeholder="Название валюты"
-                x-model="query"
+                x-model="Alpine.store('currency').query"
             >
         </div>
+
         <div class="groups" x-ref="currencyList">
-            <template x-for="currency in getFilteredCurrencies" :key="currency.code">
+            <template x-for="currency in Alpine.store('currency').getFilteredCurrencies" :key="currency.code">
                 <div
                     class="option_group"
-                    :class="{ 'active': currency.code === getCurrentCurrency?.code }"
+                    :class="{ 'active': currency.code === Alpine.store('currency').getCurrentCurrency?.code }"
                 >
                     <div class="code" x-text="currency.code"></div>
                 </div>

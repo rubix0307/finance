@@ -7,6 +7,27 @@ document.addEventListener('alpine:init', () => {
         me: {},
         loading: true,
 
+        init() {
+            Alpine.effect(() => {
+                const currencies = Alpine.store('appData').currencies;
+                if (currencies && currencies.length) {
+                    // Следим за изменением current_section
+                    Alpine.watch(
+                        () => Alpine.store('appData').current_section,
+                        () => {
+                            queueMicrotask(() => {
+                                // Это тоже не будет работать здесь — потому что this.$refs нет в store!
+                                // this.$refs.currencyList?.scrollTo(...) — ❌
+                                // Лучше перенести это в x-effect в компоненте (в шаблоне)
+                                // или выбрать через document.querySelector
+                                document.querySelector('[x-ref="currencyList"]')?.scrollTo({ top: 0, behavior: 'auto' });
+                            });
+                        }
+                    );
+                }
+            });
+        },
+
         async init_app() {
             try {
                 const [currenciesResponse, sectionsResponse, userResponse] = await Promise.all([

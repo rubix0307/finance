@@ -9,6 +9,7 @@
     --default_block_margin_bottom_int: 13;
     --default_block_margin_bottom: calc(var(--default_block_margin_bottom_int) * 1px);
 
+    --default_block_padding: 10px;
     --default_block_margin_LR: 10px;
     --default_block_box_shadow: 1px 4px 4px 1px rgba(0, 0, 0, 0.15);
     --default_block_border_radius: 10px;
@@ -31,6 +32,10 @@ html, body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     min-height: calc(100vh + 30px);
+}
+input {
+    border: none;
+    outline: none;
 }
 
 header {
@@ -86,7 +91,7 @@ header {
     border-radius: var(--default_block_border_radius);
     background-color: var(--main_white);
     margin: 0 var(--default_block_margin_LR) var(--default_block_margin_bottom) var(--default_block_margin_LR);
-    padding: 10px;
+    padding: var(--default_block_padding);
     box-shadow: var(--default_block_box_shadow);
 }
 .main_block {
@@ -97,6 +102,44 @@ header {
         margin: calc(var(--default_block_margin_bottom_int) * -2px) 0 var(--default_block_margin_bottom) 0;
         padding: calc(var(--default_block_margin_bottom_int) * 2px) var(--default_block_margin_LR) 10px var(--default_block_margin_LR);
         z-index: -10;
+    }
+    &.section_name {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        & label {
+            font-weight: bold;
+        }
+
+        & input[type="text"] {
+            font-size: 16px;
+            text-align: right;
+        }
+    }
+
+    &.expenses {
+        display: flex;
+        flex-direction: column;
+
+        & .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            font-size: 20px;
+            & .title {
+                font-weight: bold;
+            }
+            & .value {
+            }
+        }
+        & .note {
+            background-color: var(--main_purple);
+            margin: 8px calc(var(--default_block_margin_LR) * -1) calc(var(--default_block_padding) * -1) calc(var(--default_block_margin_LR) * -1);
+            padding: 2px var(--default_block_margin_LR);
+            border-radius: 0 0 var(--default_block_border_radius) var(--default_block_border_radius);
+        }
     }
     &.chart {
         position: relative;
@@ -189,21 +232,22 @@ header {
         justify-content: space-between;
         align-items: center;
 
+        --nav_btn_width: 20px;
+
         & p {
             margin: 10px 0;
             width: 100%;
             text-align: center;
             text-transform: uppercase;
+            padding-left: var(--nav_btn_width);
 
         }
         & .nav_btn {
-            --width: 20px;
-            --height: var(--width);
-            width: var(--width);
-            height: var(--height);
+            width: var(--nav_btn_width);
+            height: var(--nav_btn_width);
             & svg {
-                width: var(--width);
-                height: var(--height);
+                width: var(--nav_btn_width);
+                height: var(--nav_btn_width);
                 transform: rotate(-90deg);
             }
         }
@@ -326,11 +370,9 @@ header {
             background-color: var(--bg_color);
             height: 100%;
             width: 90%;
-            border: none;
             font-size: 16px;
             margin: 0;
             padding: 0;
-            outline: none;
             &::placeholder {
                 text-decoration: underline;
             }
