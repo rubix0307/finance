@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from ai.services.open_ai.service import OpenAIService
 import concurrent.futures
-
+from datetime import timezone, date as type_date
 from receipt.schemas import ReceiptSchema
 from receipt.services.receipt_schema.save import ReceiptSchemaService
 
@@ -20,6 +20,11 @@ class Command(BaseCommand):
         User = get_user_model()
         image_path = kwargs['image_path']
 
+        from currency.services import CurrencyRateService
+        CurrencyRateService().save_rates()
+        CurrencyRateService().save_rates(date=type_date(year=2025, month=3, day=27))
+        CurrencyRateService().save_rates(date=type_date(year=2025, month=3, day=26))
+        service = CurrencyRateService()
         self.stdout.write(self.style.SUCCESS(f'Запуск анализа чека: {image_path}'))
 
         try:
