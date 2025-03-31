@@ -1,4 +1,8 @@
 <div class="main_block section_name">
     <label for="section_name" class="title">Название: </label>
-    <input type="text" name="section_name" id="section_name" :value="Alpine.store('appData').current_section?.name || '—'">
+
+    <div>
+        <input type="text" name="section_name" id="section_name" :value="Alpine.store('appData').current_section?.name || '—'">
+        {% include 'svg/pen.svg' %}
+    </div>
 </div>

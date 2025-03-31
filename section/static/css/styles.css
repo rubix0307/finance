@@ -115,6 +115,10 @@ header {
         & input[type="text"] {
             font-size: 16px;
             text-align: right;
+            padding: 0;
+        }
+        & svg {
+            width: 10px;
         }
     }
 
