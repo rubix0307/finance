@@ -29,7 +29,7 @@ def update_receipt_data(self: Task, receipt_pk: int, user_pk: int) -> None | Pro
         receipt = Receipt.objects.get(pk=receipt_pk)
 
         ai_service = OpenAIService()
-        schema: ReceiptSchema | None = ai_service.analyze_receipt(image_path=receipt.photo.path)
+        schema: ReceiptSchema | None = ai_service.analyze_receipt(receipt=receipt)
 
         if schema:
             ReceiptSchemaService(receipt_schema=schema, user=user).update_receipt(receipt)

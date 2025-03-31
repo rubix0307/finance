@@ -1,3 +1,4 @@
+import io
 import json
 import os
 from typing import Any
@@ -16,6 +17,7 @@ from ai.logger import AIUsageLogger
 from ai.services.open_ai.decorators import handle_openai_errors
 from ai.services.open_ai.managers import TmpFileManager, TmpThreadManager
 from ai.services.open_ai.strategies import OpenAI4oMiniStrategy, OpenAI4oStrategy
+from receipt.models import Receipt
 from receipt.schemas import ReceiptSchema
 
 
@@ -52,9 +54,11 @@ class OpenAIService(BaseOpenAIMethods):
 
 
     @handle_openai_errors
-    def analyze_receipt(self, image_path: str, prompt: str = '', poll_interval_ms: int = 1000) -> ReceiptSchema:
-        with open(image_path, mode='rb') as file:
-            with TmpFileManager(self.client, create_kwargs={'file': file, 'purpose': 'vision'}) as tmp_file:
+    def analyze_receipt(self, receipt: Receipt, prompt: str = '', poll_interval_ms: int = 1000) -> ReceiptSchema:
+        with receipt.photo.open('rb') as photo_rb:
+            file_obj = io.BytesIO(photo_rb.read())
+            file_obj.name = photo_rb.name
+            with TmpFileManager(self.client, create_kwargs={'file': file_obj, 'purpose': 'vision'}) as tmp_file:
 
                 file_data: ImageFileContentBlockParam = {
                     'type': 'image_file',
