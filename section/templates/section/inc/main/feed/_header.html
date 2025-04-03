@@ -1,0 +1,27 @@
+<div class="main_block header">
+    <div class="block">
+        <div class="size">
+            <select
+                    x-model="feed.sections[appData.current_section?.id]?.size"
+                    @change="feed.setPageSize($event.target.value)">
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="title" style="font-weight: bold;">Чеки</div>
+    <div class="block">
+        <div class="photo_block">
+            <div class="photo"
+                 @click="feed.showPhotos = !feed.showPhotos"
+                 :class="{'active': feed.showPhotos}">
+                {% include 'svg/image.svg' %}
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div x-data="{ appData: Alpine.store('appData'), feed: Alpine.store('receipts_feed') }"
+     x-init="if (appData.current_section && appData.current_section.id) { feed.setActiveSection(appData.current_section); }">
+
+    <div id="feed">
+        {% include 'section/inc/main/feed/_header.html' %}
+        {% include 'section/inc/main/feed/_receipts.html' %}
+        {% include 'section/inc/main/feed/_receipts_empty.html' %}
+
+    </div>
+    {% include 'section/inc/main/feed/_paginator.html' %}
+
+</div>

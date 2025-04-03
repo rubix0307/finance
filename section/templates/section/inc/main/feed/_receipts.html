@@ -1,0 +1,45 @@
+<template
+        x-if="appData.current_section && feed.sections[appData.current_section?.id] && feed.getCurrentPageItems().length > 0">
+    <template x-for="receipt in feed.getCurrentPageItems()" :key="receipt.id">
+        <div class="main_block receipt">
+
+            <div x-show="receipt.shop?.id" class="shop">
+                <div x-show="receipt.shop?.name" class="name" x-text="receipt.shop.name"></div>
+                <div x-show="receipt.shop?.address" class="address" x-text="receipt.shop.address"></div>
+            </div>
+
+            <template x-if="feed.showPhotos && receipt?.photo">
+                <div class="photo">
+                    <img :src="receipt.photo" alt="Фото чека" loading="lazy">
+                </div>
+            </template>
+
+            <div class="items">
+                <ul>
+                    <template x-for="item in receipt.items" :key="item.id">
+                        <li>
+                            <div class="col">
+                                <div class="name" x-show="item?.name" x-text="item.name"></div>
+                                <div class="category" x-show="item?.category?.name"
+                                     x-text="item.category.name"></div>
+                            </div>
+                            <div class="price" x-show="item?.price != null" x-text="item.price"></div>
+                        </li>
+                    </template>
+                    <li class="total">
+                        <div class="col">
+                            <div class="name" x-text="'Всего '+ receipt.currency.code + ':'">Всего:</div>
+                        </div>
+
+                        <div class="price total_value"
+                             x-text="receipt.items.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2)"></div>
+
+                    </li>
+                </ul>
+            </div>
+            <div x-show="receipt?.date"
+                 x-text="new Date(receipt.date).toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' })"
+                 class="date"></div>
+        </div>
+    </template>
+</template>

@@ -1,0 +1,51 @@
+<div id="paginator"
+     x-data="{
+         pagesSide: 2,
+         get sectionData() {
+           return Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id] || { currentPage: 1, pagesCount: 0 };
+         },
+         get totalPages() { return this.sectionData.pagesCount; },
+         get currentPage() { return this.sectionData.currentPage; },
+         pages() {
+           let cp = this.currentPage;
+           let total = this.totalPages;
+           let start = cp - this.pagesSide;
+           let end = cp + this.pagesSide;
+           if (start < 1) { end += (1 - start); start = 1; }
+           if (end > total) { start -= (end - total); end = total; if (start < 1) start = 1; }
+           let pagesArr = [];
+           for (let i = start; i <= end; i++) { pagesArr.push(i); }
+           return pagesArr;
+         },
+         prevPage() {
+           if(this.currentPage > 1) {
+             let section = Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id];
+             section.currentPage--;
+             Alpine.store('receipts_feed').loadPage(section.currentPage);
+           }
+         },
+         nextPage() {
+           if(this.currentPage < this.totalPages) {
+             let section = Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id];
+             section.currentPage++;
+             Alpine.store('receipts_feed').loadPage(section.currentPage);
+           }
+         },
+         goToPage(page) {
+           let section = Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id];
+           section.currentPage = page;
+           Alpine.store('receipts_feed').loadPage(page);
+         }
+       }">
+    <div class="paginator_buttons" x-show="totalPages > 0">
+        <button :class="{'active': currentPage > 1}" @click="prevPage()"
+                class="previous">{% include 'svg/arrow_down.svg' %}</button>
+        <template x-for="p in pages()" :key="p">
+            <button :class="{'active': p === currentPage}" @click="goToPage(p)"
+                    x-text="p">
+            </button>
+        </template>
+        <button :class="{'active': currentPage < totalPages}" @click="nextPage()"
+                class="next">{% include 'svg/arrow_down.svg' %}</button>
+    </div>
+</div>

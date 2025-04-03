@@ -1,0 +1,4 @@
+<template
+        x-if="appData.current_section && feed.sections[appData.current_section?.id] && feed.getCurrentPageItems().length === 0 && !feed.sections[appData.current_section?.id].loading">
+    <p>Нет доступных чеков.</p>
+</template>
