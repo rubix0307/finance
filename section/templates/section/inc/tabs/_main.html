@@ -1,60 +1,9 @@
 <div x-show="$store.tabs.tab === 'main'" style="display: none;">
 
-    <div class="main_block expenses">
-        <div class="row">
-            <div class="title">Траты:</div>
-            <div class="value">$734.64</div>
-        </div>
-        <div class="note">На $237 меньше, чем за прошлый период</div>
-    </div>
+    {% include 'section/inc/main/_expenses.html' %}
+{#    {% include 'section/inc/main/_chart.html' %}#}
+    {% include 'section/inc/main/_feed.html' %}
 
-    <div x-data>
-        <div class="main_block chart nav">
-            <a :class="{ 'active': $store.chart_nav.selectedRange === 'week' }"
-                @click="$store.chart_nav.setRange('week')">
-                Неделя
-            </a>
-            <a :class="{ 'active': $store.chart_nav.selectedRange === 'month' }"
-                @click="$store.chart_nav.setRange('month')">
-                Месяц
-            </a>
-            <a :class="{ 'active': $store.chart_nav.selectedRange === 'year' }"
-                @click="$store.chart_nav.setRange('year')">
-                Год
-            </a>
-        </div>
 
-        <div class="main_block chart nav">
-            <a x-show="$store.chart_nav.availableGroups.includes('daily')"
-                :class="{ 'active': $store.chart_nav.selectedGroup === 'daily' }"
-                @click="$store.chart_nav.setGroup('daily')">
-                по дням
-            </a>
-            <a x-show="$store.chart_nav.availableGroups.includes('weekly')"
-                :class="{ 'active': $store.chart_nav.selectedGroup === 'weekly' }"
-                @click="$store.chart_nav.setGroup('weekly')">
-                по неделям
-            </a>
-            <a x-show="$store.chart_nav.availableGroups.includes('monthly')"
-                :class="{ 'active': $store.chart_nav.selectedGroup === 'monthly' }"
-                @click="$store.chart_nav.setGroup('monthly')">
-                по месяцам
-            </a>
-        </div>
-    </div>
-
-    <div class="main_block chart">
-        <button id="toggleMode">Переключить режим графика</button>
-        <div class="canvas">
-            <canvas id="myChart" height="340"></canvas>
-        </div>
-    </div>
-
-    <div class="main_block">
-        <div id="chart_info"></div>
-    </div>
-    <div class="main_block">
-        <div id="chart_legend"></div>
-    </div>
 
 </div>

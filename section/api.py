@@ -1,63 +1,22 @@
+from typing import cast
 from django.core.handlers.wsgi import WSGIRequest
-from ninja import Router, Schema
-from django.db.models import Value, BooleanField, Q, QuerySet
+from django.core.paginator import Paginator
+from ninja import Router
+from ninja.errors import HttpError
 from ninja.security import django_auth
-
-from currency.models import Currency
 from currency.schemas import CurrencySchema
-from section.models import SectionUser, Section
 from user.models import User
 from .models import Section
-
-
-def get_user_sections(user: User) -> QuerySet[Section]:
-    owned_sections = Section.objects.filter(owner=user).annotate(
-        is_owner=Value(True, output_field=BooleanField())
-    )
-
-    participant_sections = Section.objects.filter(
-        memberships__user=user
-    ).exclude(owner=user).annotate(
-        is_owner=Value(False, output_field=BooleanField())
-    )
-
-    sections = (owned_sections | participant_sections).order_by(
-        '-is_owner', 'id'
-    ).select_related('owner') \
-     .prefetch_related(
-         'users',
-         'memberships',
-         'memberships__user',
-         'memberships__currency'
-     ).distinct()
-
-    return sections
-
-
-
-
-
-
-class SectionUserSchema(Schema):
-    id: int
-    username: str
-    currency: CurrencySchema
-    is_owner: bool
-
-class SectionSchema(Schema):
-    id: int
-    name: str
-    is_base: bool
-    users: list[SectionUserSchema]
-
-
+from .schemas import SectionSchema, SectionUserSchema, SectionReceiptSchema, SectionReceiptItemSchema, \
+    SectionReceiptItemCategorySchema, ReceiptPaginationSchema, SectionReceiptShopSchema
 
 router = Router()
 
+
 @router.get("/", auth=django_auth, response=list[SectionSchema])
-def get_sections_menu(request: WSGIRequest) -> list[SectionSchema]:
-    user = request.user
-    sections = get_user_sections(user)
+def get_sections(request: WSGIRequest) -> list[SectionSchema]:
+    user = cast(User, request.user)
+    sections = user.get_sections()
 
     return [
         SectionSchema(
@@ -70,11 +29,75 @@ def get_sections_menu(request: WSGIRequest) -> list[SectionSchema]:
                     username=membership.user.username,
                     currency=CurrencySchema(
                         code=membership.currency.code
-                    ) if membership.currency else None,
-                    is_owner=(section.owner_id == membership.user.id)
+                    ),
+                    is_owner=(section.owner_id == membership.user.id),
+                    receipt_feed_size=3,
                 )
                 for membership in section.memberships.all()
-            ]
+            ],
         )
         for section in sections
     ]
+
+
+
+@router.get("/{section_pk}/receipts/", auth=django_auth, response=ReceiptPaginationSchema)
+def get_section_receipts(
+        request: WSGIRequest,
+        section_pk: int,
+        page: int = 1,
+        size: int = 10
+    ) -> ReceiptPaginationSchema:
+    section = Section.objects.get(pk=section_pk)
+
+    if not (section.users.filter(pk=request.user.pk).exists() or section.owner == request.user):
+        raise HttpError(403, "Доступ запрещён")
+
+    if size > 50:
+        size = 50
+
+    paginator = Paginator(section.receipts.all().order_by('id'), size)
+
+
+    try:
+        current_page = paginator.page(page)
+    except Exception:
+        raise HttpError(404, "Страница не найдена")
+
+    receipts = [
+        SectionReceiptSchema(
+            id=r.id,
+            currency=CurrencySchema(
+                code=r.currency.code
+            ),
+            photo=r.photo.url,
+            date=r.date,
+            items=[
+                SectionReceiptItemSchema(
+                    id=i.id,
+                    name=i.name,
+                    price=float(i.price),
+                    category=SectionReceiptItemCategorySchema(
+                        id=i.category.id,
+                        name=i.category.name,
+                    ),
+                )
+                for i in r.items.all()
+            ],
+            shop=SectionReceiptShopSchema(
+                id=r.shop.id,
+                name=r.shop.name,
+                address=r.shop.address,
+                taxpayer_id=r.shop.taxpayer_id,
+            ) if r.shop else None
+        )
+        for r in current_page.object_list
+    ]
+
+    return ReceiptPaginationSchema(
+        total=paginator.count,
+        page=page,
+        size=size,
+        pages=paginator.num_pages,
+        results=receipts,
+    )

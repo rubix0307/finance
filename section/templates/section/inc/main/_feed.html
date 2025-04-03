@@ -1,0 +1,131 @@
+<div x-data="{ appData: Alpine.store('appData'), feed: Alpine.store('receipts_feed') }"
+     x-init="if (appData.current_section && appData.current_section.id) { feed.setActiveSection(appData.current_section); }">
+
+
+    <div id="feed">
+        <div class="main_block header">
+            <div class="block">
+                <div class="size">
+                    <select
+                            x-model="feed.sections[appData.current_section?.id]?.size"
+                            @change="feed.setPageSize($event.target.value)">
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="title" style="font-weight: bold;">Чеки</div>
+            <div class="block">
+                <div class="photo_block">
+                    <div class="photo"
+                     @click="feed.showPhotos = !feed.showPhotos"
+                     :class="{'active': feed.showPhotos}">
+                      {% include 'svg/image.svg' %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <template
+                x-if="appData.current_section && feed.sections[appData.current_section?.id] && feed.getCurrentPageItems().length > 0">
+            <template x-for="receipt in feed.getCurrentPageItems()" :key="receipt.id">
+                <div class="main_block receipt">
+
+                    <div x-show="receipt.shop?.id" class="shop">
+                        <div x-show="receipt.shop?.name" class="name" x-text="receipt.shop.name"></div>
+                        <div x-show="receipt.shop?.address" class="address" x-text="receipt.shop.address"></div>
+                    </div>
+
+                    <template x-if="feed.showPhotos && receipt?.photo">
+                        <div class="photo">
+                            <img :src="receipt.photo" alt="Фото чека" loading="lazy">
+                        </div>
+                    </template>
+
+                    <div class="items">
+                        <ul>
+                            <template x-for="item in receipt.items" :key="item.id">
+                                <li>
+                                    <div class="col">
+                                        <div class="name" x-show="item?.name" x-text="item.name"></div>
+                                        <div class="category" x-show="item?.category?.name" x-text="item.category.name"></div>
+                                    </div>
+                                    <div class="price" x-show="item?.price != null" x-text="item.price"></div>
+                                </li>
+                            </template>
+                            <li class="total">
+                                <div class="col">
+                                    <div class="name" x-text="'Всего '+ receipt.currency.code + ':'">Всего:</div>
+                                </div>
+
+                                <div class="price total_value" x-text="receipt.items.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2)"></div>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div x-show="receipt?.date"
+     x-text="new Date(receipt.date).toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' })"
+     class="date"></div>
+                </div>
+            </template>
+        </template>
+        <template
+                x-if="appData.current_section && feed.sections[appData.current_section?.id] && feed.getCurrentPageItems().length === 0 && !feed.sections[appData.current_section?.id].loading">
+            <p>Нет доступных чеков.</p>
+        </template>
+    </div>
+
+    <div id="paginator"
+         x-data="{
+         pagesSide: 2,
+         get sectionData() {
+           return Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id] || { currentPage: 1, pagesCount: 0 };
+         },
+         get totalPages() { return this.sectionData.pagesCount; },
+         get currentPage() { return this.sectionData.currentPage; },
+         pages() {
+           let cp = this.currentPage;
+           let total = this.totalPages;
+           let start = cp - this.pagesSide;
+           let end = cp + this.pagesSide;
+           if (start < 1) { end += (1 - start); start = 1; }
+           if (end > total) { start -= (end - total); end = total; if (start < 1) start = 1; }
+           let pagesArr = [];
+           for (let i = start; i <= end; i++) { pagesArr.push(i); }
+           return pagesArr;
+         },
+         prevPage() {
+           if(this.currentPage > 1) {
+             let section = Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id];
+             section.currentPage--;
+             Alpine.store('receipts_feed').loadPage(section.currentPage);
+           }
+         },
+         nextPage() {
+           if(this.currentPage < this.totalPages) {
+             let section = Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id];
+             section.currentPage++;
+             Alpine.store('receipts_feed').loadPage(section.currentPage);
+           }
+         },
+         goToPage(page) {
+           let section = Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id];
+           section.currentPage = page;
+           Alpine.store('receipts_feed').loadPage(page);
+         }
+       }">
+        <div class="paginator_buttons" x-show="totalPages > 0">
+            <button :class="{'active': currentPage > 1}" @click="prevPage()" class="previous">{% include 'svg/arrow_down.svg' %}</button>
+            <template x-for="p in pages()" :key="p">
+                <button :class="{'active': p === currentPage}" @click="goToPage(p)"
+                        x-text="p">
+                </button>
+            </template>
+            <button :class="{'active': currentPage < totalPages}" @click="nextPage()" class="next">{% include 'svg/arrow_down.svg' %}</button>
+        </div>
+    </div>
+</div>
