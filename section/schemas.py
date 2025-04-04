@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ninja import Schema
+from ninja import Schema, Field
 from currency.schemas import CurrencySchema
 from datetime import date
 
@@ -49,3 +49,7 @@ class ReceiptPaginationSchema(Schema):
     size: int
     pages: int
     results: list[SectionReceiptSchema]
+
+class ErrorResponse(Schema):
+    message: str
+

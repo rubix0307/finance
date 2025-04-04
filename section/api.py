@@ -1,19 +1,23 @@
-from typing import cast
+from datetime import date
+from typing import cast, Any
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator
+from django.db import connection
 from ninja import Router
 from ninja.errors import HttpError
 from ninja.security import django_auth
 from currency.schemas import CurrencySchema
+from chart.api import router as charts_router
 from user.models import User
+from .decorators import SectionRequired
 from .models import Section
 from .schemas import SectionSchema, SectionUserSchema, SectionReceiptSchema, SectionReceiptItemSchema, \
     SectionReceiptItemCategorySchema, ReceiptPaginationSchema, SectionReceiptShopSchema
 
 router = Router()
+router.add_router("/", charts_router)
 
-
-@router.get("/", auth=django_auth, response=list[SectionSchema])
+@router.get("/", response=list[SectionSchema])
 def get_sections(request: WSGIRequest) -> list[SectionSchema]:
     user = cast(User, request.user)
     sections = user.get_sections()
@@ -41,12 +45,14 @@ def get_sections(request: WSGIRequest) -> list[SectionSchema]:
 
 
 
-@router.get("/{section_pk}/receipts/", auth=django_auth, response=ReceiptPaginationSchema)
+@router.get("/{section_pk}/receipts/", response=ReceiptPaginationSchema)
+@SectionRequired
 def get_section_receipts(
         request: WSGIRequest,
         section_pk: int,
         page: int = 1,
-        size: int = 10
+        size: int = 10,
+        **kwargs: dict[str, Any],
     ) -> ReceiptPaginationSchema:
     section = Section.objects.get(pk=section_pk)
 
@@ -71,7 +77,7 @@ def get_section_receipts(
                 code=r.currency.code
             ),
             photo=r.photo.url,
-            date=r.date,
+            date=date(year=r.date.year, month=r.date.month, day=r.date.day),
             items=[
                 SectionReceiptItemSchema(
                     id=i.id,

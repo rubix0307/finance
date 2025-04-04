@@ -37,6 +37,10 @@ html, body {
     min-height: calc(100vh + 30px);
     height: 120%;
     color: var(--main_text_color)
+
+}
+main {
+    padding-bottom: var(--default_block_margin_bottom);
 }
 input {
     border: none;
@@ -182,20 +186,38 @@ header {
         }
 
 
-        #chart_legend {
-          margin-top: 20px;
+        & #chartLegend {
+            width: 100%;
+            display: flex;
+            & .legend-item {
+                display: flex;
+                align-items: center;
+                margin-right: 10px;
+                padding: 5px 10px;
+                border: 1px solid #ccc;
+                cursor: pointer;
+                user-select: none;
+                transition: opacity 0.5s;
+                border-radius: 5px;
+                background-color: white;
+                width: fit-content;
+
+                & .legend-color-box {
+                    border: 1px solid #ffffff;
+                    border-radius: 2px;
+                    margin: 0;
+                }
+
+                &.disabled {
+                    color: rgba(128, 128, 128, 0.5);
+                    opacity: 0.7;
+                    & .legend-color-box {
+                        opacity: 0.3;
+                    }
+                }
+            }
         }
 
-        & .legend-item {
-            display: inline-block;
-            margin-right: 10px;
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            cursor: pointer;
-            user-select: none;
-            transition: opacity 0.2s;
-            border-radius: 10px;
-        }
 
         & #chart_info {
             margin-top: 10px;

@@ -1,5 +1,8 @@
+from datetime import date
+
 from django.core.management.base import BaseCommand
 from ai.services.open_ai.service import OpenAIService
+from currency.services import CurrencyRateService
 
 from receipt.models import Receipt
 from receipt.schemas import ReceiptSchema
@@ -13,7 +16,7 @@ def process_receipt(receipt: Receipt) -> ReceiptSchema | None:
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
-
+        CurrencyRateService().save_rates()
         receipt = Receipt.objects.first()
 
         if receipt:

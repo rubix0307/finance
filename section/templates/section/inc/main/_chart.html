@@ -35,14 +35,17 @@
 
 <div class="main_block chart">
     <button id="toggleMode">Переключить режим графика</button>
-    <div class="canvas">
-        <canvas id="myChart" height="340"></canvas>
+    <div id=“chartContainer” class="canvas">
+        <canvas id="mainChart" height="340"></canvas>
     </div>
 </div>
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const canvas = document.getElementById("mainChart");
+        Alpine.store('charts').initPieChartFromCanvas(canvas);
+    });
+</script>
 
-<div class="main_block">
-    <div id="chart_info"></div>
-</div>
-<div class="main_block">
-    <div id="chart_legend"></div>
+<div class="main_block chart">
+    <div id="chartLegend"></div>
 </div>
