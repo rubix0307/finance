@@ -148,6 +148,7 @@ header {
             }
         }
         & .note {
+            font-size: 12px;
             background-color: var(--main_purple);
             margin: 8px calc(var(--default_block_margin_LR) * -1) calc(var(--default_block_padding) * -1) calc(var(--default_block_margin_LR) * -1);
             padding: 2px var(--default_block_margin_LR);

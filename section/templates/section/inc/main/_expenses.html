@@ -6,9 +6,9 @@
          const diff = ed.value - ed.previous_value;
          const absDiff = Math.abs(diff).toFixed(2);
          if(diff > 0) {
-           return 'На ' + absDiff + ' больше';
+           return 'На ' + absDiff + ' больше, чем за прошлый период';
          } else if(diff < 0) {
-           return 'На ' + absDiff + ' меньше';
+           return 'На ' + absDiff + ' меньше, чем за прошлый период';
          }
        }
      }"

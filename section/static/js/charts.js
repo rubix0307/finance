@@ -58,19 +58,6 @@ document.addEventListener('alpine:init', () => {
             });
         },
 
-        computeExpenseNote() {
-            const ed = this.expensesData;
-            if (!ed || ed.value == null || ed.previous_value == null) return "";
-            const diff = ed.value - ed.previous_value;
-            const absDiff = Math.abs(diff).toFixed(2);
-            if (diff > 0) {
-                return `На ${absDiff} больше, чем за прошлый период`;
-            } else if (diff < 0) {
-                return `На ${absDiff} меньше, чем за прошлый период`;
-            } else {
-                return `Без изменений по сравнению с прошлым периодом`;
-            }
-        },
 
         PieChartRenderer: class {
             constructor(canvasId, dataUrl) {
