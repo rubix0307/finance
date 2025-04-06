@@ -24,6 +24,14 @@ document.addEventListener('alpine:init', () => {
             { label: 'Год', value: 'year' }
         ],
 
+        expensesData: {
+            value: '',
+            previous_value: ''
+        },
+        currency: {
+            code: ''
+        },
+
         setPeriod(newPeriod) {
             console.log("Пользователь выбрал период:", newPeriod);
             this.initPieChartAndWatch(newPeriod);
@@ -48,6 +56,20 @@ document.addEventListener('alpine:init', () => {
                     this.currentRenderer.init();
                 }
             });
+        },
+
+        computeExpenseNote() {
+            const ed = this.expensesData;
+            if (!ed || ed.value == null || ed.previous_value == null) return "";
+            const diff = ed.value - ed.previous_value;
+            const absDiff = Math.abs(diff).toFixed(2);
+            if (diff > 0) {
+                return `На ${absDiff} больше, чем за прошлый период`;
+            } else if (diff < 0) {
+                return `На ${absDiff} меньше, чем за прошлый период`;
+            } else {
+                return `Без изменений по сравнению с прошлым периодом`;
+            }
         },
 
         PieChartRenderer: class {
@@ -75,10 +97,15 @@ document.addEventListener('alpine:init', () => {
                         throw new Error(`Network error: ${response.status}`);
                     }
                     this.rawData = await response.json();
-
                     if (this.rawData && this.rawData.period) {
                         Alpine.store('charts').currentPeriod = this.rawData.period;
                         console.log("API вернул период:", this.rawData.period);
+                    }
+                    if (this.rawData && this.rawData.expenses_data) {
+                        Alpine.store('charts').expensesData = this.rawData.expenses_data;
+                    }
+                    if (this.rawData && this.rawData.currency) {
+                        Alpine.store('charts').currency = this.rawData.currency;
                     }
                 } catch (error) {
                     console.error("Error fetching data:", error);
@@ -165,7 +192,7 @@ document.addEventListener('alpine:init', () => {
                     const breakdown = Object.keys(cat.currencies)
                         .map(currency => {
                             const curr = cat.currencies[currency];
-                            return currency + ': ' + curr.converted;
+                            return currency + ': ' + curr.original;
                         })
                         .join(', ');
                     innerHtml += "<div><strong>" + cat.name + "</strong></div>";
@@ -225,7 +252,6 @@ document.addEventListener('alpine:init', () => {
         }
     });
 });
-
 
 document.addEventListener('alpine:init', () => {
     waitForAppData();

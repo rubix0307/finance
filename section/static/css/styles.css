@@ -189,6 +189,9 @@ header {
         & #chartLegend {
             width: 100%;
             display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-bottom: calc(var(--default_block_padding) * -1);
             & .legend-item {
                 display: flex;
                 align-items: center;
@@ -201,6 +204,7 @@ header {
                 border-radius: 5px;
                 background-color: white;
                 width: fit-content;
+                margin-bottom: 10px;
 
                 & .legend-color-box {
                     border: 1px solid #ffffff;

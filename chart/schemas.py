@@ -44,7 +44,7 @@ class ChartPieDataSchema(Schema):
 
 class ExpensesDataSchema(Schema):
     value: float
-    previous_value: float
+    previous_value: float | None
 
 class ChartDataSchema(Schema):
     type: Literal["pie"]

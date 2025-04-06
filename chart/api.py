@@ -66,7 +66,7 @@ def get_expenses(
         ),
         expenses_data=ExpensesDataSchema(
             value=float(100),
-            previous_value=float(80),
+            previous_value=None,
         ),
         chart_data=ChartDataSchema(
             type=chart_type,

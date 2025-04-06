@@ -1,7 +1,26 @@
-<div class="main_block expenses">
-    <div class="row">
-        <div class="title">Траты:</div>
-        <div class="value">$734.64</div>
+<div class="main_block expenses"
+     x-data="{
+       getExpenseNote() {
+         const ed = $store.charts.expensesData;
+         if (!ed || ed.value == null || ed.previous_value == null) return '';
+         const diff = ed.value - ed.previous_value;
+         const absDiff = Math.abs(diff).toFixed(2);
+         if(diff > 0) {
+           return 'На ' + $store.charts.currency.code + absDiff + ' больше, чем за прошлый период';
+         } else if(diff < 0) {
+           return 'На ' + $store.charts.currency.code + absDiff + ' меньше, чем за прошлый период';
+         } else {
+           return 'Без изменений по сравнению с прошлым периодом';
+         }
+       }
+     }"
+    x-show="$store.charts.expensesData != null"
+    >
+  <div class="row">
+    <div class="title">Траты:</div>
+    <div class="value"
+         x-text="$store.charts.currency.code + ' ' + $store.charts.expensesData.value">
     </div>
-    <div class="note">На $237 меньше, чем за прошлый период</div>
+  </div>
+  <div class="note"  x-show="$store.charts.expensesData.previous_value > 0 " x-text="getExpenseNote()"></div>
 </div>
