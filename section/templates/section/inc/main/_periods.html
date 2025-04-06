@@ -1,0 +1,9 @@
+<div id="expensesPeriods" class="main_block expenses" x-data x-show="$store.charts.periods.length > 0">
+  <template x-for="period in $store.charts.periods" :key="period.value">
+    <button
+      @click="$store.charts.setPeriod(period.value)"
+      x-bind:class="{'active': period.value === $store.charts.currentPeriod}"
+      x-text="period.label">
+    </button>
+  </template>
+</div>

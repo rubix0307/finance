@@ -1,6 +1,8 @@
-from typing import TypedDict, Dict, Optional
+from typing import TypedDict, Dict, Optional, Literal
 
 from ninja import Schema, Field
+
+from currency.schemas import CurrencySchema
 
 
 class Dataset(TypedDict):
@@ -39,3 +41,17 @@ class ChartPieDataSchema(Schema):
             "NOK": CurrencyDataSchema(original=0, converted=0)
         }
     )
+
+class ExpensesDataSchema(Schema):
+    value: float
+    previous_value: float
+
+class ChartDataSchema(Schema):
+    type: Literal["pie"]
+    data: ChartPieSchema
+
+class ExpensesSchema(Schema):
+    period: str
+    currency: CurrencySchema
+    expenses_data: ExpensesDataSchema
+    chart_data: ChartDataSchema

@@ -1,4 +1,4 @@
-// Функция ожидания появления Alpine.store('appData').current_section.id
+
 function waitForAppData() {
     try {
         const appData = Alpine.store('appData');
@@ -17,6 +17,38 @@ document.addEventListener('alpine:init', () => {
     Alpine.store('charts', {
         currentRenderer: null,
         prevSectionId: null,
+        currentPeriod: '',
+        periods: [
+            { label: 'Неделя', value: 'week' },
+            { label: 'Месяц', value: 'month' },
+            { label: 'Год', value: 'year' }
+        ],
+
+        setPeriod(newPeriod) {
+            console.log("Пользователь выбрал период:", newPeriod);
+            this.initPieChartAndWatch(newPeriod);
+        },
+
+        initPieChartAndWatch(newPeriod) {
+            const canvas = document.getElementById("mainChart");
+            const sectionId = Alpine.store('appData').current_section.id;
+            const period = newPeriod || this.currentPeriod;
+            const dataUrl = `/api/sections/${sectionId}/expenses/?period=${period}&chart_type=pie`;
+            this.prevSectionId = sectionId;
+            this.currentRenderer = new this.PieChartRenderer(canvas.id, dataUrl);
+            this.currentRenderer.init();
+
+            Alpine.effect(() => {
+                const cs = Alpine.store('appData').current_section;
+                if (cs && cs.id && cs.id !== this.prevSectionId) {
+                    this.prevSectionId = cs.id;
+                    console.log("Section changed via effect:", cs);
+                    const newDataUrl = `/api/sections/${cs.id}/expenses/?period=${period}&chart_type=pie`;
+                    this.currentRenderer = new this.PieChartRenderer(canvas.id, newDataUrl);
+                    this.currentRenderer.init();
+                }
+            });
+        },
 
         PieChartRenderer: class {
             constructor(canvasId, dataUrl) {
@@ -43,13 +75,18 @@ document.addEventListener('alpine:init', () => {
                         throw new Error(`Network error: ${response.status}`);
                     }
                     this.rawData = await response.json();
+
+                    if (this.rawData && this.rawData.period) {
+                        Alpine.store('charts').currentPeriod = this.rawData.period;
+                        console.log("API вернул период:", this.rawData.period);
+                    }
                 } catch (error) {
                     console.error("Error fetching data:", error);
                 }
             }
 
             prepareSegments() {
-                this.segmentObjects = this.rawData.data.map(item => ({
+                this.segmentObjects = this.rawData.chart_data.data.data.map(item => ({
                     id: item.category_id,
                     name: item.category_name,
                     value: item.value,
@@ -78,11 +115,11 @@ document.addEventListener('alpine:init', () => {
                     },
                     options: {
                         responsive: true,
-                        devicePixelRatio: window.devicePixelRatio, // уже добавлено
-                        legend: {display: false},
+                        devicePixelRatio: window.devicePixelRatio,
+                        legend: { display: false },
                         title: {
-                            display: !!this.rawData?.chart_title,
-                            text: this.rawData?.chart_title,
+                            display: !!this.rawData.chart_data.data.chart_title,
+                            text: this.rawData.chart_data.data.chart_title,
                         },
                         tooltips: {
                             enabled: false,
@@ -185,34 +222,11 @@ document.addEventListener('alpine:init', () => {
                     legendContainer.appendChild(item);
                 });
             }
-        },
-
-        // Метод, который инициализирует график и отслеживает изменения current_section через Alpine.effect
-        initPieChartAndWatch() {
-            const canvas = document.getElementById("mainChart");
-            const sectionId = Alpine.store('appData').current_section.id;
-            const dataUrl = `/api/sections/${sectionId}/charts/pie/`;
-            this.prevSectionId = sectionId;
-            this.prevTab = Alpine.store('tabs').tab; // для отслеживания изменений вкладки
-            this.currentRenderer = new this.PieChartRenderer(canvas.id, dataUrl);
-            this.currentRenderer.init();
-
-            // Отслеживание изменений секции
-            Alpine.effect(() => {
-                const cs = Alpine.store('appData').current_section;
-                if (cs && cs.id && cs.id !== this.prevSectionId) {
-                    this.prevSectionId = cs.id;
-                    console.log("Section changed via effect:", cs);
-                    const newDataUrl = `/api/sections/${cs.id}/charts/pie/`;
-                    this.currentRenderer = new this.PieChartRenderer(canvas.id, newDataUrl);
-                    this.currentRenderer.init();
-                }
-            });
-
         }
     });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+
+document.addEventListener('alpine:init', () => {
     waitForAppData();
 });

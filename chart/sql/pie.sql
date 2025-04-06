@@ -1,7 +1,7 @@
 WITH vars AS (SELECT
     %(section_id)s AS section_id,
     %(convert_currency_code)s AS convert_currency_code,
-    %(interval)s AS interval
+    %(period)s AS period
 ),
 
 items_rate_usd AS (
@@ -28,7 +28,7 @@ items_rate_usd AS (
 		INNER JOIN receipt_item_category ric ON ri.category_id = ric.id
         LEFT JOIN currency_rate_history crh ON r.currency_id = crh.currency_id
 		JOIN vars ON true
-		WHERE r.section_id = vars.section_id AND r.date >= NOW() - vars.interval::interval
+		WHERE r.section_id = vars.section_id AND r.date >= NOW() - vars.period::interval
     ) AS ranked_items
     WHERE rn = 1
 ),

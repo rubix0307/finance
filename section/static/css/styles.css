@@ -504,11 +504,11 @@ input[type="checkbox"] {
     animation: shrink-bounce 0.25s ease;
   }
 
-  @keyframes shrink-bounce {
-    0% { transform: scale(1); }
-    50% { transform: scale(0.8); }
-    100% { transform: scale(1); }
-  }
+@keyframes shrink-bounce {
+0% { transform: scale(1); }
+50% { transform: scale(0.8); }
+100% { transform: scale(1); }
+}
 
 #feed {
     position: relative;
@@ -770,5 +770,42 @@ input[type="checkbox"] {
 
 
         }
+    }
+}
+#expensesPeriods {
+    display: flex;
+    flex-direction: row;
+
+    & button {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        width: 100%;
+        justify-content: center;
+        margin: 0 5px;
+        border-radius: 5px;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: var(--main_text_color);
+        border: none;
+        transition: background-color .5s;
+
+        &.active {
+            background-color: var(--main_purple);
+            /*animation: shrink-bounce 0.5s ease;*/
+        }
+
+        &:first-of-type,
+        &:last-of-type {
+            margin: 0;
+        }
+        &:first-of-type {
+            margin-right: 5px;
+        }
+        &:last-of-type {
+            margin-left: 5px;
+        }
+
+
     }
 }
