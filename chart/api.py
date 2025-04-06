@@ -16,6 +16,44 @@ from .schemas import ChartPieSchema, ChartPieDataSchema, ExpensesSchema, ChartDa
 router = Router(tags=["Charts"])
 periods: TypeAlias = Literal['week', 'month', 'year']
 
+class Expenses:
+    def __init__(self, user: User, section: Section, period: periods, chart_type: Literal['pie']):
+        self.user = user
+        self.section = section
+        self.user_section = SectionUser.objects.get(section=section, user=user)
+        self.period = period
+        self.chart_type = chart_type
+
+    def get_currency(self) -> CurrencySchema:
+        return CurrencySchema(
+            code=self.user_section.currency.code,
+        )
+
+    def get_expenses_data(self) -> ExpensesDataSchema:
+        return ExpensesDataSchema(
+            value=float(100),
+            previous_value=None,
+        )
+
+    def get_chart_data(self) -> ChartDataSchema:
+        return ChartDataSchema(
+            type=self.chart_type,
+            data=pie_chart(
+                section=self.section,
+                period=self.period,
+                currency=self.user_section.currency,
+            ),
+        )
+
+    def get_schema(self) -> ExpensesSchema:
+        return ExpensesSchema(
+            period=self.period,
+            currency=self.get_currency(),
+            expenses_data=self.get_expenses_data(),
+            chart_data=self.get_chart_data(),
+        )
+
+
 def pie_chart(
         section: Section,
         period: periods,
@@ -39,7 +77,7 @@ def pie_chart(
     data_dicts = [dict(zip(columns, row)) for row in rows]
 
     return ChartPieSchema(
-        chart_title=f'{period}',
+        chart_title=None,
         data=[ChartPieDataSchema.model_validate(item) for item in data_dicts]
     )
 
@@ -52,28 +90,16 @@ def get_expenses(
         period: Literal[''] | periods,
         **kwargs: dict[str, Any],
 ) -> ExpensesSchema:
+
     if not period:
         period = 'week'
 
     section = cast(Section, kwargs.get('section'))
     user = cast(User, request.user)
-    user_section = SectionUser.objects.get(section=section, user=user)
 
-    return ExpensesSchema(
+    return Expenses(
+        user=user,
+        section=section,
         period=period,
-        currency=CurrencySchema(
-            code=user_section.currency.code,
-        ),
-        expenses_data=ExpensesDataSchema(
-            value=float(100),
-            previous_value=None,
-        ),
-        chart_data=ChartDataSchema(
-            type=chart_type,
-            data=pie_chart(
-                section=section,
-                period=period,
-                currency=user_section.currency,
-            ),
-        ),
-    )
+        chart_type=chart_type,
+    ).get_schema()

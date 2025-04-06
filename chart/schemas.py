@@ -25,7 +25,7 @@ class CurrencyDataSchema(Schema):
     converted: float
 
 class ChartPieSchema(Schema):
-    chart_title: str
+    chart_title: str | None
     data: list['ChartPieDataSchema']
 
 class ChartPieDataSchema(Schema):
