@@ -30,10 +30,20 @@ class Expenses:
         )
 
     def get_expenses_data(self) -> ExpensesDataSchema:
-        return ExpensesDataSchema(
-            value=float(100),
-            previous_value=None,
-        )
+        with open('chart/sql/week_total.sql', 'r') as f:
+            sql_query = f.read()
+
+        params = {
+            'section_id': int(self.section.id),
+            'convert_currency_code': self.user_section.currency.code,
+            'period': self.period,
+        }
+
+        with connection.cursor() as cursor:
+            cursor.execute(sql_query, params)
+            rows = cursor.fetchall()
+
+        return ExpensesDataSchema(**rows[0][0])
 
     def get_chart_data(self) -> ChartDataSchema:
         return ChartDataSchema(
