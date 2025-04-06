@@ -92,6 +92,7 @@ pie_data AS (
 SELECT 
 	pd.category_id,
 	ric.name AS category_name,
+	ric.color AS category_color,
 	pd.value,
 	pd.currencies
 FROM pie_data pd

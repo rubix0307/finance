@@ -49,12 +49,12 @@ document.addEventListener('alpine:init', () => {
             }
 
             prepareSegments() {
-                this.segmentObjects = this.rawData.map(item => ({
+                this.segmentObjects = this.rawData.data.map(item => ({
                     id: item.category_id,
                     name: item.category_name,
                     value: item.value,
                     currencies: item.currencies,
-                    backgroundColor: this.getRandomColor()
+                    backgroundColor: item?.category_color || this.getRandomColor()
                 }));
             }
 
@@ -81,8 +81,8 @@ document.addEventListener('alpine:init', () => {
                         devicePixelRatio: window.devicePixelRatio, // уже добавлено
                         legend: {display: false},
                         title: {
-                            display: true,
-                            text: 'Распределение по категориям'
+                            display: !!this.rawData?.chart_title,
+                            text: this.rawData?.chart_title,
                         },
                         tooltips: {
                             enabled: false,

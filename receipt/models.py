@@ -107,6 +107,7 @@ class ReceiptItem(models.Model):
 
 class ReceiptItemCategory(models.Model):
     name = models.CharField(max_length=255)
+    color = models.CharField(max_length=34, default='#ffffff')
 
     def __str__(self) -> str:
         return self.name

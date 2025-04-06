@@ -6,21 +6,21 @@ from ninja import Router
 
 from section.decorators import SectionRequired
 from section.models import Section
-from .schemas import ChartPieSchema
+from .schemas import ChartPieSchema, ChartPieDataSchema
 
 router = Router(tags=["Charts"])
 
 
-@router.get("{section_pk}/charts/pie/", response=list[ChartPieSchema])
+@router.get("{section_pk}/charts/pie/", response=ChartPieSchema)
 @SectionRequired
 def pie_chart(
         request: WSGIRequest,
         section_pk: int,
         **kwargs: dict[str, Any],
-) -> list[ChartPieSchema]:
+) -> ChartPieSchema:
     section: Section = kwargs.get("section", Section.objects.get(pk=section_pk))
 
-    with open('section/sql/pie.sql', 'r') as f:
+    with open('chart/sql/pie.sql', 'r') as f:
         sql_query = f.read()
 
     params = {
@@ -35,4 +35,7 @@ def pie_chart(
         rows = cursor.fetchall()
     data_dicts = [dict(zip(columns, row)) for row in rows]
 
-    return [ChartPieSchema.model_validate(item) for item in data_dicts]
+    return ChartPieSchema(
+        chart_title='тут указать interval',
+        data=[ChartPieDataSchema.model_validate(item) for item in data_dicts]
+    )
