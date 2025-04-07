@@ -303,6 +303,10 @@ header {
                 & .arrow {
                     margin: 0 0 0 5px;
                 }
+                & svg {
+                    height: 10px;
+                    width: 10px;
+                }
             }
         }
 
@@ -730,7 +734,10 @@ input[type="checkbox"] {
     .paginator_buttons {
         display: flex;
         justify-content: center;
-
+        & svg {
+            width: 15px;
+            height: 15px;
+        }
         & button {
             border-radius: 5px;
             border: none;
