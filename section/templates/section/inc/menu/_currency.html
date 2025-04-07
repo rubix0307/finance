@@ -25,7 +25,9 @@
         <div class="search">
             <div class="id">{% include 'svg/search.svg' %}</div>
             <input
-                type="text"
+                type="search"
+                inputmode="search"
+                enterkeyhint="search"
                 placeholder="Название валюты"
                 x-model="Alpine.store('currency').query"
             >
