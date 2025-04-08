@@ -28,7 +28,12 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 <body x-data="tabsHandler()" x-init="init_tabs()" style="">
-    {% block body %}
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    {% block body_bottom %}
     {% endblock %}
 </body>
 </html>

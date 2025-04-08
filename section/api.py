@@ -12,7 +12,8 @@ from user.models import User
 from .decorators import SectionRequired
 from .models import Section
 from .schemas import SectionSchema, SectionUserSchema, SectionReceiptSchema, SectionReceiptItemSchema, \
-    SectionReceiptItemCategorySchema, ReceiptPaginationSchema, SectionReceiptShopSchema
+    SectionReceiptItemCategorySchema, ReceiptPaginationSchema, SectionReceiptShopSchema, SectionMiniSchema, \
+    SectionUpdateSchema
 
 router = Router()
 router.add_router("/", charts_router)
@@ -43,7 +44,26 @@ def get_sections(request: WSGIRequest) -> list[SectionSchema]:
         for section in sections
     ]
 
+@router.post("/{section_pk}/", response=SectionMiniSchema)
+@SectionRequired
+def update_section(
+    request: WSGIRequest,
+    section_pk: int,
+    data: SectionUpdateSchema,
+    **kwargs: dict[str, Any]
+) -> SectionMiniSchema:
+    section = Section.objects.get(pk=section_pk)
 
+    update_fields = []
+
+    if data.name is not None:
+        section.name = data.name
+        update_fields.append('name')
+
+    if update_fields:
+        section.save(update_fields=update_fields)
+
+    return SectionMiniSchema.from_orm(section)
 
 @router.get("/{section_pk}/receipts/", response=ReceiptPaginationSchema)
 @SectionRequired

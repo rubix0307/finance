@@ -1,6 +1,8 @@
 from typing import Optional
 
 from ninja import Schema, Field
+from pydantic import BaseModel
+
 from currency.schemas import CurrencySchema
 from datetime import date
 
@@ -37,9 +39,15 @@ class SectionUserSchema(Schema):
     is_owner: bool
     receipt_feed_size: Optional[int]
 
-class SectionSchema(Schema):
+
+class SectionUpdateSchema(BaseModel):
+    name: Optional[str] = None
+
+class SectionMiniSchema(Schema):
     id: int
     name: str
+
+class SectionSchema(SectionMiniSchema):
     is_base: bool
     users: list[SectionUserSchema]
 

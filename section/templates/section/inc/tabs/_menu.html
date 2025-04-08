@@ -1,6 +1,9 @@
-<div x-show="$store.tabs.tab === 'menu'" style="display: none;" class="menu">
-    {% include 'section/inc/menu/_header.html' %}
-    {% include 'section/inc/menu/_section_name.html' %}
-    {% include 'section/inc/menu/_currency.html' %}
-    {% include 'section/inc/menu/_team.html' %}
+<div x-show="$store.tabs.tab === 'menu'" style="display: none;" class="tab menu">
+    <div class="content">
+        {% include 'section/inc/menu/_header.html' %}
+        {% include 'section/inc/menu/_section_name.html' %}
+        {% include 'section/inc/menu/_currency.html' %}
+        {% include 'section/inc/menu/_team.html' %}
+    </div>
+
 </div>

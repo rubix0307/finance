@@ -1,8 +1,91 @@
-<div class="main_block section_name">
-    <label for="section_name" class="title">Название: </label>
-
-    <div>
-        <input type="text" name="section_name" id="section_name" :value="Alpine.store('appData').current_section?.name || '—'">
-        {% include 'svg/pen.svg' %}
+<div class="blocks" x-data="sectionInput()">
+    <div class="main_block section_name">
+        <label for="section_name" class="title">Название: </label>
+        <div class="input">
+            <input
+                type="text"
+                name="section_name"
+                id="section_name"
+                x-model="inputName"
+            >
+            {% include 'svg/pen.svg' %}
+        </div>
+    </div>
+    <div
+        class="main_block save"
+        x-show="showSave"
+        x-transition
+        @click="saveSection"
+    >
+        Сохранить
     </div>
 </div>
+
+<script>
+    function sectionInput() {
+        let typingTimer = null;
+
+        return {
+            inputName: Alpine.store('appData').current_section?.name || '',
+            localSectionId: Alpine.store('appData').current_section?.id ?? null,
+            showSave: false,
+
+            get storeSection() {
+                return Alpine.store('appData').current_section || {};
+            },
+
+            saveSection() {
+                Alpine.store('appData').saveCurrentSectionName(this.inputName);
+            },
+
+            init() {
+                this.$watch('storeSection.id', (newId, oldId) => {
+                    if (newId !== oldId) {
+                        this.showSave = false;
+                        this.inputName = this.storeSection.name || '';
+                        this.localSectionId = newId;
+
+                        clearTimeout(typingTimer);
+                        typingTimer = setTimeout(() => {
+                            if (
+                                this.storeSection.id === newId &&
+                                this.inputName !== this.storeSection.name
+                            ) {
+                                this.showSave = true;
+                            }
+                        }, 500);
+                    }
+                });
+
+                this.$watch('inputName', (newVal, oldVal) => {
+                    if (this.storeSection.id === this.localSectionId) {
+                        if (newVal === this.storeSection.name) {
+                            this.showSave = false;
+                            clearTimeout(typingTimer);
+                            return;
+                        }
+
+                        if (!this.showSave) {
+                            clearTimeout(typingTimer);
+                            typingTimer = setTimeout(() => {
+                                if (
+                                    this.storeSection.id === this.localSectionId &&
+                                    this.inputName !== this.storeSection.name
+                                ) {
+                                    this.showSave = true;
+                                }
+                            }, 500);
+                        }
+                    }
+                });
+
+                this.$watch('storeSection.name', (newName, oldName) => {
+                    if (newName !== oldName && this.storeSection.id === this.localSectionId) {
+                        this.inputName = newName || '';
+                        this.showSave = false;
+                    }
+                });
+            }
+        }
+    }
+</script>
