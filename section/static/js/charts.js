@@ -16,40 +16,58 @@ document.addEventListener('alpine:init', () => {
         currentRenderer: null,
         prevSectionId: null,
         currentPeriod: '',
+        currentChartType: 'pie',
         periods: [
             {label: 'Неделя', value: 'week'},
             {label: 'Месяц', value: 'month'},
             {label: 'Год', value: 'year'}
         ],
-        expensesData: {value: '', previous_value: ''},
-        currency: {code: ''},
-        updateTimeout: null,
+        expensesData: {},
+        currency: {},
+        cache: {},
         setPeriod(newPeriod) {
-            if (this.updateTimeout) clearTimeout(this.updateTimeout);
-            this.updateTimeout = setTimeout(() => {
-                this.initPieChartAndWatch(newPeriod);
-            }, 300);
+            this.initPieChartAndWatch(newPeriod);
         },
-        initPieChartAndWatch(newPeriod) {
-            const canvas = document.getElementById("mainChart");
+        async fetchGraphData(sectionId, chartType, period) {
+            const key = `${sectionId}-${chartType}-${period}`;
+            if (this.cache[key]) return this.cache[key];
+            const url = `/api/sections/${sectionId}/expenses/?period=${period}&chart_type=${chartType}`;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`Network error: ${response.status}`);
+            const rawData = await response.json();
+            this.cache[key] = rawData;
+            return rawData;
+        },
+        async initPieChartAndWatch(newPeriod) {
             const sectionId = Alpine.store('appData').current_section.id;
             const period = newPeriod || this.currentPeriod || 'week';
-            const dataUrl = `/api/sections/${sectionId}/expenses/?period=${period}&chart_type=pie`;
-            this.prevSectionId = sectionId;
-            if (this.currentRenderer) {
-                this.currentRenderer.updateData(dataUrl);
-            } else {
-                this.currentRenderer = new this.PieChartRenderer(canvas.id, dataUrl);
-                this.currentRenderer.init();
+            const rawData = await this.fetchGraphData(sectionId, this.currentChartType, period);
+            if (rawData && rawData.period) {
+                this.currentPeriod = rawData.period;
             }
+            if (rawData && rawData.expenses_data) {
+                this.expensesData = rawData.expenses_data;
+            }
+            if (rawData && rawData.currency) {
+                this.currency = rawData.currency;
+            }
+            const canvas = document.getElementById("mainChart");
+            if (this.currentRenderer) {
+                await this.currentRenderer.updateDataFromCache(rawData);
+            } else {
+                this.currentRenderer = new this.PieChartRenderer(canvas.id, '');
+                await this.currentRenderer.updateDataFromCache(rawData);
+            }
+            this.prevSectionId = sectionId;
             Alpine.effect(() => {
                 const cs = Alpine.store('appData').current_section;
                 if (cs && cs.id && cs.id !== this.prevSectionId) {
                     this.prevSectionId = cs.id;
-                    const newDataUrl = `/api/sections/${cs.id}/expenses/?period=${period}&chart_type=pie`;
-                    if (this.currentRenderer) {
-                        this.currentRenderer.updateData(newDataUrl);
-                    }
+                    this.fetchGraphData(cs.id, this.currentChartType, this.currentPeriod)
+                        .then(data => {
+                            this.currentRenderer.updateDataFromCache(data);
+                        })
+                        .catch(e => console.error(e));
                 }
             });
         },
@@ -57,7 +75,7 @@ document.addEventListener('alpine:init', () => {
             constructor(canvasId, dataUrl) {
                 this.canvasId = canvasId;
                 this.dataUrl = dataUrl;
-                this.rawData = [];
+                this.rawData = {};
                 this.segmentObjects = [];
                 this.chartInstance = null;
                 this.canvas = null;
@@ -71,29 +89,24 @@ document.addEventListener('alpine:init', () => {
                 this.renderCustomLegend();
             }
 
-            async updateData(newDataUrl) {
-                this.dataUrl = newDataUrl;
-                const canvas = document.getElementById(this.canvasId);
-                if (!canvas) return;
-                this.canvas = canvas;
-                try {
-                    const response = await fetch(this.dataUrl);
-                    if (!response.ok) throw new Error(`Network error: ${response.status}`);
-                    this.rawData = await response.json();
-                    if (this.rawData && this.rawData.period) {
-                        Alpine.store('charts').currentPeriod = this.rawData.period;
-                    }
-                    if (this.rawData && this.rawData.expenses_data) {
-                        Alpine.store('charts').expensesData = this.rawData.expenses_data;
-                    }
-                    if (this.rawData && this.rawData.currency) {
-                        Alpine.store('charts').currency = this.rawData.currency;
-                    }
-                } catch (error) {
-                    console.error("Error fetching data:", error);
+            async updateDataFromCache(rawData) {
+                this.rawData = rawData;
+                if (rawData && rawData.expenses_data) {
+                    Alpine.store('charts').expensesData = rawData.expenses_data;
+                }
+                if (rawData && rawData.currency) {
+                    Alpine.store('charts').currency = rawData.currency;
                 }
                 this.prepareSegments();
                 const config = this.generateConfig();
+                if (!this.canvas) {
+                    this.canvas = document.getElementById(this.canvasId);
+                }
+                if (!this.canvas) {
+                    console.error(`Canvas element with id ${this.canvasId} not found`);
+                    return;
+                }
+                const ctx = this.canvas.getContext('2d');
                 if (this.chartInstance) {
                     this.chartInstance.data.labels = config.data.labels;
                     this.chartInstance.data.datasets[0].data = config.data.datasets[0].data;
@@ -101,8 +114,6 @@ document.addEventListener('alpine:init', () => {
                     this.chartInstance.options.title.text = config.options.title.text;
                     this.chartInstance.update();
                 } else {
-                    const ctx = this.canvas.getContext('2d');
-                    if (!ctx) return;
                     this.chartInstance = new Chart(ctx, config);
                 }
                 this.renderCustomLegend();
@@ -133,7 +144,7 @@ document.addEventListener('alpine:init', () => {
                     name: item.category_name,
                     value: item.value,
                     currencies: item.currencies,
-                    backgroundColor: item?.category_color || this.getRandomColor()
+                    backgroundColor: item.category_color || this.getRandomColor()
                 }));
             }
 
@@ -148,10 +159,10 @@ document.addEventListener('alpine:init', () => {
                 return {
                     type: 'pie',
                     data: {
-                        labels: this.segmentObjects.map(segment => segment.name),
+                        labels: this.segmentObjects.map(s => s.name),
                         datasets: [{
-                            data: this.segmentObjects.map(segment => segment.value),
-                            backgroundColor: this.segmentObjects.map(segment => segment.backgroundColor),
+                            data: this.segmentObjects.map(s => s.value),
+                            backgroundColor: this.segmentObjects.map(s => s.backgroundColor),
                             borderWidth: 1
                         }]
                     },
@@ -173,11 +184,8 @@ document.addEventListener('alpine:init', () => {
 
             render(config) {
                 this.canvas = document.getElementById(this.canvasId);
-                if (!this.canvas) return;
                 const ctx = this.canvas.getContext('2d');
-                if (this.chartInstance) {
-                    this.chartInstance.destroy();
-                }
+                if (this.chartInstance) this.chartInstance.destroy();
                 this.chartInstance = new Chart(ctx, config);
             }
 
@@ -186,11 +194,6 @@ document.addEventListener('alpine:init', () => {
                 if (!tooltipEl) {
                     tooltipEl = document.createElement('div');
                     tooltipEl.id = 'chartjs-tooltip';
-                    tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
-                    tooltipEl.style.color = 'white';
-                    tooltipEl.style.borderRadius = '3px';
-                    tooltipEl.style.pointerEvents = 'none';
-                    tooltipEl.style.transition = 'all .1s ease';
                     document.body.appendChild(tooltipEl);
                 }
                 if (tooltipModel.opacity === 0) {
@@ -227,15 +230,12 @@ document.addEventListener('alpine:init', () => {
 
             renderCustomLegend() {
                 const legendContainer = document.getElementById("chartLegend");
-                if (!legendContainer) return;
                 legendContainer.innerHTML = '';
                 const meta = this.chartInstance.getDatasetMeta(0);
                 this.segmentObjects.forEach((segment, index) => {
                     const item = document.createElement("div");
                     item.classList.add("legend-item");
-                    if (meta.data[index] && meta.data[index].hidden) {
-                        item.classList.add("disabled");
-                    }
+                    if (meta.data[index] && meta.data[index].hidden) item.classList.add("disabled");
                     const colorBox = document.createElement("div");
                     colorBox.classList.add("legend-color-box");
                     colorBox.style.background = segment.backgroundColor;

@@ -87,7 +87,7 @@ def pie_chart(
     data_dicts = [dict(zip(columns, row)) for row in rows]
 
     return ChartPieSchema(
-        chart_title=None,
+        chart_title=f'{period}',
         data=[ChartPieDataSchema.model_validate(item) for item in data_dicts]
     )
 
