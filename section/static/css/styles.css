@@ -12,7 +12,8 @@
 
     --default_block_padding: 10px;
     --default_block_margin_LR: 10px;
-    --default_block_box_shadow: 1px 4px 4px 1px rgba(0, 0, 0, 0.15);
+    --default_block_box_shadow_params: 1px 4px 4px 1px;
+    --default_block_box_shadow: var(--default_block_box_shadow_params) rgba(0, 0, 0, 0.15);
     --default_block_border_radius: 10px;
     --default_block_mini_border_radius: 5px;
 
@@ -801,6 +802,7 @@ input[type="checkbox"] {
         color: var(--main_text_color);
         border: none;
         transition: background-color .5s;
+        box-shadow: var(--default_block_box_shadow);
 
         &.active {
             background-color: var(--main_purple);
