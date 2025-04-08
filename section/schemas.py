@@ -37,7 +37,6 @@ class SectionUserSchema(Schema):
     username: str
     currency: Optional[CurrencySchema]
     is_owner: bool
-    receipt_feed_size: Optional[int]
 
 
 class SectionUpdateSchema(BaseModel):

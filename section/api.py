@@ -36,7 +36,6 @@ def get_sections(request: WSGIRequest) -> list[SectionSchema]:
                         code=membership.currency.code
                     ),
                     is_owner=(section.owner_id == membership.user.id),
-                    receipt_feed_size=3,
                 )
                 for membership in section.memberships.all()
             ],
