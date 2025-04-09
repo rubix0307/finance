@@ -6,6 +6,8 @@ from django.db import connection
 from ninja import Router
 from ninja.errors import HttpError
 from ninja.security import django_auth
+
+from currency.models import Currency
 from currency.schemas import CurrencySchema
 from chart.api import router as charts_router
 from user.models import User
@@ -13,9 +15,9 @@ from .decorators import SectionRequired
 from .models import Section
 from .schemas import SectionSchema, SectionUserSchema, SectionReceiptSchema, SectionReceiptItemSchema, \
     SectionReceiptItemCategorySchema, ReceiptPaginationSchema, SectionReceiptShopSchema, SectionMiniSchema, \
-    SectionUpdateSchema
+    SectionUpdateSchema, SectionMemberMiniSchema, MemberUpdateSchema
 
-router = Router()
+router = Router(auth=django_auth)
 router.add_router("/", charts_router)
 
 @router.get("/", response=list[SectionSchema])
@@ -51,7 +53,8 @@ def update_section(
     data: SectionUpdateSchema,
     **kwargs: dict[str, Any]
 ) -> SectionMiniSchema:
-    section = Section.objects.get(pk=section_pk)
+
+    section: Section = cast(Section, kwargs.get('section'))
 
     update_fields = []
 
@@ -63,6 +66,38 @@ def update_section(
         section.save(update_fields=update_fields)
 
     return SectionMiniSchema.from_orm(section)
+
+@router.post("/{section_pk}/memberships/{member_pk}/", response=SectionMemberMiniSchema)
+@SectionRequired
+def update_section_member(
+    request: WSGIRequest,
+    section_pk: int,
+    member_pk: int,
+    data: MemberUpdateSchema,
+    **kwargs: dict[str, Any]
+) -> SectionMemberMiniSchema:
+    if not request.user.pk == member_pk:
+        raise HttpError(403, 'Member editing is forbidden for you')
+
+    section: Section = cast(Section, kwargs.get('section'))
+    member = section.memberships.get(user=request.user)
+
+    update_fields = []
+
+    if data.currency is not None:
+        try:
+            member.currency = Currency.objects.get(code=data.currency[:3])
+            update_fields.append('currency')
+        except Currency.DoesNotExist:
+            raise HttpError(404, 'Selected currency not found')
+
+    if update_fields:
+        member.save(update_fields=update_fields)
+
+    return SectionMemberMiniSchema(
+        id=member.user.id,
+        currency=CurrencySchema(code=member.currency.code),
+    )
 
 @router.get("/{section_pk}/receipts/", response=ReceiptPaginationSchema)
 @SectionRequired

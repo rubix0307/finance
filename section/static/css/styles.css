@@ -446,6 +446,7 @@ header {
     & .option_group {
         border-radius: var(--default_block_border_radius);
         background-color: var(--bg_color);
+        border: 2px solid var(--bg_color);
         padding: 0 10px 0 10px;
         margin-bottom: var(--default_block_margin_bottom);
 
@@ -466,6 +467,10 @@ header {
 
         &.active {
             border: 2px solid var(--main_purple);
+        }
+        &.choose {
+            border: 2px dashed var(--main_purple);
+            background-color: var(--main_btn_active_bg_color);
         }
     }
 }

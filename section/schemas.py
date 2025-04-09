@@ -39,8 +39,15 @@ class SectionUserSchema(Schema):
     is_owner: bool
 
 
+class MemberUpdateSchema(BaseModel):
+    currency: Optional[str] = None
+
 class SectionUpdateSchema(BaseModel):
     name: Optional[str] = None
+
+class SectionMemberMiniSchema(Schema):
+    id: int
+    currency: CurrencySchema
 
 class SectionMiniSchema(Schema):
     id: int

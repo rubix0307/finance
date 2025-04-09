@@ -64,17 +64,18 @@ document.addEventListener('alpine:init', () => {
             this.current_section = this.sections[prevIndex];
         },
 
-        // Новый метод: отправка запроса на API для обновления названия текущей секции
         async apiUpdateCurrentSectionName(newName) {
             const currentSection = this.current_section;
             if (!currentSection) return;
 
             const url = `/api/sections/${currentSection.id}/`;
+            const csrfToken = getCookie('csrftoken');
             try {
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,
                     },
                     body: JSON.stringify({name: newName}),
                 });
@@ -83,25 +84,24 @@ document.addEventListener('alpine:init', () => {
                     throw new Error('Не удалось обновить секцию на сервере');
                 }
 
-                const updatedSectionData = await response.json();
-                return updatedSectionData;
+                return await response.json();
             } catch (err) {
                 console.error("Ошибка запроса обновления секции:", err);
                 throw err;
             }
         },
 
-        // Новый метод: обновление данных секции в хранилище (и списка секций, и current_section)
+
         updateSectionDataInStore(updatedSectionData) {
             const index = this.sections.findIndex(s => s.id === updatedSectionData.id);
             if (index !== -1) {
-                Object.assign(this.sections[index], updatedSectionData);
-                Object.assign(this.current_section, updatedSectionData);
+                this.sections.splice(index, 1, {...this.sections[index], ...updatedSectionData});
+                if (this.current_section && this.current_section.id === updatedSectionData.id) {
+                    this.current_section = {...this.current_section, ...updatedSectionData};
+                }
             }
         },
 
-        // Новый метод: объединённый метод сохранения нового названия текущей секции.
-        // Он отправляет запрос и при успешном ответе обновляет данные в Alpine.store.
         async saveCurrentSectionName(newName) {
             try {
                 const updatedData = await this.apiUpdateCurrentSectionName(newName);

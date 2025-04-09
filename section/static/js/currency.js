@@ -3,6 +3,7 @@ document.addEventListener('alpine:init', () => {
         open: false,
         query: '',
         isReady: false,
+        selectedCurrency: null,
 
         init() {
             Alpine.watch(() => Alpine.store('appData').currencies, (currencies) => {
@@ -10,7 +11,7 @@ document.addEventListener('alpine:init', () => {
                     this.isReady = true;
                     Alpine.watch(() => Alpine.store('appData').current_section, () => {
                         queueMicrotask(() => {
-                            document.querySelector('[x-ref="currencyList"]')?.scrollTo({ top: 0, behavior: 'auto' });
+                            document.querySelector('[x-ref="currencyList"]')?.scrollTo({top: 0, behavior: 'auto'});
                         });
                     });
                 }
@@ -22,7 +23,11 @@ document.addEventListener('alpine:init', () => {
 
             this.open = !this.open;
             if (!this.open) this.query = '';
-            document.querySelector('[x-ref="currencyList"]')?.scrollTo({ top: 0, behavior: 'auto' });
+            document.querySelector('[x-ref="currencyList"]')?.scrollTo({top: 0, behavior: 'auto'});
+        },
+
+        setSelectedCurrency(currency) {
+            this.selectedCurrency = currency;
         }
     });
 
