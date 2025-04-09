@@ -37,7 +37,6 @@ openai==1.66.3
 pillow==11.1.0
 prompt_toolkit==3.0.50
 propcache==0.3.0
-psycopg2==2.9.10
 pydantic==2.10.6
 pydantic_core==2.27.2
 python-dateutil==2.9.0.post0
