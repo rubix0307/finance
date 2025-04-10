@@ -38,10 +38,28 @@ html, body {
     min-height: 100svh;
     color: var(--main_text_color)
 }
+
+html {
+    background-color: var(--main_purple);
+}
+
 body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: calc(var(--tg-safe-area-inset-top) + var(--header_height) + var(--tg-content-safe-area-inset-bottom));
+    min-height: calc(100svh - var(--tg-safe-area-inset-top));
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 500px;
+    margin-top: -500px;
+    background: transparent;
+    z-index: 100;
+    backdrop-filter: blur(4px);
 }
 main {
 }
