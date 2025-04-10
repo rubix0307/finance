@@ -6,12 +6,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#C2B5FF" />
-
     <title>{% block title %}{% endblock %}</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script src="{% static 'js/telegram.js' %}" defer></script>
     <script src="{% static 'js/cookies.js' %}" defer></script>
     <script src="{% static 'js/detect_sticky.js' %}" defer></script>
     <script src="{% static 'js/init.js' %}" defer></script>
@@ -22,7 +23,6 @@
 
     <script src="{% static 'js/charts.js' %}" defer></script>
     <script src="{% static 'js/receipt_feed.js' %}" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     {% block extra_head %}
     {% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
