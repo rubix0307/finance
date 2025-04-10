@@ -40,7 +40,7 @@ document.addEventListener('alpine:init', () => {
         },
         async initPieChartAndWatch(newPeriod) {
             const sectionId = Alpine.store('appData').current_section.id;
-            const period = newPeriod || this.currentPeriod || 'week';
+            const period = newPeriod || this.currentPeriod || 'month';
             const rawData = await this.fetchGraphData(sectionId, this.currentChartType, period);
             if (rawData && rawData.period) {
                 this.currentPeriod = rawData.period;
