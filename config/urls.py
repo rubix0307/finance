@@ -1,4 +1,4 @@
-"""
+'''
 URL configuration for config project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -13,7 +13,7 @@ Class-based views
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+'''
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -25,16 +25,17 @@ from user.api import router as user_router
 from receipt.views import upload_receipts
 
 api = NinjaAPI()
-api.add_router("/currencies/", currency_router)
-api.add_router("/sections/", section_router)
-api.add_router("/users/", user_router)
+api.add_router('/currencies/', currency_router)
+api.add_router('/sections/', section_router)
+api.add_router('/users/', user_router)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('section.urls')),
     path('chart/', include('chart.urls')),
     path('upload/', upload_receipts, name='upload_receipts'),
-    path("api/", api.urls),
+    path('api/', api.urls),
+    path('telegram/', include('telegram.urls')),
 ]
 
 if settings.DEBUG:
