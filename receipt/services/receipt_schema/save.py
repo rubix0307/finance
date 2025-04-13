@@ -109,7 +109,8 @@ class ReceiptSchemaService:
         receipt.shop = self.get_shop()
         receipt.currency = self.currency
         receipt.date = self.get_date()
-        receipt.save(update_fields=['shop', 'currency', 'date'])
+        receipt.is_processed = True
+        receipt.save(update_fields=['shop', 'currency', 'date', 'is_processed'])
 
         self.update_receipt_items(receipt)
         return receipt

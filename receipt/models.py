@@ -65,6 +65,7 @@ class Receipt(models.Model):
     currency = models.ForeignKey(Currency, on_delete=models.SET_NULL, null=True, blank=True)
     section = models.ForeignKey(Section, on_delete=models.CASCADE, null=True, blank=True, related_name='receipts')
     date = models.DateTimeField(null=True)
+    is_processed = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f'{self.pk}'
