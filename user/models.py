@@ -1,13 +1,34 @@
-from django.contrib.auth.models import AbstractUser
+from typing import TypeVar, Any, cast, ClassVar
+
+from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.apps import apps
 from django.db.models import Value, BooleanField
 
 
-class User(AbstractUser):
-    telegram_id = models.PositiveBigIntegerField(null=True, blank=True)
-    base_section = models.ForeignKey("section.Section", on_delete=models.SET_NULL, null=True, blank=True)
+T = TypeVar('T', bound='User')
 
+class CustomUserManager[T](UserManager[T]):
+    def create_user(self, **extra_fields: Any) -> T:
+        user = self.model(**extra_fields)
+        user.set_password(extra_fields.get('password'))
+        user.save()
+        return cast(T, user)
+
+    def create_superuser(self, **extra_fields: Any) -> T:
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(**extra_fields)
+
+class User(AbstractUser):
+    username = models.CharField(max_length=150, blank=True, null=True, unique=False)
+    base_section = models.ForeignKey('section.Section', on_delete=models.SET_NULL, null=True, blank=True)
+
+    USERNAME_FIELD = 'id'
+    REQUIRED_FIELDS = []
+
+    objects: ClassVar[CustomUserManager['User']] = CustomUserManager()
     class Meta:
         db_table = 'user'
 
