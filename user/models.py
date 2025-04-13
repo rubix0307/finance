@@ -11,12 +11,25 @@ class User(AbstractUser):
     class Meta:
         db_table = 'user'
 
-    def save(self, *args, **kwargs) -> None:  # type: ignore
-        if not self.pk:
+    def save(self, is_new: bool = False, *args, **kwargs) -> None:  # type: ignore
+        if not self.pk or is_new:
             super().save(*args, **kwargs)
             Section = apps.get_model('section', 'Section')
-            section = Section.objects.create(name=f'Home')
-            section.users.add(self)
+            SectionUser = apps.get_model('section', 'SectionUser')
+            Currency = apps.get_model('currency', 'Currency')
+
+            section = Section.objects.create(
+                name='Home',
+                owner=self,
+            )
+            default_currency = Currency.objects.get(code='USD')
+
+            SectionUser.objects.create(
+                section=section,
+                user=self,
+                currency=default_currency,
+            )
+
             self.base_section = section
             self.save(update_fields=['base_section'])
         else:
