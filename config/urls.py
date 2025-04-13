@@ -19,6 +19,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import URLPattern, path, include
 from ninja import NinjaAPI
+
+from config.views import permission_denied_view
 from currency.api import router as currency_router
 from section.api import router as section_router
 from user.api import router as user_router
@@ -36,6 +38,7 @@ urlpatterns = [
     path('upload/', upload_receipts, name='upload_receipts'),
     path('api/', api.urls),
     path('telegram/', include('telegram.urls')),
+    path('403/', permission_denied_view, name='403'),
 ]
 
 if settings.DEBUG:
