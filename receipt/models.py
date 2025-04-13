@@ -79,6 +79,7 @@ class Receipt(models.Model):
     ) -> None:
         from . import tasks
 
+        self.section = self.owner.base_section
         super().save(
             force_insert=force_insert,
             force_update=force_update,
