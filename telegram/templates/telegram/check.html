@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block body %}
+
     <script>
-        sendTelegramWebData(url='{% url "telegram_authenticate_web_app" %}')
+        document.addEventListener('DOMContentLoaded', () => {
+            sendTelegramWebData(url='{% url "telegram_authenticate_web_app" %}')
+        })
     </script>
+
 {% endblock %}
