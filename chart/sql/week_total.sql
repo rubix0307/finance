@@ -31,7 +31,7 @@ items_rate_usd AS (
 		INNER JOIN receipt_item_category ric ON ri.category_id = ric.id
         LEFT JOIN currency_rate_history crh ON r.currency_id = crh.currency_id
 		JOIN vars ON true
-		WHERE r.section_id = vars.section_id AND r.date >= NOW() - vars.period::interval
+		WHERE r.section_id = vars.section_id AND r.date >= NOW() - vars.period::interval AND r.is_processed = true
     ) AS ranked_items
     WHERE rn = 1
 ),
