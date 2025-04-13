@@ -12,17 +12,17 @@ from user.models import User
 @bot.message_handler(content_types=['photo'])
 @user_required
 def get_photo(message: Message, user: User, **kwargs: dict[str, Any]) -> None:
-    bot.send_message(message.chat.id, f'Hello')
+
 
     photo = message.photo[-1]
     file_info = bot.get_file(photo.file_id)
     downloaded_file = bot.download_file(file_info.file_path)
-    file_name = f'receipt_{message.message_id}.jpg'
+    file_name = f'receipt_{photo.file_unique_id}.jpg'
 
     receipt = Receipt(
         owner=user,
+        photo=ContentFile(downloaded_file, name=file_name),
     )
-    receipt.save()
-    receipt.photo.save(file_name, ContentFile(downloaded_file))
+    receipt.save(do_analyze_photo=True)
 
     bot.reply_to(message, 'Фото успешно сохранено в базу!')

@@ -71,6 +71,7 @@ class Receipt(models.Model):
 
     def save(
         self,
+        do_analyze_photo: bool = False,
         force_insert: bool | tuple[ModelBase, ...] = False,
         force_update: bool = False,
         using: str | None = None,
@@ -78,7 +79,6 @@ class Receipt(models.Model):
     ) -> None:
         from . import tasks
 
-        is_new = self.pk is None
         super().save(
             force_insert=force_insert,
             force_update=force_update,
@@ -86,7 +86,7 @@ class Receipt(models.Model):
             update_fields=update_fields,
         )
 
-        if is_new:
+        if do_analyze_photo:
             self.refresh_from_db()
             tasks.update_receipt_data.delay(receipt_pk=self.pk, user_pk=self.owner.pk)
 
