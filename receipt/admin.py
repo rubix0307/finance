@@ -4,10 +4,12 @@ from django.contrib import admin
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import QuerySet
 from django.http import HttpResponse
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
-from receipt.models import Receipt, ReceiptItem
 from receipt import tasks
+from .forms import ReceiptItemCategoryForm
+from .models import Receipt, ReceiptItem, ReceiptItemCategory
 
 
 def update_receipt_data(modeladmin: admin.ModelAdmin, request: WSGIRequest, queryset: QuerySet[Receipt]) -> None:
@@ -67,4 +69,14 @@ class ReceiptItemAdmin(admin.ModelAdmin): # type: ignore
     def get_currency(self, obj: ReceiptItem) -> str:
         return str(obj.receipt.currency) if obj.receipt and obj.receipt.currency else "-"
     get_currency.short_description = 'Currency'
+
+
+@admin.register(ReceiptItemCategory)
+class ReceiptItemCategoryAdmin(admin.ModelAdmin): # type: ignore
+    form = ReceiptItemCategoryForm
+    list_display = ('id', 'name', 'color', 'get_color_preview')
+
+    def get_color_preview(self, obj: ReceiptItem) -> str:
+        return format_html(f'<div style="background-color: {obj.color}; min-width: 50px; min-height: 20px;"></div>')
+    get_color_preview.short_description = 'Color preview'
 
