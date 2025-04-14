@@ -43,12 +43,13 @@ def check_webapp_signature(init_data: str) -> tuple[bool, Optional[int]]:
     return result, user_id
 
 
-def get_or_create_user(user_id: int) -> User:
+def get_or_create_user(user_id: int, **kwargs) -> User:
     try:
         user = User.objects.get(id=user_id)
     except User.DoesNotExist:
         user = User(
             id=user_id,
+            **kwargs,
         )
         user.save(is_new=True)
 
