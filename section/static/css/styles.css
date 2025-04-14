@@ -199,6 +199,9 @@ header {
             padding: 2px var(--default_block_margin_LR);
             border-radius: 0 0 var(--default_block_border_radius) var(--default_block_border_radius);
         }
+        & button {
+            background-color: var(--main_white);
+        }
     }
     &.chart {
         position: relative;
@@ -837,6 +840,9 @@ input[type="checkbox"] {
 #expensesPeriods {
     display: flex;
     flex-direction: row;
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
 
     & button {
         display: flex;
