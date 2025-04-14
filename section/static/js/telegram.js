@@ -21,6 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
     console.warn("Telegram.WebApp not found");
     return;
   }
+  webApp.disableVerticalSwipes();
 
   const tgHelper = new TelegramAppHelper(webApp);
   tgHelper.setHeaderColorFromVar('--main_purple');
