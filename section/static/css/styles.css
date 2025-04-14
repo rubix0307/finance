@@ -128,8 +128,8 @@ header {
          & svg {
             display: flex;
             align-items: center;
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
 
             & g {
                 fill: var(--header_text_color);
@@ -199,9 +199,8 @@ header {
         }
         & svg {
             width: 10px;
-            & g {
-                fill: var(--main_text_color);
-            }
+            height: 10px;
+            fill: var(--main_text_color);
         }
     }
 
