@@ -14,6 +14,12 @@ class TelegramAppHelper {
   }
 }
 
+function applyTelegramTheme() {
+  const root = document.documentElement;
+  root.classList.remove('light', 'dark');
+  root.classList.add(Telegram.WebApp.colorScheme);
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   const webApp = window.Telegram?.WebApp;
 
@@ -26,6 +32,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const tgHelper = new TelegramAppHelper(webApp);
   tgHelper.setHeaderColorFromVar('--main_purple');
 
+  applyTelegramTheme();
+  Telegram.WebApp.onEvent('themeChanged', applyTelegramTheme);
+
 });
 
 function sendTelegramWebData(url) {
@@ -35,4 +44,5 @@ function sendTelegramWebData(url) {
     let newUrl = `${url}?init_data=${encodedInitData || ''}`;
 
     window.location.href = newUrl;
-}
+};
+
