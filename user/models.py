@@ -32,6 +32,9 @@ class User(AbstractUser):
     class Meta:
         db_table = 'user'
 
+    def __str__(self) -> str:
+        return f'User: {self.pk} {self.username}'
+
     def save(self, is_new: bool = False, *args, **kwargs) -> None:  # type: ignore
         if not self.pk or is_new:
             super().save(*args, **kwargs)
