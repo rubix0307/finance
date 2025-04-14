@@ -18,7 +18,7 @@ if not HOST:
     raise ValueError('Please set the HOST environment variable')
 
 
-ALLOWED_HOSTS = ['*'] if DEBUG else [HOST]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
