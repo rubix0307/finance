@@ -60,6 +60,11 @@ class ReceiptAdmin(admin.ModelAdmin): # type: ignore
 
 
 @admin.register(ReceiptItem)
-class ReceiptAdmin(admin.ModelAdmin): # type: ignore
-    list_display = ('id', 'name', 'category', 'receipt', 'price', 'receipt__currency')
+class ReceiptItemAdmin(admin.ModelAdmin): # type: ignore
+    list_display = ('id', 'name', 'category', 'receipt', 'price', 'get_currency')
     list_filter = ('receipt', )
+
+    def get_currency(self, obj: ReceiptItem) -> str:
+        return str(obj.receipt.currency) if obj.receipt and obj.receipt.currency else "-"
+    get_currency.short_description = 'Currency'
+
