@@ -30,12 +30,23 @@
     --bg: #F0F0F0;
     --block_bg: #ffffff;
     --second_block_bg: #F9F9F9;
-    --receipt_item_bg_color: #F9F9F9;
+    --receipt_item_bg_color: var(--second_block_bg);
     --main_text_color: black;
     --main_text_color_active: black;
 
     --default_block_box_shadow: var(--default_block_box_shadow_params) rgba(0, 0, 0, 0.15);
 
+}
+
+.dark {
+    --header_text_color: #000000;
+    --bg: #1a2430;
+    --block_bg: #203041;
+    --second_block_bg: #1a2634;
+
+    --main_text_color: #ffffff;
+    --main_text_color_active: black;
+    --default_block_box_shadow: var(--default_block_box_shadow_params) rgba(0, 0, 0, 0.15);
 }
 
 html, body {
@@ -530,7 +541,6 @@ header {
         }
         &.choose {
             border: 2px dashed var(--main_purple);
-            background-color: var(--main_btn_active_bg_color);
         }
     }
 }
