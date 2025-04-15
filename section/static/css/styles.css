@@ -953,3 +953,60 @@ input[type="checkbox"] {
     width: 100%;
     height: 40px;
 }
+
+.no_data {
+    padding: var(--default_block_padding);
+    margin: 0 var(--default_block_margin_LR) var(--default_block_margin_bottom) var(--default_block_margin_LR);
+    & .receipt_in_hand {
+        width: 59%;
+        overflow: hidden;
+        border-radius: 0 0 0 42%;
+        margin: 0 auto;
+        padding-right: 23%;
+
+        & .receipt {
+            width: 60%;
+            position: relative;
+            container-type: inline-size;
+            margin-left: 40%;
+
+            & img {
+                max-width: 100%;
+            }
+
+            & .title {
+                position: absolute;
+                top: 5%;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                font-size: 10cqw;
+                text-transform: uppercase;
+            }
+
+            & .footer {
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                font-size: 10cqw;
+                bottom: 14.1%;
+                text-transform: uppercase;
+            }
+
+            & .hand {
+                position: absolute;
+                width: 110%;
+                top: 34%;
+                left: -91.8%;
+            }
+        }
+    }
+    & .text {
+        font-size: 13px;
+        & .caption {
+            font-size: 16px;
+            text-align: center;
+            font-weight: bold;
+        }
+    }
+}
