@@ -1,6 +1,4 @@
 from typing import TypeVar, Any, cast, ClassVar
-
-from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.apps import apps
@@ -23,6 +21,8 @@ class CustomUserManager[T](UserManager[T]):
 
 class User(AbstractUser):
     username = models.CharField(max_length=150, blank=True, null=True, unique=False)
+    first_name = models.CharField(max_length=150, null=True, blank=True)
+    last_name = models.CharField(max_length=150, null=True, blank=True)
     base_section = models.ForeignKey('section.Section', on_delete=models.SET_NULL, null=True, blank=True)
 
     USERNAME_FIELD = 'id'
