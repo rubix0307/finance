@@ -23,7 +23,7 @@ def start(message: Message, params: dict[str, str | int], **kwargs: dict[str, An
     try:
         match params.get('action'):
             case 'add_member':
-                send_user_share(message=message, section_id=10)
+                send_user_share(message=message, section_id=params.get('section_id'))
                 bot.delete_message(message.chat.id, message.message_id)
             case _:
                 default_start(message)
