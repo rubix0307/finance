@@ -116,7 +116,7 @@ def get_section_receipts(
     if size > 50:
         size = 50
 
-    paginator = Paginator(section.receipts.filter(is_processed=True).order_by('id'), size)
+    paginator = Paginator(section.receipts.filter(is_processed=True).order_by('-date'), size)
 
 
     try:
