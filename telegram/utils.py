@@ -60,7 +60,7 @@ def get_or_create_user(user_id: int, **kwargs: dict[str, Any]) -> User:
             user.save(is_new=True)
             logger.info(f'Create new user {user}')
         except Exception as ex:
-            logger.info(f'failed to create new user {user_id} {ex=}')
+            logger.error(f'failed to create new user {user_id} {ex=}')
             user = User(
                 id=user_id,
             )
