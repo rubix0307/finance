@@ -12,7 +12,7 @@ from currency.schemas import CurrencySchema
 from chart.api import router as charts_router
 from user.models import User
 from .decorators import SectionRequired
-from .models import Section
+from .models import Section, SectionUser
 from .schemas import SectionSchema, SectionUserSchema, SectionReceiptSchema, SectionReceiptItemSchema, \
     SectionReceiptItemCategorySchema, ReceiptPaginationSchema, SectionReceiptShopSchema, SectionMiniSchema, \
     SectionUpdateSchema, SectionMemberMiniSchema, MemberUpdateSchema
@@ -63,8 +63,13 @@ def update_section(
     update_fields = []
 
     if data.name is not None:
-        section.name = data.name
-        update_fields.append('name')
+        if not request.user.id == section.owner.id:
+            user_as_member = SectionUser.objects.get(user=request.user, section=section)
+            user_as_member.user_section_name = data.name
+            user_as_member.save()
+        else:
+            section.name = data.name
+            update_fields.append('name')
 
     if update_fields:
         section.save(update_fields=update_fields)
