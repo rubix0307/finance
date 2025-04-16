@@ -34,7 +34,7 @@ class SectionReceiptSchema(Schema):
 
 class SectionUserSchema(Schema):
     id: int
-    username: str
+    username: Optional[str]
     currency: Optional[CurrencySchema]
     is_owner: bool
 

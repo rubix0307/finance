@@ -20,8 +20,9 @@ class Section(models.Model):
 
 
 class SectionUser(models.Model):
-    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='memberships' )
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='memberships')
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    user_section_name = models.CharField(max_length=255, null=True, blank=True)
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
 
     class Meta:

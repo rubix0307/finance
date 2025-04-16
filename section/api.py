@@ -20,30 +20,34 @@ from .schemas import SectionSchema, SectionUserSchema, SectionReceiptSchema, Sec
 router = Router(auth=django_auth)
 router.add_router("/", charts_router)
 
-@router.get("/", response=list[SectionSchema])
+@router.get("/", response=list[SectionSchema], auth=django_auth)
 def get_sections(request: WSGIRequest) -> list[SectionSchema]:
     user = cast(User, request.user)
     sections = user.get_sections()
 
-    return [
-        SectionSchema(
+    sections_data = []
+    for section in sections:
+        memberships = section.memberships.all()
+        user_as_member = list(filter(lambda m: m.user.id, memberships))[0]
+
+        sections_data.append(SectionSchema(
             id=section.id,
-            name=section.name,
+            name=user_as_member.user_section_name or section.name,
             is_base=(section.id == user.base_section_id),
             users=[
                 SectionUserSchema(
-                    id=membership.user.id,
-                    username=membership.user.username,
+                    id=member.user.id,
+                    username=member.user.username,
                     currency=CurrencySchema(
-                        code=membership.currency.code
+                        code=member.currency.code
                     ),
-                    is_owner=(section.owner_id == membership.user.id),
+                    is_owner=(section.owner_id == member.user.id),
                 )
-                for membership in section.memberships.all()
+                for member in section.memberships.all()
             ],
-        )
-        for section in sections
-    ]
+        ))
+
+    return sections_data
 
 @router.post("/{section_pk}/", response=SectionMiniSchema)
 @SectionRequired

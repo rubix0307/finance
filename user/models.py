@@ -2,7 +2,7 @@ from typing import TypeVar, Any, cast, ClassVar
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.apps import apps
-from django.db.models import Value, BooleanField
+from django.db.models import Value, BooleanField, QuerySet
 
 
 T = TypeVar('T', bound='User')
@@ -59,7 +59,7 @@ class User(AbstractUser):
         else:
             super().save(*args, **kwargs)
 
-    def get_sections(self):
+    def get_sections(self) -> QuerySet:
         Section = apps.get_model('section', 'Section')
         owned_sections = Section.objects.filter(owner=self).annotate(
             is_owner=Value(True, output_field=BooleanField())
