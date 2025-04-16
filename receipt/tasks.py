@@ -15,7 +15,6 @@ from .models import Receipt
 logger = logging.getLogger(__name__)
 
 
-
 @shared_task(  # type: ignore
     bind=True,
     autoretry_for=(Exception,),
