@@ -1,13 +1,16 @@
 import hashlib
 import hmac
 import json
+import logging
 from operator import itemgetter
-from typing import Optional
+from typing import Optional, Any
 from urllib.parse import parse_qsl
 from django.conf import settings
 
 from user.models import User
 
+
+logger = logging.getLogger(__name__)
 
 def check_webapp_signature(init_data: str) -> tuple[bool, Optional[int]]:
     """
@@ -43,14 +46,24 @@ def check_webapp_signature(init_data: str) -> tuple[bool, Optional[int]]:
     return result, user_id
 
 
-def get_or_create_user(user_id: int, **kwargs) -> User:
+def get_or_create_user(user_id: int, **kwargs: dict[str, Any]) -> User:
     try:
+        logger.debug(f'get user {user_id}')
         user = User.objects.get(id=user_id)
     except User.DoesNotExist:
-        user = User(
-            id=user_id,
-            **kwargs,
-        )
-        user.save(is_new=True)
+        try:
+            logger.debug(f'user {user_id} does not exist')
+            user = User(
+                id=user_id,
+                **kwargs,
+            )
+            user.save(is_new=True)
+            logger.info(f'Create new user {user}')
+        except Exception as ex:
+            logger.info(f'failed to create new user {user_id} {ex=}')
+            user = User(
+                id=user_id,
+            )
+            user.save(is_new=True)
 
     return user
