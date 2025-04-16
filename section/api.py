@@ -28,7 +28,7 @@ def get_sections(request: WSGIRequest) -> list[SectionSchema]:
     sections_data = []
     for section in sections:
         memberships = section.memberships.all()
-        user_as_member = list(filter(lambda m: m.user.id, memberships))[0]
+        user_as_member = list(filter(lambda m: m.user.id == user.id, memberships))[0]
 
         sections_data.append(SectionSchema(
             id=section.id,
@@ -61,20 +61,25 @@ def update_section(
     section: Section = cast(Section, kwargs.get('section'))
 
     update_fields = []
-
+    new_name = None
     if data.name is not None:
         if not request.user.id == section.owner.id:
             user_as_member = SectionUser.objects.get(user=request.user, section=section)
             user_as_member.user_section_name = data.name
             user_as_member.save()
+            new_name = user_as_member.user_section_name
         else:
             section.name = data.name
+            new_name = section.name
             update_fields.append('name')
 
     if update_fields:
         section.save(update_fields=update_fields)
 
-    return SectionMiniSchema.from_orm(section)
+    return SectionMiniSchema(
+        id=section.id,
+        name=new_name or section.name,
+    )
 
 @router.post("/{section_pk}/memberships/{member_pk}/", response=SectionMemberMiniSchema)
 @SectionRequired
