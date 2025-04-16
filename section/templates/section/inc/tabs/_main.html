@@ -1,28 +1,30 @@
-<!-- Блок с данными -->
-<template x-if="
-    $store.tabs.tab === 'main' &&
-    Alpine.store('appData').current_section &&
-    Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id] &&
-    Alpine.store('receipts_feed').getCurrentPageItems().length > 0 &&
-    !Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id].loading
-">
-    <div class="tab">
-        {% include 'section/inc/main/_periods.html' %}
-        {% include 'section/inc/main/_expenses.html' %}
-        {% include 'section/inc/main/_chart.html' %}
-        {% include 'section/inc/main/feed/_feed.html' %}
-    </div>
-</template>
+<div x-data="{ appData: Alpine.store('appData'), feed: Alpine.store('receipts_feed') }"
+     x-show="
+        $store.tabs.tab === 'main' &&
+        appData.current_section &&
+        feed.sections[appData.current_section?.id] &&
+        feed.getCurrentPageItems().length > 0 &&
+        !feed.sections[appData.current_section?.id].loading
+     "
+     class="tab"
+     style="display: none;"
+>
+    {% include 'section/inc/main/_periods.html' %}
+    {% include 'section/inc/main/_expenses.html' %}
+    {% include 'section/inc/main/_chart.html' %}
+    {% include 'section/inc/main/feed/_feed.html' %}
+</div>
 
-<!-- Блок "Нет данных" -->
-<template x-if="
-    $store.tabs.tab === 'main' &&
-    Alpine.store('appData').current_section &&
-    Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id] &&
-    Alpine.store('receipts_feed').getCurrentPageItems().length === 0 &&
-    !Alpine.store('receipts_feed').sections[Alpine.store('appData').current_section?.id].loading
-">
-    <div class="tab">
-        {% include 'section/no_data.html' %}
-    </div>
-</template>
+<div x-data="{ appData: Alpine.store('appData'), feed: Alpine.store('receipts_feed') }"
+     x-show="
+        $store.tabs.tab === 'main' &&
+        appData.current_section &&
+        feed.sections[appData.current_section?.id] &&
+        feed.getCurrentPageItems().length === 0 &&
+        !feed.sections[appData.current_section?.id].loading
+     "
+     class="tab"
+     style="display: none;"
+>
+    {% include 'section/no_data.html' %}
+</div>
