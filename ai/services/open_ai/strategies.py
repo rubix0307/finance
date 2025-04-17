@@ -19,11 +19,10 @@ class OpenAIModelStrategy:
 
 class OpenAI4oStrategy(OpenAIModelStrategy):
     NAME = 'ChatGPT 4o'
-    PROMPT_PRICE = Decimal('2.5')  # per 1M
-    COMPLETION_PRICE = Decimal('10')  # per 1M
+    PROMPT_PRICE = Decimal('2.5')
+    COMPLETION_PRICE = Decimal('10')
 
 class OpenAI4oMiniStrategy(OpenAIModelStrategy):
     NAME = 'ChatGPT 4o-mini'
-    PROMPT_PRICE = Decimal('0.15')  # per 1M
-    COMPLETION_PRICE = Decimal('0.6')  # per 1M
-
+    PROMPT_PRICE = Decimal('0.15')
+    COMPLETION_PRICE = Decimal('0.6')
