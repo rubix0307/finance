@@ -33,11 +33,11 @@ class OpenAI41(OpenAIModelStrategy):
     COMPLETION_PRICE = Decimal('8')
 
 class OpenAI41Mini(OpenAIModelStrategy):
-    NAME = 'ChatGPT 41-mini'
+    NAME = 'ChatGPT 4.1-mini'
     PROMPT_PRICE = Decimal('0.4')
     COMPLETION_PRICE = Decimal('1.6')
 
 class OpenAI41Nano(OpenAIModelStrategy):
-    NAME = 'ChatGPT 41-nano'
+    NAME = 'ChatGPT 4.1-nano'
     PROMPT_PRICE = Decimal('0.1')
     COMPLETION_PRICE = Decimal('0.4')
