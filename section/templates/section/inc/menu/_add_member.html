@@ -32,8 +32,7 @@
       }"
     x-show="meId && ownerId && meId === ownerId">
 
-    <a
-
-        :href="startUrl"
+    <a  href="#"
+        @click.prevent="window.Telegram.WebApp.openTelegramLink(startUrl)"
     >Добавить участника</a>
 </div>
