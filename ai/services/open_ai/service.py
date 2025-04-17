@@ -16,7 +16,7 @@ from openai.types.beta.threads.run import Usage
 from ai.logger import AIUsageLogger
 from ai.services.open_ai.decorators import handle_openai_errors
 from ai.services.open_ai.managers import TmpFileManager, TmpThreadManager
-from ai.services.open_ai.strategies import OpenAI4oMiniStrategy, OpenAI4oStrategy
+from ai.services.open_ai.strategies import OpenAI41
 from receipt.models import Receipt
 from receipt.schemas import ReceiptSchema
 
@@ -50,7 +50,7 @@ class OpenAIService(BaseOpenAIMethods):
         super().__init__(**kwargs)
         self.analyze_receipt_assistant: Assistant = self.client.beta.assistants.retrieve(os.getenv('OPENAI_ANALYZE_RECEIPT_ASSISTANT_ID', ''))
         self.usage: list[Usage] = []
-        self.logger = AIUsageLogger(OpenAI4oStrategy())
+        self.logger = AIUsageLogger(OpenAI41())
 
 
     @handle_openai_errors
