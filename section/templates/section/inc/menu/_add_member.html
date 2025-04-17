@@ -33,6 +33,9 @@
     x-show="meId && ownerId && meId === ownerId">
 
     <a  href="#"
-        @click.prevent="window.Telegram.WebApp.openTelegramLink(startUrl)"
+        @click.prevent="
+        window.Telegram.WebApp.openTelegramLink(startUrl);
+        window.Telegram.WebApp.close();
+"
     >Добавить участника</a>
 </div>
