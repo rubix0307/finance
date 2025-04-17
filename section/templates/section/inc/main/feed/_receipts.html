@@ -8,11 +8,9 @@
                 <div x-show="receipt.shop?.address" class="address" x-text="receipt.shop.address"></div>
             </div>
 
-            <template x-show="feed.showPhotos && receipt?.photo">
-                <div class="photo">
-                    <img :src="receipt.photo" alt="Фото чека" loading="lazy">
-                </div>
-            </template>
+            <div class="photo" x-show="feed.showPhotos && receipt?.photo">
+                <img :src="receipt.photo" alt="Фото чека" loading="lazy">
+            </div>
 
             <div class="items">
                 <ul>
