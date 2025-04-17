@@ -23,7 +23,7 @@
           if (this.meId && this.ownerId && this.meId === this.ownerId) {
             this.startUrl =
               `https://t.me/finance_lens_bot?start=${
-                base64urlEncode({ action: 'add_member', id: section.id })
+                base64urlEncode({ action: 'add_member', section_id: section.id })
               }`
           } else {
             this.startUrl = ''
