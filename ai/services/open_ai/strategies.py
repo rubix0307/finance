@@ -1,9 +1,8 @@
 from ai.strategies import UsageCost
 from decimal import Decimal
 
-
-class OpenAI4oStrategy:
-    NAME = 'ChatGPT 4o'
+class OpenAIModelStrategy:
+    NAME = 'ChatGPT modal name'
     PROMPT_PRICE = Decimal('2.5')  # per 1M
     COMPLETION_PRICE = Decimal('10')  # per 1M
 
@@ -18,7 +17,12 @@ class OpenAI4oStrategy:
             cost_usd=total_cost
         )
 
-class OpenAI4oMiniStrategy(OpenAI4oStrategy):
+class OpenAI4oStrategy(OpenAIModelStrategy):
+    NAME = 'ChatGPT 4o'
+    PROMPT_PRICE = Decimal('2.5')  # per 1M
+    COMPLETION_PRICE = Decimal('10')  # per 1M
+
+class OpenAI4oMiniStrategy(OpenAIModelStrategy):
     NAME = 'ChatGPT 4o-mini'
     PROMPT_PRICE = Decimal('0.15')  # per 1M
     COMPLETION_PRICE = Decimal('0.6')  # per 1M
