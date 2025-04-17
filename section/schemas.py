@@ -35,6 +35,8 @@ class SectionReceiptSchema(Schema):
 class SectionUserSchema(Schema):
     id: int
     username: Optional[str]
+    first_name: Optional[str]
+    last_name: Optional[str]
     currency: Optional[CurrencySchema]
     is_owner: bool
 

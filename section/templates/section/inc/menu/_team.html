@@ -8,7 +8,19 @@
                         <template x-if="person.is_owner">
                             <div>Владелец</div>
                         </template>
-                        <div><strong>Имя:</strong> <span x-text="person.username"></span></div>
+                        <div><strong>Имя: </strong>
+                            <span x-text="[person.first_name, person.last_name]
+                                  .filter(Boolean)
+                                  .join(' ')"
+                            ></span>
+                        </div>
+
+                        <template x-if="person.username">
+                            <div @click.prevent="
+                                window.Telegram.WebApp.openTelegramLink('https://t.me/' + person.username);
+                                window.Telegram.WebApp.close();">@<span  x-text="person.username"></span></div>
+                        </template>
+
                     </div>
                 </div>
                 <div class="photo">
