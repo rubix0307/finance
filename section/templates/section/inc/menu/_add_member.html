@@ -1,0 +1,39 @@
+<div class="main_block add"
+    x-data="{
+        meId: null,
+        ownerId: null,
+        startUrl: '',
+        init() {
+          this.updateLinkData()
+          this.$watch(
+            () => Alpine.store('appData').me.id,
+            () => this.updateLinkData()
+          )
+          this.$watch(
+            () => Alpine.store('appData').current_section,
+            () => this.updateLinkData()
+          )
+        },
+        updateLinkData() {
+          const store = Alpine.store('appData')
+          this.meId = store.me?.id ?? null
+
+          const section = store.current_section
+          this.ownerId = section?.users?.find(u => u.is_owner)?.id ?? null
+          if (this.meId && this.ownerId && this.meId === this.ownerId) {
+            this.startUrl =
+              `https://t.me/finance_lens_bot?start=${
+                base64urlEncode({ action: 'add_member', id: section.id })
+              }`
+          } else {
+            this.startUrl = ''
+          }
+        }
+      }"
+    x-show="meId && ownerId && meId === ownerId">
+
+    <a
+
+        :href="startUrl"
+    >Добавить участника</a>
+</div>

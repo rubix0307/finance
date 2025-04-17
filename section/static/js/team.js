@@ -10,3 +10,11 @@ function getSortedSectionUsers() {
         return a.id - b.id;
     });
 }
+
+function base64urlEncode(obj) {
+  const b64 = btoa(JSON.stringify(obj));
+  return b64
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+}
