@@ -12,6 +12,14 @@ from ninja.security import django_auth
 from .schemas import UserSchema, UserUpdateSchema
 
 router = Router()
+def fetch_image_bytes(url: str) -> tuple[bytes, str]:
+    resp = requests.get(url)
+    resp.raise_for_status()
+    data = resp.content
+
+    if data[:2] == b'\xff\xd8':
+        ext = 'jpg'
+        return data, ext
 
 @router.get("/me/", auth=django_auth, response=UserSchema)
 def get_me(request: WSGIRequest) -> UserSchema:
@@ -24,41 +32,23 @@ def update_me(
     **kwargs: dict[str, Any]
 ) -> UserSchema:
     user = request.user
-    try:
-        if data.photo:
-            resp = requests.get(data.photo)
-            resp.raise_for_status()
 
-            content_type = resp.headers.get('Content-Type', '')
-            if 'text/html' in content_type:
-                soup = BeautifulSoup(resp.text, 'html.parser')
-                img = soup.find('img')
-                if not img or not img.get('src'):
-                    raise ValueError("Не удалось найти <img> на странице Telegram")
-                image_url = img['src']
-                resp2 = requests.get(image_url)
-                resp2.raise_for_status()
-                image_bytes = resp2.content
-                ext = image_url.split('.')[-1].split('?')[0] or 'jpg'
-            else:
-                image_bytes = resp.content
-                ext = data.photo.split('.')[-1].split('?')[0] or 'jpg'
+    if data.photo:
+        image_bytes, ext = fetch_image_bytes(data.photo)
 
-            new_hash = hashlib.md5(image_bytes).hexdigest()
-            old_hash = None
-            if user.photo:
-                try:
-                    user.photo.open('rb')
-                    old_content = user.photo.read()
-                    user.photo.close()
-                    old_hash = hashlib.md5(old_content).hexdigest()
-                except Exception:
-                    old_hash = None
+        new_hash = hashlib.md5(image_bytes).hexdigest()
+        old_hash = None
+        if user.photo:
+            try:
+                user.photo.open('rb')
+                old_hash = hashlib.md5(user.photo.read()).hexdigest()
+                user.photo.close()
+            except Exception:
+                old_hash = None
 
-            if new_hash != old_hash:
-                filename = f"{uuid4()}.{ext}"
-                user.photo.save(filename, ContentFile(image_bytes), save=False)
+        if new_hash != old_hash:
+            filename = f"{uuid4()}.{ext}"
+            user.photo.save(filename, ContentFile(image_bytes), save=False)
 
-        user.save()
-    finally:
-        return user
+    user.save()
+    return user
