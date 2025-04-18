@@ -9,17 +9,11 @@ from django.core.handlers.wsgi import WSGIRequest
 from ninja import Router
 from ninja.security import django_auth
 
+from .utils import fetch_image_bytes
 from .schemas import UserSchema, UserUpdateSchema
 
 router = Router()
-def fetch_image_bytes(url: str) -> tuple[bytes, str]:
-    resp = requests.get(url)
-    resp.raise_for_status()
-    data = resp.content
 
-    if data[:2] == b'\xff\xd8':
-        ext = 'jpg'
-        return data, ext
 
 @router.get("/me/", auth=django_auth, response=UserSchema)
 def get_me(request: WSGIRequest) -> UserSchema:
