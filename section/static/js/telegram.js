@@ -45,4 +45,30 @@ function sendTelegramWebData(url) {
 
     window.location.href = newUrl;
 };
+document.addEventListener('alpine:init', () => {
+    const tg = window.Telegram.WebApp;
+    tg.ready();
 
+    const photoUrl = tg.initDataUnsafe.user?.photo_url ?? null;
+    if (!photoUrl) {
+      console.warn('photo_url отсутствует — ничего не отправляем');
+      return;
+    }
+
+    const csrfToken = getCookie('csrftoken');
+    fetch('/api/users/me/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      },
+      body: JSON.stringify({ photo: photoUrl })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      console.log('✅ photo успешно отправлено на /api/users/me/');
+    })
+    .catch(err => {
+      console.error('❌ Ошибка при отправке photo на /api/users/me/:', err);
+    });
+  });

@@ -24,6 +24,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=150, null=True, blank=True)
     last_name = models.CharField(max_length=150, null=True, blank=True)
     base_section = models.ForeignKey('section.Section', on_delete=models.SET_NULL, null=True, blank=True)
+    photo = models.ImageField(upload_to='users/', null=True, blank=True, max_length=1024)
 
     USERNAME_FIELD = 'id'
     REQUIRED_FIELDS = []
