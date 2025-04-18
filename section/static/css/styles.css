@@ -37,6 +37,12 @@
     --default_block_box_shadow: var(--default_block_box_shadow_params) rgba(0, 0, 0, 0.15);
 
 }
+svg {
+    fill: var(--main_text_color);
+    & g {
+        fill: var(--main_text_color);
+    }
+}
 
 .dark {
     --header_text_color: #000000;
