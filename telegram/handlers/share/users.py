@@ -48,7 +48,7 @@ def handle_user_shared(message: Message) -> None:
         logger.debug(f'Section {message.users_shared.request_id} does not exist')
         return
 
-    section.add_members([
+    section.add_members([user for user, created in [
         get_or_create_user(
             user_id=user_data.user_id,
             username=user_data.username,
@@ -56,7 +56,7 @@ def handle_user_shared(message: Message) -> None:
             last_name=user_data.last_name,
         )
         for user_data in message.users_shared.users
-    ])
+    ]])
 
     bot.send_message(message.chat.id, f'Пользователи добавлены', reply_markup=types.ReplyKeyboardRemove())
     logger.debug(f'Members added to section {message.users_shared.request_id}')

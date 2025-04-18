@@ -46,7 +46,8 @@ def check_webapp_signature(init_data: str) -> tuple[bool, Optional[int]]:
     return result, user_id
 
 
-def get_or_create_user(user_id: int, **kwargs: dict[str, Any]) -> User:
+def get_or_create_user(user_id: int, **kwargs: dict[str, Any]) -> tuple[User, bool]:
+    created = False
     try:
         logger.debug(f'get user {user_id}')
         user = User.objects.get(id=user_id)
@@ -58,6 +59,7 @@ def get_or_create_user(user_id: int, **kwargs: dict[str, Any]) -> User:
                 **kwargs,
             )
             user.save(is_new=True)
+            created = True
             logger.info(f'Create new user {user}')
         except Exception as ex:
             logger.error(f'failed to create new user {user_id} {ex=}')
@@ -66,4 +68,4 @@ def get_or_create_user(user_id: int, **kwargs: dict[str, Any]) -> User:
             )
             user.save(is_new=True)
 
-    return user
+    return user, created

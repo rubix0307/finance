@@ -18,7 +18,7 @@ def authenticate_web_app(request: WSGIRequest) -> HttpResponseRedirect:
     init_data = request.GET.get('init_data', '')
     is_valid, user_id = check_webapp_signature(init_data)
     if is_valid and user_id:
-        user = get_or_create_user(user_id=user_id)
+        user, created = get_or_create_user(user_id=user_id)
         login(request, user)
         return redirect('index')
     return redirect('403')
