@@ -40,6 +40,7 @@ def get_sections(request: WSGIRequest) -> list[SectionSchema]:
                     username=member.user.username,
                     first_name=member.user.first_name,
                     last_name=member.user.last_name,
+                    photo=member.user.photo,
                     currency=CurrencySchema(
                         code=member.currency.code
                     ),

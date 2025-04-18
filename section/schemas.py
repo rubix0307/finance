@@ -37,6 +37,7 @@ class SectionUserSchema(Schema):
     username: Optional[str]
     first_name: Optional[str]
     last_name: Optional[str]
+    photo: Optional[str]
     currency: Optional[CurrencySchema]
     is_owner: bool
 
