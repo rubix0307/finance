@@ -119,6 +119,13 @@ header {
     padding-bottom: 10px;
     position: relative;
 
+    svg {
+        fill: black;
+        & g {
+            fill: black;
+        }
+    }
+
     & .icon {
         display: flex;
         justify-content: center;
