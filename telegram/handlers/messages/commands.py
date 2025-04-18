@@ -6,6 +6,9 @@ from telegram.handlers.share.users import send_user_share
 from telegram.handlers.utils import user_required, parse_start_param
 
 
+def start_messages(message: Message, **kwargs: dict[str, Any]) -> None:
+    ...
+
 
 def default_start(message: Message) -> None:
     me = bot.get_me()
@@ -19,6 +22,8 @@ def default_start(message: Message) -> None:
 @parse_start_param
 @user_required
 def start(message: Message, params: dict[str, str | int], **kwargs: dict[str, Any]) -> None:
+    if kwargs.get('user_created'):
+        start_messages(message)
 
     try:
         match params.get('action'):
