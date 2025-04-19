@@ -1220,11 +1220,10 @@ input[type="checkbox"] {
             background-color: var(--block_bg);
 
             & svg {
-                width: 25px;
-                height: 25px;
+                width: 10px;
+                height: 10px;
             }
         }
-
     }
 }
 
