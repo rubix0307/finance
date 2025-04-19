@@ -2,7 +2,7 @@ from datetime import date
 from typing import cast, Any
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator
-from django.db import connection
+from django.db import connection, transaction
 from django.db.models import Prefetch
 from django.http import HttpResponse
 from ninja import Router
@@ -128,16 +128,34 @@ def delete_section_member(
     member_pk: int,
     **kwargs: dict[str, Any]
 ) -> HttpResponse:
+    user = request.user
     section: Section = cast(Section, kwargs.get('section'))
 
-    if request.user != section.owner and request.user.pk == member_pk:
+    try:
+        member = User.objects.get(pk=member_pk)
+    except User.DoesNotExist:
+        raise HttpError(403, 'User not found')
+
+
+    if user != section.owner and user.pk == member.pk:
         ...
-    elif request.user == section.owner and request.user.pk != member_pk:
+    elif user == section.owner and user.pk != member.pk:
         ...
     else:
         raise HttpError(403, 'Member editing is forbidden for you')
 
-    section.memberships.filter(user_id=member_pk).delete()
+    if section.id == member.base_section.id:
+        try:
+            with transaction.atomic():
+                section.memberships.filter(user_id=member_pk).delete()
+                new_base_section = member.sections.order_by('id').first()
+                user.base_section = new_base_section
+                user.save()
+        except Exception as ex:
+            raise HttpError(500, 'Failed to delete base section')
+    else:
+        section.memberships.filter(user_id=member_pk).delete()
+
     return HttpResponse(status=200)
 
 @router.get("/{section_pk}/receipts/", response=ReceiptPaginationSchema)
