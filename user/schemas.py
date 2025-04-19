@@ -1,3 +1,5 @@
+from typing import Optional
+
 from ninja import Router, Schema
 
 class UserSchema(Schema):
@@ -7,4 +9,5 @@ class UserSchema(Schema):
     base_section: int | None
 
 class UserUpdateSchema(Schema):
-    base_section: int | None
+    photo: Optional[str] = None
+    base_section: Optional[int] = None

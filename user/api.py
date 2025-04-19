@@ -34,7 +34,7 @@ def update_me(
 ) -> UserSchema:
     user = request.user
 
-    if False and data.photo:
+    if data.photo:
         image_bytes, ext = fetch_image_bytes(data.photo)
 
         new_hash = hashlib.md5(image_bytes).hexdigest()
