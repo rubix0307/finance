@@ -83,3 +83,17 @@ class User(AbstractUser):
         ).distinct()
 
         return sections
+
+
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='feedbacks')
+    message = models.TextField(max_length=1000)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+class FeedbackReply(models.Model):
+    feedback = models.ForeignKey(Feedback, on_delete=models.CASCADE, related_name='replies')
+    message = models.TextField(max_length=1000)
+    message_id = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_sent = models.BooleanField(default=False)
+    sent_at = models.DateTimeField(blank=True, null=True)

@@ -1,0 +1,14 @@
+<form method="post" class="feedback" action="{% url 'feedback' %}">
+    <div class="caption">Форма обратной связи</div>
+    {% csrf_token %}
+    <div class="form-group">
+        <textarea name="message"
+                  cols="40"
+                  rows="5"
+                  maxlength="1000"
+                  required=""
+                  placeholder="Сообщение"
+        ></textarea>
+    </div>
+    <button type="submit">Отправить</button>
+</form>

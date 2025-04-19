@@ -25,6 +25,7 @@ from currency.api import router as currency_router
 from section.api import router as section_router
 from user.api import router as user_router
 from receipt.views import upload_receipts
+from user.views import feedback_view
 
 api = NinjaAPI()
 api.add_router('/currencies/', currency_router)
@@ -38,6 +39,7 @@ urlpatterns = [
     path('upload/', upload_receipts, name='upload_receipts'),
     path('api/', api.urls),
     path('telegram/', include('telegram.urls')),
+    path('feedback/', feedback_view, name='feedback'),
     path('403/', permission_denied_view, name='403'),
 ]
 

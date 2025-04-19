@@ -1239,4 +1239,44 @@ input[type="checkbox"] {
         }
     }
 }
+form.feedback {
+    background-color: var(--block_bg);
+    display: flex;
+    flex-direction: column;
+    margin: 0 var(--default_block_margin_LR) var(--default_block_margin_bottom) var(--default_block_margin_LR);
+    box-shadow: var(--default_block_box_shadow);
+    border-radius: var(--default_block_border_radius);
+    padding-top: 10px;
+    & .caption {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: var(--default_block_margin_bottom);
+    }
+    & label {
+        padding: 10px;
+    }
 
+    & textarea {
+        color: var(--main_text_color);
+        background-color: transparent;
+        width: calc(100% - 10px * 2);
+        margin: 0;
+        padding: 10px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+    }
+
+    & button[type='submit'] {
+        background-color: var(--main_purple);
+        border: none;
+        outline: none;
+        padding: 10px;
+        border-radius: 0 0 var(--default_block_border_radius) var(--default_block_border_radius);
+        color: var(--main_text_color);
+        text-transform: uppercase;
+        font-size: 13px;
+    }
+}
