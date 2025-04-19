@@ -1,0 +1,13 @@
+<div x-data="{ id: $id('accordion') }" class="group">
+    <button @click="setActiveAccordion(id)">
+        <span>{{ faq_caption }}</span>
+        <span class="svg fleep" :class="{ 'fleep180x': activeAccordion==id }">
+            {% include 'svg/arrow_down.svg' %}
+        </span>
+    </button>
+    <div x-show="activeAccordion==id" x-collapse x-cloak>
+        <div class="description">
+            {{ faq_description }}
+        </div>
+    </div>
+</div>
