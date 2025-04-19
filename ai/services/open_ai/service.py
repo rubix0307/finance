@@ -85,6 +85,7 @@ class OpenAIService(BaseOpenAIMethods):
                         self.logger.log_usage(
                             prompt_tokens=run.usage.prompt_tokens,
                             completion_tokens=run.usage.completion_tokens,
+                            receipt=receipt,
                         )
 
                     response_message = self._get_response(run.thread_id)
