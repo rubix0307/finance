@@ -26,6 +26,7 @@
                         <template x-if="(meId === ownerId && person.id !== ownerId) || (meId !== ownerId && meId === person.id)">
                             <div class="delete"
                                  @click="handleDelete(person.id)"
+                                 x-on:click.stop.outside="confirmationId = null"
                                  x-text="confirmationId === person.id ? 'Подтверждаю удаление' : 'Удалить'"
                             >
                                 Удалить
