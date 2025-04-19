@@ -1,36 +1,7 @@
 {% load static %}
-<div class="team"
-     x-data="{
-       meId: null,
-       ownerId: null,
-       init() {
-         this.updateIds()
-         this.$watch(
-           () => Alpine.store('appData').me.id,
-           () => this.updateIds()
-         )
-         this.$watch(
-           () => Alpine.store('appData').current_section,
-           () => this.updateIds()
-         )
-       },
-       updateIds() {
-         const store   = Alpine.store('appData')
-         this.meId     = store.me?.id ?? null
-         const section = store.current_section
-         this.ownerId  = section?.users?.find(u => u.is_owner)?.id ?? null
-       },
-       async deleteUser(personId) {
-        const store     = Alpine.store('appData');
-        const sectionId = store.current_section.id;
 
-        try {
-          await window.deleteMembership(sectionId, personId);
-        } catch (err) {
-          console.error('Ошибка удаления пользователя:', err);
-        }
-      }
-     }"
+<div class="team"
+     x-data="teamComponent"
      x-init="init()"
 >
     <template x-for="person in getSortedSectionUsers" :key="person.id">
@@ -54,9 +25,11 @@
                                 window.Telegram.WebApp.close();">@<span  x-text="person.username"></span></div>
                         </template>
 
-                        <template x-if="
-                            (meId === ownerId && person.id !== ownerId) || (meId !== ownerId && meId === person.id)">
-                            <div class="delete" @click="deleteUser(person.id)">
+                        <template x-if="(meId === ownerId && person.id !== ownerId) || (meId !== ownerId && meId === person.id)">
+                            <div class="delete"
+                                 @click="handleDelete(person.id)"
+                                 x-text="confirmationId === person.id ? 'Подтверждаю удаление' : 'Удалить'"
+                            >
                                 Удалить
                             </div>
                         </template>
