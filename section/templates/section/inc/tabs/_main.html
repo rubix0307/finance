@@ -1,32 +1,34 @@
-<div x-data="{ appData: Alpine.store('appData'), feed: Alpine.store('receipts_feed') }"
-     x-show="
-        $store.tabs.tab === 'main' &&
-        appData.current_section &&
-        feed.sections[appData.current_section?.id] &&
-        feed.getCurrentPageItems().length > 0 &&
-        !feed.sections[appData.current_section?.id].loading
-     "
-     class="tab"
-     style="display: none;"
->
-    {% include 'section/inc/main/_periods.html' %}
-    {% include 'section/inc/main/_expenses.html' %}
-    {% include 'section/inc/main/_chart.html' %}
-    {% include 'section/inc/main/feed/_feed.html' %}
-</div>
+<div x-data x-show="$store.tabs.tab === 'main'">
+    <div x-data="{ appData: Alpine.store('appData'), feed: Alpine.store('receipts_feed') }"
+         x-show="
+            appData.current_section &&
+            feed.sections[appData.current_section?.id] &&
+            feed.getCurrentPageItems().length > 0 &&
+            !feed.sections[appData.current_section?.id].loading
+         "
+         class="tab"
+         style="display: none;"
+    >
+        {% include 'section/inc/main/_periods.html' %}
+        {% include 'section/inc/main/_expenses.html' %}
+        {% include 'section/inc/main/_chart.html' %}
+        {% include 'section/inc/main/feed/_feed.html' %}
+    </div>
 
-<div x-data="{ appData: Alpine.store('appData'), feed: Alpine.store('receipts_feed') }"
-     x-show="
-        $store.tabs.tab === 'main' &&
-        appData.current_section &&
-        feed.sections[appData.current_section?.id] &&
-        feed.getCurrentPageItems().length === 0 &&
-        !feed.sections[appData.current_section?.id].loading
-     "
-     class="tab"
-     style="display: none;"
->
-    {% include 'section/no_data.html' %}
+    <div x-data="{ appData: Alpine.store('appData'), feed: Alpine.store('receipts_feed') }"
+         x-show="
+            appData.current_section &&
+            feed.sections[appData.current_section?.id] &&
+            feed.getCurrentPageItems().length === 0 &&
+            !feed.sections[appData.current_section?.id].loading
+         "
+         class="tab"
+         style="display: none;"
+    >
+        {% include 'section/no_data.html' %}
+
+    </div>
+
+    {% include 'section/inc/_loading.html' %}
 
 </div>
-{% include 'section/inc/_loading.html' %}
