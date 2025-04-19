@@ -54,6 +54,7 @@ svg {
     --main_text_color: #ffffff;
     --main_text_color_active: black;
     --default_block_box_shadow: var(--default_block_box_shadow_params) rgba(0, 0, 0, 0.15);
+    --main_link_color: #3abee7;
 }
 
 html, body {
