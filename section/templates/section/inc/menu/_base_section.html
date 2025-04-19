@@ -1,6 +1,55 @@
-<div class="main_block base_section">
+<div class="main_block base_section"
+     x-data="baseSectionToggle()">
     <label>
         По умолчанию
-        <input type="checkbox">
+        <input
+            type="checkbox"
+            :checked="isBase"
+            :disabled="isBase"
+            @change="toggleBaseSection"
+        >
     </label>
 </div>
+
+<script>
+    function baseSectionToggle() {
+        return {
+            get isBase() {
+                return Alpine.store('appData').me.base_section === Alpine.store('appData').current_section.id;
+            },
+            async toggleBaseSection(event) {
+                if (event.target.checked && !this.isBase) {
+                    const csrfToken = getCookie('csrftoken');
+                    const currentSectionId = Alpine.store('appData').current_section.id;
+
+                    try {
+                        const response = await fetch('/api/users/me/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': csrfToken,
+                            },
+                            body: JSON.stringify({
+                                base_section: currentSectionId
+                            })
+                        });
+
+                        if (!response.ok) {
+                            console.error('Ошибка при отправке запроса');
+                            event.target.checked = false;
+                            return;
+                        }
+
+                        const updatedMe = await response.json();
+                        Object.assign(Alpine.store('appData').me, updatedMe);
+
+                    } catch (error) {
+                        console.error('Ошибка сети:', error);
+                        event.target.checked = false;
+                    }
+                }
+            }
+        };
+    }
+
+</script>

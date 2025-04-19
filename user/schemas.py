@@ -4,6 +4,7 @@ class UserSchema(Schema):
     id: int
     username: str | None
     photo: str | None
+    base_section: int | None
 
 class UserUpdateSchema(Schema):
-    photo: str
+    base_section: int | None

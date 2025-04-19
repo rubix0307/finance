@@ -9,6 +9,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from ninja import Router
 from ninja.security import django_auth
 
+from section.models import Section
 from .utils import fetch_image_bytes
 from .schemas import UserSchema, UserUpdateSchema
 
@@ -17,7 +18,13 @@ router = Router()
 
 @router.get("/me/", auth=django_auth, response=UserSchema)
 def get_me(request: WSGIRequest) -> UserSchema:
-    return request.user
+    user = request.user
+    return UserSchema(
+        id=user.id,
+        username=user.username,
+        photo=user.photo,
+        base_section=user.base_section.id,
+    )
 
 @router.post("/me/", response=UserSchema)
 def update_me(
@@ -27,7 +34,7 @@ def update_me(
 ) -> UserSchema:
     user = request.user
 
-    if data.photo:
+    if False and data.photo:
         image_bytes, ext = fetch_image_bytes(data.photo)
 
         new_hash = hashlib.md5(image_bytes).hexdigest()
@@ -44,5 +51,19 @@ def update_me(
             filename = f"{uuid4()}.{ext}"
             user.photo.save(filename, ContentFile(image_bytes), save=False)
 
+    if data.base_section:
+        if isinstance(data.base_section, int):
+            try:
+                new_base_section = Section.objects.get(id=data.base_section)
+                if new_base_section.memberships.filter(user=user).exists():
+                    user.base_section = new_base_section
+            except (Section.DoesNotExist, Exception):
+                ...
+
     user.save()
-    return user
+    return UserSchema(
+        id=user.id,
+        username=user.username,
+        photo=user.photo,
+        base_section=user.base_section.id,
+    )

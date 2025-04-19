@@ -37,11 +37,11 @@ document.addEventListener('alpine:init', () => {
 
                 if (sectionsResponse.ok) {
                     this.sections = await sectionsResponse.json();
-                    this.current_section = this.sections.find(s => s.is_base) || null;
                 }
 
                 if (userResponse.ok) {
                     this.me = await userResponse.json();
+                    this.current_section = this.sections.find(s => s.id == this.me.base_section) || null;
                 }
             } catch (err) {
                 console.error('Ошибка при загрузке данных:', err);
