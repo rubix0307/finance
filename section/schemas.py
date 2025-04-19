@@ -52,6 +52,9 @@ class SectionMemberMiniSchema(Schema):
     id: int
     currency: CurrencySchema
 
+class SectionMemberDeleteSchema(Schema):
+    status: int
+
 class SectionMiniSchema(Schema):
     id: int
     name: str

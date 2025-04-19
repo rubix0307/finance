@@ -3,10 +3,12 @@ from typing import cast, Any
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator
 from django.db import connection
+from django.http import HttpResponse
 from ninja import Router
 from ninja.errors import HttpError
 from ninja.security import django_auth
 
+import section
 from currency.models import Currency
 from currency.schemas import CurrencySchema
 from chart.api import router as charts_router
@@ -115,6 +117,26 @@ def update_section_member(
         id=member.user.id,
         currency=CurrencySchema(code=member.currency.code),
     )
+
+@router.post("/{section_pk}/memberships/{member_pk}/delete")
+@SectionRequired
+def delete_section_member(
+    request: WSGIRequest,
+    section_pk: int,
+    member_pk: int,
+    **kwargs: dict[str, Any]
+) -> HttpResponse:
+    section: Section = cast(Section, kwargs.get('section'))
+
+    if request.user != section.owner and request.user.pk == member_pk:
+        ...
+    elif request.user == section.owner and request.user.pk != member_pk:
+        ...
+    else:
+        raise HttpError(403, 'Member editing is forbidden for you')
+
+    section.memberships.filter(user_id=member_pk).delete()
+    return HttpResponse(status=200)
 
 @router.get("/{section_pk}/receipts/", response=ReceiptPaginationSchema)
 @SectionRequired

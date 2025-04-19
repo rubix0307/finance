@@ -18,3 +18,37 @@ function base64urlEncode(obj) {
     .replace(/\//g, '_')
     .replace(/=+$/, '');
 }
+
+window.deleteMembership = async function(sectionId, personId) {
+  const url       = `/api/sections/${sectionId}/memberships/${personId}/delete`;
+  const csrfToken = getCookie('csrftoken');
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Не удалось удалить пользователя на сервере');
+  }
+
+  const store = Alpine.store('appData');
+
+  store.current_section.users = store.current_section.users
+    .filter(u => u.id !== personId);
+
+  store.sections = store.sections.map(s => {
+    if (s.id === sectionId) {
+      return {
+        ...s,
+        users: s.users.filter(u => u.id !== personId)
+      };
+    }
+    return s;
+  });
+
+  return result;
+};

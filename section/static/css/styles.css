@@ -5,6 +5,7 @@
     --main_green: #4cd964;
     --main_btn_bg_color: #ECECEC;
     --main_btn_active_bg_color: #D9D9D9;
+    --main_red: #fe5d5d;
 
     --default_block_margin_bottom_int: 13;
     --default_block_margin_bottom: calc(var(--default_block_margin_bottom_int) * 1px);
@@ -509,10 +510,15 @@ header {
                     }
 
                     & .dismiss {
-                        background-color: #fe5d5d;
+                        background-color: var(--main_red);
                     }
 
                 }
+            }
+            & .delete {
+                display: flex;
+                color: var(--main_red);
+                margin-top: 10px;
             }
 
         }
