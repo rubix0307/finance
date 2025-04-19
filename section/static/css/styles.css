@@ -1180,6 +1180,7 @@ input[type="checkbox"] {
     overflow: hidden;
     background-color: var(--second_block_bg);
     color: var(--main_text_color);
+    box-shadow: var(--default_block_box_shadow);
 
     & .group {
         border: 1px #ff000000 solid;
