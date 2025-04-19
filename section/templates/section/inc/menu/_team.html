@@ -10,17 +10,15 @@
                 <div class="data">
                     <div class="row">
                         <template x-if="person.is_owner">
-                            <div>Владелец</div>
+                            <div class="owner">Владелец</div>
                         </template>
-                        <div><strong>Имя: </strong>
-                            <span x-text="[person.first_name, person.last_name]
+                        <div class="name" x-text="[person.first_name, person.last_name]
                                   .filter(Boolean)
-                                  .join(' ')"
-                            ></span>
+                                  .join(' ')">
                         </div>
 
                         <template x-if="person.username">
-                            <div @click.prevent="
+                            <div class="username" @click.prevent="
                                 window.Telegram.WebApp.openTelegramLink('https://t.me/' + person.username);
                                 window.Telegram.WebApp.close();">@<span  x-text="person.username"></span></div>
                         </template>

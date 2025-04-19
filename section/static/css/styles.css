@@ -34,7 +34,7 @@
     --receipt_item_bg_color: var(--second_block_bg);
     --main_text_color: black;
     --main_text_color_active: black;
-
+    --main_link_color: #246478;
     --default_block_box_shadow: var(--default_block_box_shadow_params) rgba(0, 0, 0, 0.15);
 
 }
@@ -97,7 +97,9 @@ body::after {
     background: var(--main_purple);
     z-index: 99;
 }
-
+a {
+    color: var(--main_link_color);
+}
 main {
 }
 
@@ -519,6 +521,12 @@ header {
                 display: flex;
                 color: var(--main_red);
                 margin-top: 10px;
+            }
+            & .owner {
+                font-weight: bold;
+            }
+            & .username {
+                color: var(--main_link_color);
             }
 
         }
