@@ -1,5 +1,5 @@
 {% load static %}
-<div id="NoData" class="no_data">
+<div x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)" id="NoData" class="no_data" x-show="show" x-transition.duration.700ms>
     <div class="receipt_in_hand">
         <div class="receipt">
             <img src="{% static 'img/receipt.png' %}" alt="">
