@@ -816,7 +816,7 @@ input[type="checkbox"] {
                 left: 1px;
                 width: 141.42%;
                 height: 2px;
-                background: black;
+                background: var(--main_text_color);
                 transform: rotate(45deg);
                 transform-origin: left;
                 transition: width 0.5s;
