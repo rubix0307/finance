@@ -192,6 +192,18 @@ header {
 }
 
 .main_block {
+    &.base_section {
+        padding-top: 3px;
+        padding-bottom: 3px;
+        padding-right: 3px;
+        align-items: center;
+        & label{
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
     & .over_block {
         margin: 0;
     }
