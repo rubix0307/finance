@@ -3,6 +3,7 @@ from typing import cast, Any
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator
 from django.db import connection
+from django.db.models import Prefetch
 from django.http import HttpResponse
 from ninja import Router
 from ninja.errors import HttpError
@@ -12,6 +13,7 @@ import section
 from currency.models import Currency
 from currency.schemas import CurrencySchema
 from chart.api import router as charts_router
+from receipt.models import ReceiptItem
 from user.models import User
 from .decorators import SectionRequired
 from .models import Section, SectionUser
@@ -149,14 +151,22 @@ def get_section_receipts(
     ) -> ReceiptPaginationSchema:
     section = Section.objects.get(pk=section_pk)
 
-    if not (section.users.filter(pk=request.user.pk).exists() or section.owner == request.user):
-        raise HttpError(403, "Доступ запрещён")
-
     if size > 50:
         size = 50
 
-    paginator = Paginator(section.receipts.filter(is_processed=True).order_by('-date'), size)
-
+    receipts_qs = (
+        section.receipts
+        .filter(is_processed=True)
+        .select_related("currency", "shop")
+        .prefetch_related(
+            Prefetch(
+                "items",
+                queryset=ReceiptItem.objects.select_related("category")
+            )
+        )
+        .order_by("-date")
+    )
+    paginator = Paginator(receipts_qs, size)
 
     try:
         current_page = paginator.page(page)
