@@ -374,6 +374,8 @@ header {
     }
 
     &.language {
+        display: flex;
+        align-items: center;
         & .form-group {
             display: flex;
             justify-content: space-between;
@@ -384,6 +386,8 @@ header {
                 border: none;
                 outline: none;
                 font-size: 15px;
+                background-color: transparent;
+                color: var(--main_text_color);
             }
         }
     }
