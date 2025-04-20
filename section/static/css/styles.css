@@ -397,6 +397,7 @@ header {
                     font-size: 15px;
                     background-color: transparent;
                     color: var(--main_text_color);
+                    text-align: right;
                     &::-ms-expand {
                         display: none;
                     }
