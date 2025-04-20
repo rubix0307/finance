@@ -1,28 +1,5 @@
 <div x-show="$store.tabs.tab === 'account'" style="display: none;" class="tab">
+    {% include 'section/inc/account/language.html' %}
     {% include 'user/feedback_form.html' %}
     {% include 'section/inc/faq/_faq.html' %}
-
-
-    {% load i18n %}
-    <form action="{% url 'set_language' %}" method="post" style="display: inline;">
-        {% csrf_token %}
-        {% get_current_language as LANGUAGE_CODE %}
-        {% get_available_languages as LANGUAGES %}
-        {% get_language_info_list for LANGUAGES as langs %}
-
-        <label for="language_select">{% trans "Language" %}:</label>
-        <select
-                name="language"
-                id="language_select"
-                onchange="this.form.submit()"
-        >
-            {% for lang in langs %}
-                <option value="{{ lang.code }}" {% if lang.code == LANGUAGE_CODE %}selected{% endif %}>
-                    {{ lang.name_local }} ({{ lang.code }})
-                </option>
-            {% endfor %}
-        </select>
-
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-    </form>
 </div>

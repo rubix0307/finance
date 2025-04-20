@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-20 22:46+0200\n"
+"POT-Creation-Date: 2025-04-21 00:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,15 +20,15 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: chart/api.py:125
+#: chart/api.py:124
 msgid "Week"
 msgstr "Неделя"
 
-#: chart/api.py:126
+#: chart/api.py:125
 msgid "Month"
 msgstr "Месяц"
 
-#: chart/api.py:127
+#: chart/api.py:126
 msgid "Year"
 msgstr "Год"
 
@@ -36,7 +36,7 @@ msgstr "Год"
 #: section/templates/section/inc/menu/_currency.html:98
 #: section/templates/section/inc/menu/_section_name.html:21
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: section/templates/section/inc/main/_expenses.html:19
 #: section/templates/section/inc/main/feed/_header.html:17
@@ -45,56 +45,56 @@ msgstr "Траты"
 
 #: section/templates/section/inc/main/feed/_receipts.html:30
 msgid "Total"
-msgstr ""
+msgstr "Всего"
 
 #: section/templates/section/inc/main/feed/_receipts_empty.html:4
 msgid "No available spending"
-msgstr ""
+msgstr "Нет доступных трат"
 
 #: section/templates/section/inc/menu/_add_member.html:41
 msgid "Add member"
-msgstr ""
+msgstr "Добавить участника"
 
 #: section/templates/section/inc/menu/_base_section.html:5
 msgid "Default"
-msgstr ""
+msgstr "По умолчанию"
 
 #: section/templates/section/inc/menu/_currency.html:54
 msgid "Currency"
-msgstr ""
+msgstr "Валюта"
 
 #: section/templates/section/inc/menu/_currency.html:66
 msgid "to display charts"
-msgstr ""
+msgstr "для отображения графиков"
 
 #: section/templates/section/inc/menu/_currency.html:73
 msgid "Code of currency"
-msgstr ""
+msgstr "Код валюты"
 
 #: section/templates/section/inc/menu/_header.html:4
 msgid "Rooms"
-msgstr ""
+msgstr "Комнаты"
 
 #: section/templates/section/inc/menu/_header.html:25
 msgid "Room"
-msgstr ""
+msgstr "Комната"
 
 #: section/templates/section/inc/menu/_section_name.html:4
 msgid "Name"
-msgstr ""
+msgstr "Название"
 
 #: section/templates/section/inc/menu/_team.html:14
 msgid "Owner"
-msgstr ""
+msgstr "Владелец"
 
 #: section/templates/section/inc/menu/_team.html:31
 msgid "Confirm"
-msgstr ""
+msgstr "Подтвердить"
 
 #: section/templates/section/inc/menu/_team.html:31
 #: section/templates/section/inc/menu/_team.html:33
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: section/templates/section/no_data.html:8
 msgid "Receipt"
@@ -117,3 +117,19 @@ msgstr ""
 #: section/templates/section/no_data.html:28
 msgid "Give it a try right now — it’s simple and even a bit fun!"
 msgstr "Попробуй прямо сейчас — это просто и даже немного интересно!"
+
+#: user/models.py:35
+msgid "Language"
+msgstr "Язык"
+
+#: user/templates/user/feedback_form.html:3
+msgid "Feedback"
+msgstr "Обратная связь"
+
+#: user/templates/user/feedback_form.html:11
+msgid "Message"
+msgstr "Сообщение"
+
+#: user/templates/user/feedback_form.html:14
+msgid "Send"
+msgstr "Отправить"

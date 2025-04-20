@@ -1,0 +1,7 @@
+<form method="post" class="main_block language" action="{% url 'set_language' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ language_form.language_code.label_tag }}
+        {{ language_form.language_code }}
+    </div>
+</form>

@@ -1,5 +1,6 @@
+{% load i18n %}
 <form method="post" class="feedback" action="{% url 'feedback' %}">
-    <div class="caption">Форма обратной связи</div>
+    <div class="caption">{% trans 'Feedback' %}</div>
     {% csrf_token %}
     <div class="form-group">
         <textarea name="message"
@@ -7,8 +8,8 @@
                   rows="5"
                   maxlength="1000"
                   required=""
-                  placeholder="Сообщение"
+                  placeholder="{% trans 'Message' %}"
         ></textarea>
     </div>
-    <button type="submit">Отправить</button>
+    <button type="submit">{% trans 'Send' %}</button>
 </form>

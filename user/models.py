@@ -1,6 +1,7 @@
 from typing import TypeVar, Any, cast, ClassVar
 
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.apps import apps
@@ -31,6 +32,7 @@ class User(AbstractUser):
         max_length=10,
         choices=settings.LANGUAGES,
         default=settings.LANGUAGE_CODE,
+        verbose_name=_('Language'),
     )
     USERNAME_FIELD = 'id'
     REQUIRED_FIELDS = []

@@ -372,6 +372,21 @@ header {
             color: var(--main_text_color);
         }
     }
+
+    &.language {
+        & .form-group {
+            display: flex;
+            justify-content: space-between;
+
+            & select {
+                display: flex;
+                align-items: center;
+                border: none;
+                outline: none;
+                font-size: 15px;
+            }
+        }
+    }
 }
 
 #chartjs-tooltip {

@@ -21,12 +21,12 @@ from django.contrib import admin
 from django.urls import URLPattern, path, include
 from ninja import NinjaAPI
 
-from config.views import permission_denied_view, set_language_custom
+from config.views import permission_denied_view
 from currency.api import router as currency_router
 from section.api import router as section_router
 from user.api import router as user_router
 from receipt.views import upload_receipts
-from user.views import feedback_view
+from user.views import feedback_view, user_language
 
 api = NinjaAPI()
 api.add_router('/currencies/', currency_router)
@@ -42,7 +42,7 @@ urlpatterns = [
     path('telegram/', include('telegram.urls')),
     path('feedback/', feedback_view, name='feedback'),
     path('403/', permission_denied_view, name='403'),
-    path('i18n/setlang/', set_language_custom, name='set_language'),
+    path('user/language/', user_language, name='set_language'),
 ]
 
 if settings.DEBUG:
