@@ -376,20 +376,38 @@ header {
     &.language {
         display: flex;
         align-items: center;
+
         & .form-group {
             width: 100%;
             display: flex;
             justify-content: space-between;
 
-            & select {
+            .row {
                 display: flex;
                 align-items: center;
-                border: none;
-                outline: none;
-                font-size: 15px;
-                background-color: transparent;
-                color: var(--main_text_color);
+
+                & select {
+                    appearance: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    display: flex;
+                    align-items: center;
+                    border: none;
+                    outline: none;
+                    font-size: 15px;
+                    background-color: transparent;
+                    color: var(--main_text_color);
+                    &::-ms-expand {
+                        display: none;
+                    }
+                }
+
+                & svg {
+                    width: 10px;
+                    height: 10px;
+                }
             }
+
         }
     }
 }

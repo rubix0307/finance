@@ -2,6 +2,9 @@
     {% csrf_token %}
     <div class="form-group">
         {{ language_form.language_code.label_tag }}
-        {{ language_form.language_code }}
+        <div class="row">
+            {{ language_form.language_code }}
+            {% include 'svg/arrow_down.svg' %}
+        </div>
     </div>
 </form>
