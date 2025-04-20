@@ -1,7 +1,8 @@
+{% load i18n %}
 <div class="main_block base_section"
      x-data="baseSectionToggle()">
     <label>
-        По умолчанию
+        {% trans 'Default' %}
         <input
             type="checkbox"
             :checked="isBase"

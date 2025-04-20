@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 
 <div class="team"
@@ -10,7 +11,7 @@
                 <div class="data">
                     <div class="row">
                         <template x-if="person.is_owner">
-                            <div class="owner">Владелец</div>
+                            <div class="owner">{% trans 'Owner' %}</div>
                         </template>
                         <div class="name" x-text="[person.first_name, person.last_name]
                                   .filter(Boolean)
@@ -27,9 +28,9 @@
                             <div class="delete"
                                  @click="handleDelete(person.id)"
                                  x-on:click.stop.outside="confirmationId = null"
-                                 x-text="confirmationId === person.id ? 'Подтверждаю удаление' : 'Удалить'"
+                                 x-text="confirmationId === person.id ? '{% trans 'Confirm' %}' : '{% trans 'Delete' %}'"
                             >
-                                Удалить
+                                {% trans 'Delete' %}
                             </div>
                         </template>
 

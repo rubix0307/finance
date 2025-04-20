@@ -1,6 +1,7 @@
+{% load i18n %}
 <div class="blocks" x-data="sectionInput()">
     <div class="main_block section_name">
-        <label for="section_name" class="title">Название: </label>
+        <label for="section_name" class="title">{% trans 'Name' %}: </label>
         <div class="input">
             <input
                 type="text"
@@ -17,7 +18,7 @@
         x-transition
         @click="saveSection"
     >
-        Сохранить
+        {% trans 'Save' %}
     </div>
 </div>
 

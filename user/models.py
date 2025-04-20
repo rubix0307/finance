@@ -1,4 +1,6 @@
 from typing import TypeVar, Any, cast, ClassVar
+
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.apps import apps
@@ -25,7 +27,11 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=150, null=True, blank=True)
     base_section = models.ForeignKey('section.Section', on_delete=models.SET_NULL, null=True, blank=True)
     photo = models.ImageField(upload_to='users/', null=True, blank=True, max_length=1024)
-
+    language_code = models.CharField(
+        max_length=10,
+        choices=settings.LANGUAGES,
+        default=settings.LANGUAGE_CODE,
+    )
     USERNAME_FIELD = 'id'
     REQUIRED_FIELDS = []
 

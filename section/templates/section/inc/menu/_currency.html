@@ -1,4 +1,4 @@
-<!-- Определяем функцию-компонент глобально -->
+{% load i18n %}
 <script>
   window.currencyUpdater = function() {
     return {
@@ -7,13 +7,11 @@
         const appData = Alpine.store('appData');
         const selectedCurrency = currencyStore.selectedCurrency;
         if (!selectedCurrency) {
-          alert('Выберите валюту');
           return;
         }
         const currentSection = appData.current_section;
         const me = appData.me;
         if (!currentSection || !me) {
-          alert('Нет текущей секции или данных пользователя');
           return;
         }
         const url = `/api/sections/${currentSection.id}/memberships/${me.id}/`;
@@ -36,7 +34,6 @@
               appData.current_section = { ...currentSection };
             }
           }
-          // Сбрасываем выбор после сохранения
           currencyStore.selectedCurrency = null;
         } catch (error) {
           console.error('Ошибка при сохранении валюты:', error);
@@ -46,9 +43,7 @@
   };
 </script>
 
-<!-- Шаблон -->
 <div class="blocks" x-data="currencyUpdater()">
-  <!-- Блок выбора валюты (store.currency уже инициализирован) -->
   <div
     x-data
     x-init="Alpine.store('currency').init()"
@@ -56,7 +51,7 @@
     :style="Alpine.store('currency').open ? 'padding-bottom: 5px;' : ''"
   >
     <div class="head" @click="Alpine.store('currency').currencyToggle()">
-      <div class="title">Валюта:</div>
+      <div class="title">{% trans 'Currency' %}:</div>
       <div class="name">
         <div x-text="Alpine.store('currency').getCurrentCurrency?.code || '—'"></div>
         <div class="arrow fleep" :class="{ 'fleep180x': Alpine.store('currency').open }">
@@ -68,14 +63,14 @@
     </div>
 
     <div x-show="Alpine.store('currency').open" class="choose" x-transition>
-      <div class="info">*для отображения графиков</div>
+      <div class="info">*{% trans 'to display charts' %}</div>
       <div class="search">
         <div class="id">{% include 'svg/search.svg' %}</div>
         <input
           type="search"
           inputmode="search"
           enterkeyhint="search"
-          placeholder="Название валюты"
+          placeholder="{% trans 'Code of currency' %}"
           x-model="Alpine.store('currency').query"
         >
       </div>
@@ -97,86 +92,82 @@
     </div>
   </div>
 
-  <!-- Кнопка "Сохранить" отображается только если выбрана другая валюта -->
   <div class="main_block save"
        x-show="Alpine.store('currency').selectedCurrency && Alpine.store('currency').selectedCurrency.code !== Alpine.store('currency').getCurrentCurrency?.code && Alpine.store('currency').open"
        @click="saveCurrency()">
-    Сохранить
+    {% trans 'Save' %}
   </div>
 </div>
-
-<script>
-  document.addEventListener('alpine:init', () => {
-    // Инициализация глобального хранилища appData.
-    // Если вы еще не определили его, например:
-    Alpine.store('appData', {
-      sections: [],
-      currencies: [],
-      current_section: null,
-      me: {},
-      // Другие методы и данные по необходимости
-    });
-
-    // store.currency – ваш код, приведённый ранее, с добавлением selectedCurrency:
-    Alpine.store('currency', {
-      open: false,
-      query: '',
-      isReady: false,
-      selectedCurrency: null,
-      init() {
-        Alpine.watch(() => Alpine.store('appData').currencies, (currencies) => {
-          if (currencies && currencies.length) {
-            this.isReady = true;
-            Alpine.watch(() => Alpine.store('appData').current_section, () => {
-              queueMicrotask(() => {
-                document.querySelector('[x-ref="currencyList"]')?.scrollTo({ top: 0, behavior: 'auto' });
-              });
-            });
-          }
-        });
-      },
-      currencyToggle() {
-        if (!this.isReady) return;
-        this.open = !this.open;
-        if (!this.open) this.query = '';
-        document.querySelector('[x-ref="currencyList"]')?.scrollTo({ top: 0, behavior: 'auto' });
-      },
-      setSelectedCurrency(currency) {
-        if (
-          (this.selectedCurrency && this.selectedCurrency.code === currency.code) ||
-          (this.getCurrentCurrency && this.getCurrentCurrency.code === currency.code)
-        ) {
-          this.selectedCurrency = null;
-        } else {
-          this.selectedCurrency = currency;
-        }
-      }
-    });
-
-    Object.defineProperty(Alpine.store('currency'), 'getCurrentCurrency', {
-      get() {
-        const currentSection = Alpine.store('appData').current_section;
-        const me = Alpine.store('appData').me;
-        const sectionMe = currentSection?.users.find(user => user.id === me.id);
-        return sectionMe?.currency || null;
-      }
-    });
-
-    Object.defineProperty(Alpine.store('currency'), 'getFilteredCurrencies', {
-      get() {
-        if (!Alpine.store('currency').isReady) return [];
-        const all = Alpine.store('appData').currencies || [];
-        const query = Alpine.store('currency').query.toLowerCase();
-        const current = Alpine.store('currency').getCurrentCurrency;
-        let filtered = all.filter(c =>
-          c.code.toLowerCase().includes(query) &&
-          (!current || c.code !== current.code)
-        );
-        if (current && current.code.toLowerCase().includes(query)) {
-          return [current, ...filtered];
-        }
-        return filtered;
-      }
-    });
-  });
-</script>
+{##}
+{#<script>#}
+{#  document.addEventListener('alpine:init', () => {#}
+{#    Alpine.store('appData', {#}
+{#      sections: [],#}
+{#      currencies: [],#}
+{#      current_section: null,#}
+{#      me: {},#}
+{##}
+{#    });#}
+{##}
+{#    Alpine.store('currency', {#}
+{#      open: false,#}
+{#      query: '',#}
+{#      isReady: false,#}
+{#      selectedCurrency: null,#}
+{#      init() {#}
+{#        Alpine.watch(() => Alpine.store('appData').currencies, (currencies) => {#}
+{#          if (currencies && currencies.length) {#}
+{#            this.isReady = true;#}
+{#            Alpine.watch(() => Alpine.store('appData').current_section, () => {#}
+{#              queueMicrotask(() => {#}
+{#                document.querySelector('[x-ref="currencyList"]')?.scrollTo({ top: 0, behavior: 'auto' });#}
+{#              });#}
+{#            });#}
+{#          }#}
+{#        });#}
+{#      },#}
+{#      currencyToggle() {#}
+{#        if (!this.isReady) return;#}
+{#        this.open = !this.open;#}
+{#        if (!this.open) this.query = '';#}
+{#        document.querySelector('[x-ref="currencyList"]')?.scrollTo({ top: 0, behavior: 'auto' });#}
+{#      },#}
+{#      setSelectedCurrency(currency) {#}
+{#        if (#}
+{#          (this.selectedCurrency && this.selectedCurrency.code === currency.code) ||#}
+{#          (this.getCurrentCurrency && this.getCurrentCurrency.code === currency.code)#}
+{#        ) {#}
+{#          this.selectedCurrency = null;#}
+{#        } else {#}
+{#          this.selectedCurrency = currency;#}
+{#        }#}
+{#      }#}
+{#    });#}
+{##}
+{#    Object.defineProperty(Alpine.store('currency'), 'getCurrentCurrency', {#}
+{#      get() {#}
+{#        const currentSection = Alpine.store('appData').current_section;#}
+{#        const me = Alpine.store('appData').me;#}
+{#        const sectionMe = currentSection?.users.find(user => user.id === me.id);#}
+{#        return sectionMe?.currency || null;#}
+{#      }#}
+{#    });#}
+{##}
+{#    Object.defineProperty(Alpine.store('currency'), 'getFilteredCurrencies', {#}
+{#      get() {#}
+{#        if (!Alpine.store('currency').isReady) return [];#}
+{#        const all = Alpine.store('appData').currencies || [];#}
+{#        const query = Alpine.store('currency').query.toLowerCase();#}
+{#        const current = Alpine.store('currency').getCurrentCurrency;#}
+{#        let filtered = all.filter(c =>#}
+{#          c.code.toLowerCase().includes(query) &&#}
+{#          (!current || c.code !== current.code)#}
+{#        );#}
+{#        if (current && current.code.toLowerCase().includes(query)) {#}
+{#          return [current, ...filtered];#}
+{#        }#}
+{#        return filtered;#}
+{#      }#}
+{#    });#}
+{#  });#}
+{#</script>#}

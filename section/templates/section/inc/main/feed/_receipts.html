@@ -1,3 +1,4 @@
+{% load i18n %}
 <template
         x-if="appData.current_section && feed.sections[appData.current_section?.id] && feed.getCurrentPageItems().length > 0">
     <template x-for="receipt in feed.getCurrentPageItems()" :key="receipt.id">
@@ -26,7 +27,7 @@
                     </template>
                     <li class="total">
                         <div class="col">
-                            <div class="name" x-text="'Всего '+ receipt.currency.code + ':'">Всего:</div>
+                            <div class="name" x-text="'{% trans 'Total' %} '+ receipt.currency.code + ':'">Всего:</div>
                         </div>
 
                         <div class="price total_value"
@@ -35,8 +36,9 @@
                     </li>
                 </ul>
             </div>
+            {% get_current_language as LANGUAGE_CODE %}
             <div x-show="receipt?.date"
-                 x-text="new Date(receipt.date).toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' })"
+                 x-text="new Date(receipt.date).toLocaleDateString('{{ LANGUAGE_CODE }}', { day: '2-digit', month: 'long', year: 'numeric' })"
                  class="date"></div>
         </div>
     </template>

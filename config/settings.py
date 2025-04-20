@@ -46,6 +46,8 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'user.middleware.UserLanguageMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -105,8 +107,16 @@ AUTH_USER_MODEL = 'user.User'
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
-USE_TZ = True
-
+USE_TZ   = True
+USE_L10N = True
+LANGUAGES = [
+    ('en', 'English'),
+    ('ru', 'Русский'),
+    ('es', 'Español'),
+]
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 
 # Static files
 STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')

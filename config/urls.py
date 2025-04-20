@@ -15,12 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 '''
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import URLPattern, path, include
 from ninja import NinjaAPI
 
-from config.views import permission_denied_view
+from config.views import permission_denied_view, set_language_custom
 from currency.api import router as currency_router
 from section.api import router as section_router
 from user.api import router as user_router
@@ -41,6 +42,7 @@ urlpatterns = [
     path('telegram/', include('telegram.urls')),
     path('feedback/', feedback_view, name='feedback'),
     path('403/', permission_denied_view, name='403'),
+    path('i18n/setlang/', set_language_custom, name='set_language'),
 ]
 
 if settings.DEBUG:

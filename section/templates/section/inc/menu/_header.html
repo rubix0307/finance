@@ -1,6 +1,7 @@
+{% load i18n %}
 <template x-if="Alpine.store('appData').sections.length > 1">
     <div class="main_block as_caption menu caption_block" style="border-radius: 0;">
-        <p>Комнаты</p>
+        <p>{% trans 'Rooms' %}</p>
         <div
             x-data="{ animate: false }"
             @click="
@@ -21,6 +22,6 @@
 
 <template x-if="Alpine.store('appData').sections.length === 1">
     <div class="main_block as_caption menu caption_block" style="border-radius: 0;">
-        <p>Комната</p>
+        <p>{% trans 'Room' %}</p>
     </div>
 </template>

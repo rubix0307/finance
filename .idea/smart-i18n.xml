@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectSettingsService">
+    <option name="alwaysFoldingTranslate" value="true" />
+    <option name="defaultLang" value="django" />
+    <option name="fileList" value="$PROJECT_DIR$/locale/ru/LC_MESSAGES/django.po" />
+  </component>
+</project>

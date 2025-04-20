@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="main_block expenses"
      x-data="{
        getExpenseNote() {
@@ -12,15 +13,14 @@
          }
        }
      }"
-    x-show="$store.charts.expensesData != null"
+     x-show="$store.charts.expensesData != null"
     >
   <div class="row">
-    <div class="title">Траты:</div>
+    <div class="title">{% trans 'Expenses' %}:</div>
     <div class="value"
          x-text="$store.charts.currency.code + ' ' + $store.charts.expensesData.value">
     </div>
   </div>
-  <div class="note"  x-show="$store.charts.expensesData.previous_value > 0 ">
-      <div x-text="getExpenseNote()"></div>
-  </div>
+{#  <div class="note"  x-show="$store.charts.expensesData.previous_value > 0 ">#}
+{#  </div>#}
 </div>

@@ -55,3 +55,7 @@ class ExpensesSchema(Schema):
     currency: CurrencySchema
     expenses_data: ExpensesDataSchema
     chart_data: ChartDataSchema
+
+class PeriodSchema(Schema):
+    label: str
+    value: str

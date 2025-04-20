@@ -1,7 +1,8 @@
-function waitForAppData() {
+async function waitForAppData() {
     try {
         const appData = Alpine.store('appData');
         if (appData && appData.current_section && appData.current_section.id) {
+            await Alpine.store('charts').fetchPeriods();
             Alpine.store('charts').initPieChartAndWatch();
         } else {
             setTimeout(waitForAppData, 100);
@@ -17,16 +18,25 @@ document.addEventListener('alpine:init', () => {
         prevSectionId: null,
         currentPeriod: '',
         currentChartType: 'pie',
-        periods: [
-            {label: 'Неделя', value: 'week'},
-            {label: 'Месяц', value: 'month'},
-            {label: 'Год', value: 'year'}
-        ],
+        periods: [],
         expensesData: {},
         currency: {},
         cache: {},
         setPeriod(newPeriod) {
             this.initPieChartAndWatch(newPeriod);
+        },
+        async fetchPeriods() {
+            try {
+                const res = await fetch('/api/sections/chart/periods/');
+                if (!res.ok) throw new Error(`Network error: ${res.status}`);
+                const data = await res.json();
+                this.periods = data;
+                if (!this.currentPeriod && data.length > 0) {
+                    this.currentPeriod = data[0].value;
+                }
+            } catch (err) {
+                console.error('Ошибка получения периодов:', err);
+            }
         },
         async fetchGraphData(sectionId, chartType, period) {
             const key = `${sectionId}-${chartType}-${period}`;

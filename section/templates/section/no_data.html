@@ -1,17 +1,32 @@
+{% load i18n %}
 {% load static %}
-<div x-data="{ show: false }" x-init="setTimeout(() => show = true, 400)" id="NoData" class="no_data" x-show="show" x-transition.duration.700ms>
+<div x-data="{ show: false }" x-init="setTimeout(() => show = true, 400)" id="NoData" class="no_data" x-show="show"
+     x-transition.duration.700ms>
     <div class="receipt_in_hand">
         <div class="receipt">
             <img src="{% static 'img/receipt.png' %}" alt="">
-            <div class="title">Чек</div>
+            <div class="title">{% trans 'Receipt' %}</div>
             <div class="footer">Finance Lens</div>
             <img src="{% static 'img/hand.png' %}" alt="" class="hand">
         </div>
     </div>
+
     <div class="text">
-        <p class="caption">👋 Привет! Пока что здесь пусто</p>
-        <p>Чтобы всё заработало, просто отправь фото чека в нашего Telegram-бота. Он быстро распознает покупки и покажет здесь красивые графики — сколько потратил, на что, и не только</p>
-        <p>Попробуй прямо сейчас — это просто и даже немного интересно!</p>
+        <p class="caption">
+            {% trans "👋 Hello! It’s empty here for now" %}
+        </p>
+
+        <p>
+            {% blocktrans trimmed %}
+                To get it up and running, just send a photo of your receipt to our Telegram bot.
+                It will quickly recognize your purchases and display beautiful charts here —
+                how much you spent, on what, and more.
+            {% endblocktrans %}
+        </p>
+
+        <p>
+            {% trans "Give it a try right now — it’s simple and even a bit fun!" %}
+        </p>
     </div>
 </div>
 

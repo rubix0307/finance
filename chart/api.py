@@ -1,7 +1,10 @@
 from typing import Any, Literal, cast, TypeAlias
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.utils import translation
+from django.utils.translation import gettext as _
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import connection
 from ninja import Router
@@ -11,7 +14,8 @@ from currency.schemas import CurrencySchema
 from section.decorators import SectionRequired
 from section.models import Section, SectionUser
 from user.models import User
-from .schemas import ChartPieSchema, ChartPieDataSchema, ExpensesSchema, ChartDataSchema, ExpensesDataSchema
+from .schemas import ChartPieSchema, ChartPieDataSchema, ExpensesSchema, ChartDataSchema, ExpensesDataSchema, \
+    PeriodSchema
 
 router = Router(tags=["Charts"])
 periods: TypeAlias = Literal['week', 'month', 'year']
@@ -113,3 +117,11 @@ def get_expenses(
         period=period,
         chart_type=chart_type,
     ).get_schema()
+
+@router.get("chart/periods/", response=list[PeriodSchema])
+def get_periods(request: WSGIRequest) -> list[PeriodSchema]:
+    return [
+        PeriodSchema(label=_("Week"),  value="week"),
+        PeriodSchema(label=_("Month"), value="month"),
+        PeriodSchema(label=_("Year"),  value="year"),
+    ]

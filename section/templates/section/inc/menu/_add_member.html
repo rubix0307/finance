@@ -1,5 +1,6 @@
+{% load i18n %}
 <div class="main_block add"
-    x-data="{
+     x-data="{
         meId: null,
         ownerId: null,
         startUrl: '',
@@ -30,12 +31,12 @@
           }
         }
       }"
-    x-show="meId && ownerId && meId === ownerId">
+     x-show="meId && ownerId && meId === ownerId">
 
     <a  href="#"
         @click.prevent="
         window.Telegram.WebApp.openTelegramLink(startUrl);
         window.Telegram.WebApp.close();
 "
-    >Добавить участника</a>
+    >{% trans 'Add member' %}</a>
 </div>
