@@ -421,13 +421,28 @@ header {
     color: #fff;
     border-radius: 3px;
     font-family: Arial, sans-serif;
-    font-size: 12px;
+    font-size: 14px !important;
     opacity: 0;
     position: absolute;
     transition: all 0.1s ease;
     padding: 10px;
     pointer-events: none;
     z-index: 1000;
+    & .currencies {
+        margin-top: 15px;
+        & ul {
+            padding: 0;
+            margin: 0;
+
+            & li {
+                font-size: 14px;
+                &::marker {
+                    content: '';
+                }
+            }
+        }
+    }
+
 }
 
 #myChart {

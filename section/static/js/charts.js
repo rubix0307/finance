@@ -212,17 +212,22 @@ document.addEventListener('alpine:init', () => {
                 }
                 let innerHtml = "";
                 if (tooltipModel.dataPoints) {
-                    const dp = tooltipModel.dataPoints[0];
-                    const cat = this.segmentObjects[dp.index];
-                    const breakdown = Object.keys(cat.currencies)
-                        .map(currency => {
-                            const curr = cat.currencies[currency];
-                            return currency + ': ' + curr.original;
-                        })
-                        .join(', ');
-                    innerHtml += "<div><strong>" + cat.name + "</strong></div>";
-                    innerHtml += "<div>Всего: " + cat.value + "</div>";
-                    innerHtml += "<div>Валюты: " + breakdown + "</div>";
+                  const dp = tooltipModel.dataPoints[0];
+                  const cat = this.segmentObjects[dp.index];
+                  const t = window.i18n;
+
+                  const breakdownItems = Object.keys(cat.currencies).map(currency => {
+                    const curr = cat.currencies[currency];
+                    return `<li>${currency}: ${curr.original}</li>`;
+                  });
+
+                  innerHtml += `<div><strong>${cat.name}</strong></div>`;
+                  innerHtml += `<div>${t.total} ${this.rawData.currency.code}: ${cat.value} </div>`;
+
+                  innerHtml += `<div class="currencies">`;
+                  innerHtml += `<div class="caption">${t.used_currencies}:</div>`;
+                  innerHtml += `<ul>${breakdownItems.join('')}</ul>`;
+                  innerHtml += `</div>`;
                 }
                 tooltipEl.innerHTML = innerHtml;
                 const canvasRect = this.canvas.getBoundingClientRect();
