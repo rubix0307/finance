@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-21 02:52+0200\n"
+"POT-Creation-Date: 2025-04-21 17:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,15 +20,16 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-#: chart/api.py:124
+
+#: chart/api.py:129
 msgid "Week"
 msgstr "Тиждень"
 
-#: chart/api.py:125
+#: chart/api.py:130
 msgid "Month"
 msgstr "Місяць"
 
-#: chart/api.py:126
+#: chart/api.py:131
 msgid "Year"
 msgstr "Рік"
 
@@ -44,6 +45,7 @@ msgid "Expenses"
 msgstr "Витрати"
 
 #: section/templates/section/inc/main/feed/_receipts.html:30
+#: templates/i18n.html:4
 msgid "Total"
 msgstr "Всього"
 
@@ -111,12 +113,16 @@ msgid ""
 "here — how much you spent, on what, and more."
 msgstr ""
 "Щоб запустити це, просто надішліть фото свого чеку нашому боту в Telegram. "
-"Він швидко розпізнає ваші покупки та покаже тут чудові діаграми — скільки "
-"ви витратили, на що і не тільки."
+"Він швидко розпізнає ваші покупки та покаже тут чудові діаграми — скільки ви "
+"витратили, на що і не тільки."
 
 #: section/templates/section/no_data.html:28
 msgid "Give it a try right now — it’s simple and even a bit fun!"
 msgstr "Спробуйте прямо зараз — це просто і навіть трохи весело!"
+
+#: templates/i18n.html:5
+msgid "Used currencies"
+msgstr "Використані валюти"
 
 #: user/models.py:35
 msgid "Language"
