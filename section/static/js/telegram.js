@@ -37,14 +37,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
 });
 
-function sendTelegramWebData(url) {
-    const initData = Telegram.WebView.initParams.tgWebAppData;
-    const encodedInitData = encodeURIComponent(initData);
+function sendTelegramWebData(baseUrl, extraParams = {}) {
+  const initData = Telegram.WebView.initParams.tgWebAppData || '';
+  const encodedInitData = encodeURIComponent(initData);
 
-    let newUrl = `${url}?init_data=${encodedInitData || ''}`;
-
-    window.location.href = newUrl;
-};
+  const currentParams = new URLSearchParams(window.location.search);
+  const nextPath = currentParams.get('next') || '/';
+  const url = new URL(baseUrl, window.location.origin);
+  url.searchParams.set('init_data', encodedInitData);
+  url.searchParams.set('next', nextPath);
+  Object.entries(extraParams).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
+  window.location.href = url.toString();
+}
 document.addEventListener('alpine:init', () => {
     const tg = window.Telegram.WebApp;
     tg.ready();
