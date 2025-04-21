@@ -3,6 +3,7 @@ from typing import Optional, cast, Annotated, Iterable
 from django.contrib.postgres.search import TrigramSimilarity
 from django.db import models
 from django.db.models.base import ModelBase
+from parler.models import TranslatableModel, TranslatedFields
 
 from currency.models import Currency
 from section.models import Section
@@ -109,12 +110,14 @@ class ReceiptItem(models.Model):
         ordering = ['id']
 
 
-class ReceiptItemCategory(models.Model):
-    name = models.CharField(max_length=255)
+class ReceiptItemCategory(TranslatableModel):
+    translations = TranslatedFields(
+        name=models.CharField(max_length=255),
+    )
     color = models.CharField(max_length=34, default='#ffffff')
 
-    def __str__(self) -> str:
-        return self.name
+    def __str__(self):
+        return f'{self.safe_translation_getter("name", any_language=True)}'
 
     class Meta:
-        db_table = 'receipt_item_category'
+        db_table = "receipt_item_category"

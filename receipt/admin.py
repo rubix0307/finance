@@ -6,6 +6,7 @@ from django.db.models import QuerySet
 from django.http import HttpResponse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+from parler.admin import TranslatableAdmin
 
 from receipt import tasks
 from .forms import ReceiptItemCategoryForm
@@ -72,9 +73,10 @@ class ReceiptItemAdmin(admin.ModelAdmin): # type: ignore
 
 
 @admin.register(ReceiptItemCategory)
-class ReceiptItemCategoryAdmin(admin.ModelAdmin): # type: ignore
+class ReceiptItemCategoryAdmin(TranslatableAdmin): # type: ignore
     form = ReceiptItemCategoryForm
     list_display = ('id', 'name', 'color', 'get_color_preview')
+    search_fields = ('translations__name',)
 
     def get_color_preview(self, obj: ReceiptItem) -> str:
         return format_html(f'<div style="background-color: {obj.color}; min-width: 50px; min-height: 20px;"></div>')

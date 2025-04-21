@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'parler',
     'storages',
     'currency',
     'section',
@@ -104,16 +105,20 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'user.User'
 # Internationalization
-LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ   = True
 USE_L10N = True
+LANGUAGE_CODE = 'en'
 LANGUAGES = [
     ('en', 'English'),
     ('ru', 'Русский'),
     ('es', 'Español'),
 ]
+PARLER_DEFAULT_LANGUAGE_CODE = LANGUAGE_CODE
+PARLER_LANGUAGES = {
+    None: tuple({'code': l[0]} for l in LANGUAGES),
+}
 LOCALE_PATHS = [
     BASE_DIR / 'locale',
 ]

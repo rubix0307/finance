@@ -21,12 +21,13 @@ router = Router(tags=["Charts"])
 periods: TypeAlias = Literal['week', 'month', 'year']
 
 class Expenses:
-    def __init__(self, user: User, section: Section, period: periods, chart_type: Literal['pie']):
+    def __init__(self, user: User, section: Section, period: periods, chart_type: Literal['pie'], language_code: str):
         self.user = user
         self.section = section
         self.user_section = SectionUser.objects.get(section=section, user=user)
         self.period = period
         self.chart_type = chart_type
+        self.language_code = language_code
 
     def get_currency(self) -> CurrencySchema:
         return CurrencySchema(
@@ -56,6 +57,7 @@ class Expenses:
                 section=self.section,
                 period=self.period,
                 currency=self.user_section.currency,
+                language_code=self.language_code,
             ),
         )
 
@@ -63,7 +65,6 @@ class Expenses:
         return ExpensesSchema(
             period=self.period,
             currency=self.get_currency(),
-            expenses_data=self.get_expenses_data(),
             chart_data=self.get_chart_data(),
         )
 
@@ -72,6 +73,7 @@ def pie_chart(
         section: Section,
         period: periods,
         currency: Currency,
+        language_code: str,
         **kwargs: dict[str, Any],
 ) -> ChartPieSchema:
 
@@ -82,6 +84,7 @@ def pie_chart(
         'section_id': int(section.id),
         'convert_currency_code': currency.code,
         'period': f'1 {period}s',
+        'language_code': language_code,
     }
 
     with connection.cursor() as cursor:
@@ -116,6 +119,7 @@ def get_expenses(
         section=section,
         period=period,
         chart_type=chart_type,
+        language_code=request.LANGUAGE_CODE,
     ).get_schema()
 
 @router.get("chart/periods/", response=list[PeriodSchema])

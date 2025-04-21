@@ -53,7 +53,7 @@ class ChartDataSchema(Schema):
 class ExpensesSchema(Schema):
     period: str
     currency: CurrencySchema
-    expenses_data: ExpensesDataSchema
+    # expenses_data: ExpensesDataSchema
     chart_data: ChartDataSchema
 
 class PeriodSchema(Schema):

@@ -1,11 +1,12 @@
 WITH vars AS (SELECT
     %(section_id)s AS section_id,
     %(convert_currency_code)s AS convert_currency_code,
-    %(period)s AS period
+    %(period)s AS period,
+    %(language_code)s AS language_code
 ),
 
 items_rate_usd AS (
-    SELECT id,name,price, rate_per_usd,receipt_id,date,currency_id,time_diff,rate_date, category_id, category_name
+    SELECT id,name,price, rate_per_usd,receipt_id,date,currency_id,time_diff,rate_date, category_id
     FROM (
         SELECT
             ri.id,
@@ -15,9 +16,8 @@ items_rate_usd AS (
             r.date AT TIME ZONE 'UTC' AS date,
             r.currency_id,
 			ric.id AS category_id,
-			ric.name AS category_name,
-			CASE 
-			    WHEN r.currency_id = 'USD' THEN 1 
+			CASE
+			    WHEN r.currency_id = 'USD' THEN 1
 			    ELSE crh.per_usd
 			END AS rate_per_usd,
             ABS(EXTRACT(EPOCH FROM (crh.date AT TIME ZONE 'UTC' - r.date AT TIME ZONE 'UTC')))::numeric(10, 0) AS time_diff,
@@ -44,7 +44,7 @@ items_second_rate AS (
 		JOIN vars ON true
 		INNER JOIN currency_rate_history crh ON crh.currency_id = vars.convert_currency_code
 		ORDER BY irusd.id, rn) AS ranked_items
-	WHERE rn = 1	
+	WHERE rn = 1
 ),
 
 
@@ -58,24 +58,23 @@ converted_items AS (
 		currency_id currency_id_original,
 		second_currency_id currency_id_converted,
 		date,
-		category_id,
-		category_name
+		category_id
 	FROM items_rate_usd
 	INNER JOIN items_second_rate USING (id)
 ),
 
 grouped_converted_items_by_category_and_currency AS (
-	SELECT 
+	SELECT
 		category_id,
 		currency_id_original,
 		SUM(price_original) AS total_price_original,
-		SUM(price_converted) AS total_price_converted 
+		SUM(price_converted) AS total_price_converted
 	FROM converted_items
 	GROUP BY category_id, currency_id_original
-), 
+),
 
 pie_data AS (
-	SELECT 
+	SELECT
 	  category_id,
 	  SUM(total_price_converted) AS value,
 	  json_object_agg(
@@ -89,23 +88,15 @@ pie_data AS (
 	GROUP BY category_id
 )
 
-SELECT 
+SELECT
 	pd.category_id,
-	ric.name AS category_name,
+	rict.name AS category_name,
 	ric.color AS category_color,
 	pd.value,
 	pd.currencies
 FROM pie_data pd
+JOIN vars ON true
 INNER JOIN receipt_item_category ric ON ric.id = pd.category_id
-
-
-
-
-
-
-
-
-
-
+LEFT JOIN receipt_item_category_translation rict ON rict.master_id = pd.category_id AND rict.language_code = vars.language_code
 
 
