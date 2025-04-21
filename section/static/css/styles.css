@@ -398,6 +398,9 @@ header {
                     background-color: transparent;
                     color: var(--main_text_color);
                     text-align: right;
+                    -moz-text-align-last: right;
+                    -webkit-text-align-last: right;
+                    text-align-last: right;
                     &::-ms-expand {
                         display: none;
                     }
