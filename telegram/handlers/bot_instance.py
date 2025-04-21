@@ -8,4 +8,4 @@ bot = telebot.TeleBot(settings.TELEGRAM_BOT_TOKEN)
 
 if settings.DEBUG and os.getenv('TELEGRAM_BOT_INFINITY_POLLING') == '1':
     bot.remove_webhook()
-    Thread(target=bot.infinity_polling).start()
+    Thread(target=lambda: bot.infinity_polling(allowed_updates=['message', 'edited_message', 'callback_query'])).start()

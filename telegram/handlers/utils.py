@@ -2,25 +2,33 @@ import base64
 import json
 from functools import wraps
 from typing import Callable, Any
-from telebot.types import Message
+
+from django.utils import translation
+from telebot.types import Message, CallbackQuery
 
 from telegram.utils import get_or_create_user
+from user.models import User
 
 
 def user_required(func: Callable[..., Any]) -> Callable[..., Any]:
 
     @wraps(func)
-    def wrapper(message: Message, *args: Any, **kwargs: Any) -> Any:
-        user_kwargs = {
-            'username': message.from_user.username,
-            'first_name': message.from_user.first_name,
-            'last_name': message.from_user.last_name,
-        }
+    def wrapper(query: Message| CallbackQuery, *args: Any, **kwargs: Any) -> Any:
+        user = kwargs.get('user')
 
-        user, created = get_or_create_user(user_id=message.from_user.id, **user_kwargs)
-        kwargs['user_created'] = created
-        kwargs['user'] = user
-        return func(message, *args, **kwargs)
+        if not isinstance(user, User):
+            user_kwargs = {
+                'username': query.from_user.username,
+                'first_name': query.from_user.first_name,
+                'last_name': query.from_user.last_name,
+            }
+
+            user, created = get_or_create_user(user_id=query.from_user.id, **user_kwargs)
+            kwargs['user_created'] = created
+            kwargs['user'] = user
+
+        with translation.override(user.language_code):
+            return func(query, *args, **kwargs)
 
     return wrapper
 
@@ -28,7 +36,11 @@ def parse_start_param(func: Callable[..., Any]) -> Callable[..., Any]:
 
     @wraps(func)
     def wrapper(message: Message, *args, **kwargs) -> Any:
-        _, *params = message.text.rsplit(maxsplit=1)
+        if isinstance(message, CallbackQuery):
+            params = None
+        else:
+            _, *params = message.text.rsplit(maxsplit=1)
+
         if params:
             encoded = params[0]
             try:
