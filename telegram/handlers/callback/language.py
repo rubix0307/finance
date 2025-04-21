@@ -18,7 +18,7 @@ def language_menu(callback: CallbackQuery, **kwargs: dict[str, Any]) -> None:
     for code, label in settings.LANGUAGES:
         btn = InlineKeyboardButton(label, callback_data=Storage.language.new(code=code))
         markup.add(btn)
-
+    markup.add(ButtonStorage.menu_start())
     bot.send_message(callback.message.chat.id, _('Choose language'), reply_markup=markup)
 
 
@@ -39,10 +39,12 @@ def language_selected(callback: CallbackQuery, **kwargs: dict[str, Any]) -> None
         is_set_new = True
 
     with translation.override(user.language_code):
+        markup = InlineKeyboardMarkup()
+        markup.add(ButtonStorage.menu_start())
         bot.send_message(
             callback.message.chat.id,
             _('Language updated') if is_set_new else _('Language not updated'),
-            reply_markup=InlineKeyboardMarkup().add(ButtonStorage.menu_start()),
+            reply_markup=markup,
         )
         bot.delete_message(
             callback.message.chat.id,
