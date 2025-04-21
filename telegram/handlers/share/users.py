@@ -1,4 +1,5 @@
 import logging
+from typing import Any
 
 from telebot import types
 from telebot.types import Message
@@ -10,7 +11,7 @@ from telegram.utils import get_or_create_user
 logger = logging.getLogger(__name__)
 
 
-def send_user_share(message: Message, section_id: int) -> None:
+def send_user_share(message: Message, section_id: int, **kwargs: dict[str, Any]) -> None:
     try:
         logger.debug(f'Find section {section_id} with owner_id={message.from_user.id}')
         section = Section.objects.get(id=section_id, owner_id=message.from_user.id)

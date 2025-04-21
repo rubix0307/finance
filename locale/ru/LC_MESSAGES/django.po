@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-21 17:03+0200\n"
+"POT-Creation-Date: 2025-04-21 19:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,6 +118,14 @@ msgstr ""
 #: section/templates/section/no_data.html:28
 msgid "Give it a try right now — it’s simple and even a bit fun!"
 msgstr "Попробуй прямо сейчас — это просто и даже немного интересно!"
+
+#: telegram/handlers/messages/commands.py:21
+msgid "Open the app"
+msgstr "Открыть приложение"
+
+#: telegram/handlers/messages/commands.py:23
+msgid "Hello"
+msgstr "Привет"
 
 #: templates/i18n.html:5
 msgid "Used currencies"
