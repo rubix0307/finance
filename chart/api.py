@@ -66,6 +66,7 @@ class Expenses:
             period=self.period,
             currency=self.get_currency(),
             chart_data=self.get_chart_data(),
+            expenses_data=self.get_expenses_data(),
         )
 
 

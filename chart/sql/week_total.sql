@@ -8,7 +8,7 @@ WITH vars AS (SELECT
 	--
 ),
 items_rate_usd AS (
-    SELECT id,name,price, rate_per_usd,receipt_id,date,currency_id,time_diff,rate_date, category_id, category_name
+    SELECT id,name,price, rate_per_usd,receipt_id,date,currency_id,time_diff,rate_date, category_id
     FROM (
         SELECT
             ri.id,
@@ -18,7 +18,6 @@ items_rate_usd AS (
             r.date AT TIME ZONE 'UTC' AS date,
             r.currency_id,
 			ric.id AS category_id,
-			ric.name AS category_name,
 			CASE
 			    WHEN r.currency_id = 'USD' THEN 1
 			    ELSE crh.per_usd
@@ -61,8 +60,7 @@ converted_items AS (
 		currency_id currency_id_original,
 		second_currency_id currency_id_converted,
 		date AT TIME ZONE 'UTC' as date,
-		category_id,
-		category_name
+		category_id
 	FROM items_rate_usd
 	INNER JOIN items_second_rate USING (id)
 ),
@@ -84,6 +82,3 @@ SELECT json_build_object(
     'previous_value', MAX(CASE WHEN week_num = 2 THEN total END)
 ) AS result
 FROM converted_items_grouped_2_weeks;
-
-
-
