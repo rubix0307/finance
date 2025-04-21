@@ -16,6 +16,7 @@ def start_new_user(message: Message, **kwargs: dict[str, Any]) -> None:
 def default_start(message: Message, **kwargs: dict[str, Any]) -> None:
     markup = InlineKeyboardMarkup()
     markup.add(ButtonStorage.web_app_main())
+    markup.add(ButtonStorage.web_app_faq())
     markup.add(ButtonStorage.menu_language())
     bot.send_message(message.chat.id, _("Hello"), reply_markup=markup)
 
