@@ -142,3 +142,5 @@ GitHub.sublime-settings
 /staticfiles/
 
 *hot_reload*
+
+*.mo

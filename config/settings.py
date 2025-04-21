@@ -112,8 +112,9 @@ USE_L10N = True
 LANGUAGE_CODE = 'en'
 LANGUAGES = [
     ('en', 'English'),
-    ('ru', 'Русский'),
     ('es', 'Español'),
+    ('ru', 'Русский'),
+    ('uk', 'Українська'),
 ]
 PARLER_DEFAULT_LANGUAGE_CODE = LANGUAGE_CODE
 PARLER_LANGUAGES = {

@@ -1,0 +1,135 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-21 02:52+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+#: chart/api.py:124
+msgid "Week"
+msgstr "Тиждень"
+
+#: chart/api.py:125
+msgid "Month"
+msgstr "Місяць"
+
+#: chart/api.py:126
+msgid "Year"
+msgstr "Рік"
+
+#: section/templates/section/inc/_save.html:2
+#: section/templates/section/inc/menu/_currency.html:98
+#: section/templates/section/inc/menu/_section_name.html:21
+msgid "Save"
+msgstr "Зберегти"
+
+#: section/templates/section/inc/main/_expenses.html:19
+#: section/templates/section/inc/main/feed/_header.html:17
+msgid "Expenses"
+msgstr "Витрати"
+
+#: section/templates/section/inc/main/feed/_receipts.html:30
+msgid "Total"
+msgstr "Всього"
+
+#: section/templates/section/inc/main/feed/_receipts_empty.html:4
+msgid "No available spending"
+msgstr "Немає доступних витрат"
+
+#: section/templates/section/inc/menu/_add_member.html:41
+msgid "Add member"
+msgstr "Додати учасника"
+
+#: section/templates/section/inc/menu/_base_section.html:5
+msgid "Default"
+msgstr "За замовчуванням"
+
+#: section/templates/section/inc/menu/_currency.html:54
+msgid "Currency"
+msgstr "Валюта"
+
+#: section/templates/section/inc/menu/_currency.html:66
+msgid "to display charts"
+msgstr "для відображення графіків"
+
+#: section/templates/section/inc/menu/_currency.html:73
+msgid "Code of currency"
+msgstr "Код валюти"
+
+#: section/templates/section/inc/menu/_header.html:4
+msgid "Rooms"
+msgstr "Кімнати"
+
+#: section/templates/section/inc/menu/_header.html:25
+msgid "Room"
+msgstr "Кімната"
+
+#: section/templates/section/inc/menu/_section_name.html:4
+msgid "Name"
+msgstr "Назва"
+
+#: section/templates/section/inc/menu/_team.html:14
+msgid "Owner"
+msgstr "Власник"
+
+#: section/templates/section/inc/menu/_team.html:31
+msgid "Confirm"
+msgstr "Підтвердити"
+
+#: section/templates/section/inc/menu/_team.html:31
+#: section/templates/section/inc/menu/_team.html:33
+msgid "Delete"
+msgstr "Видалити"
+
+#: section/templates/section/no_data.html:8
+msgid "Receipt"
+msgstr "Чек"
+
+#: section/templates/section/no_data.html:16
+msgid "👋 Hello! It’s empty here for now"
+msgstr "👋 Привіт! Тут поки що порожньо"
+
+#: section/templates/section/no_data.html:20
+msgid ""
+"To get it up and running, just send a photo of your receipt to our Telegram "
+"bot. It will quickly recognize your purchases and display beautiful charts "
+"here — how much you spent, on what, and more."
+msgstr ""
+"Щоб запустити це, просто надішліть фото свого чеку нашому боту в Telegram. "
+"Він швидко розпізнає ваші покупки та покаже тут чудові діаграми — скільки "
+"ви витратили, на що і не тільки."
+
+#: section/templates/section/no_data.html:28
+msgid "Give it a try right now — it’s simple and even a bit fun!"
+msgstr "Спробуйте прямо зараз — це просто і навіть трохи весело!"
+
+#: user/models.py:35
+msgid "Language"
+msgstr "Мова"
+
+#: user/templates/user/feedback_form.html:3
+msgid "Feedback"
+msgstr "Зворотний зв'язок"
+
+#: user/templates/user/feedback_form.html:11
+msgid "Message"
+msgstr "Повідомлення"
+
+#: user/templates/user/feedback_form.html:14
+msgid "Send"
+msgstr "Надіслати"
