@@ -27,25 +27,3 @@ class ButtonStorage:
     menu_language = make_button('Language', callback_data=CallbackStorage.menu.new(name='language'))
 
 
-class QueryContext:
-    def __init__(self, query: Message | CallbackQuery):
-        self.query = query
-
-    def __enter__(self) -> Message:
-        if isinstance(self.query, CallbackQuery):
-            self.is_callback = True
-            self.message: Message = self.query.message
-        else:
-            self.is_callback = False
-            self.message: Message = self.query
-        return self.message
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.is_callback:
-            try:
-                bot.delete_message(
-                    chat_id=self.message.chat.id,
-                    message_id=self.message.message_id
-                )
-            except Exception:
-                pass

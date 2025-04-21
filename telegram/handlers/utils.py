@@ -6,6 +6,7 @@ from typing import Callable, Any
 from django.utils import translation
 from telebot.types import Message, CallbackQuery
 
+from telegram.handlers.bot_instance import bot
 from telegram.utils import get_or_create_user
 from user.models import User
 
@@ -54,4 +55,37 @@ def parse_start_param(func: Callable[..., Any]) -> Callable[..., Any]:
                 return func(message, params={}, *args, **kwargs)
         else:
             return func(message, params={}, *args, **kwargs)
+    return wrapper
+
+
+class QueryContext:
+    def __init__(self, query: Message | CallbackQuery):
+        self.query = query
+
+    def __enter__(self) -> Message:
+        if isinstance(self.query, CallbackQuery):
+            self.is_callback = True
+            self.message: Message = self.query.message
+        else:
+            self.is_callback = False
+            self.message: Message = self.query
+        return self.message
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.is_callback:
+            try:
+                bot.delete_message(
+                    chat_id=self.message.chat.id,
+                    message_id=self.message.message_id
+                )
+            except Exception:
+                pass
+
+def query_context(func: Callable[..., Any]) -> Callable[..., Any]:
+
+    @wraps(func)
+    def wrapper(query: Message | CallbackQuery, *args, **kwargs) -> Any:
+        with QueryContext(query):
+            return func(query, *args, **kwargs)
+
     return wrapper
