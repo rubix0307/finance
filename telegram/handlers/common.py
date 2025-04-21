@@ -1,7 +1,8 @@
 from typing import Any, Callable
 from django.utils.translation import gettext as _
 from telebot.callback_data import CallbackData, CallbackDataFilter
-from telebot.types import CallbackQuery, InlineKeyboardButton as IKB, Message
+from telebot.types import CallbackQuery, InlineKeyboardButton as IKB, Message, WebAppInfo
+
 from telegram.handlers.bot_instance import bot
 
 
@@ -23,7 +24,7 @@ def make_button(default_label: str, **kwargs: Any) -> Callable[..., IKB]:
 
 class ButtonStorage:
     web_app_main = make_button('Open the app', url='https://t.me/finance_lens_bot?startapp')
-    web_app_faq = make_button('FAQ', url='https://finance-lens.online/FAQ/')
+    web_app_faq = make_button('FAQ', web_app=WebAppInfo(url='https://finance-lens.online/FAQ/'))
     menu_start = make_button('Main page', callback_data=CallbackStorage.menu.new(name='start'))
     menu_language = make_button('Language', callback_data=CallbackStorage.menu.new(name='language'))
 
