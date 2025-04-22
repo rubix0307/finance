@@ -43,7 +43,7 @@ urlpatterns = [
     path('feedback/', feedback_view, name='feedback'),
     path('403/', permission_denied_view, name='403'),
     path('user/language/', user_language, name='set_language'),
-    path('FAQ/', faq_view, name='set_language'),
+    path('faq/', faq_view, name='faq'),
 ]
 
 if settings.DEBUG:
