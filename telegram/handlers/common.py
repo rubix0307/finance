@@ -18,14 +18,10 @@ class CallbackStorage:
     language = CallbackData('code', prefix='lang')
 
 
-Button = Callable[..., IKB]
-def make_button(default_label: str, **kwargs: Any) -> Callable[..., IKB]:
-    return lambda label=None: IKB(label or _(default_label), **kwargs)
-
 class ButtonStorage:
-    web_app_main = make_button('Open the app', url='https://t.me/finance_lens_bot?startapp')
-    web_app_faq = make_button('FAQ', web_app=WebAppInfo(url='https://finance-lens.online/telegram/check-web-app/?next=/FAQ/'))
-    menu_start = make_button('Main page', callback_data=CallbackStorage.menu.new(name='start'))
-    menu_language = make_button('Language', callback_data=CallbackStorage.menu.new(name='language'))
+    web_app_main = lambda label=None: IKB(label or _('Open the app'), url='https://t.me/finance_lens_bot?startapp')
+    web_app_faq = lambda label=None: IKB(label or 'FAQ', web_app=WebAppInfo(url='https://finance-lens.online/telegram/check-web-app/?next=/FAQ/'))
+    menu_start = lambda label=None: IKB(label or _('Main page'), callback_data=CallbackStorage.menu.new(name='start'))
+    menu_language = lambda label=None: IKB(label or '🌐', callback_data=CallbackStorage.menu.new(name='language'))
 
 
