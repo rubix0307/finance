@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-22 00:10+0200\n"
+"POT-Creation-Date: 2025-04-22 02:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,6 +36,10 @@ msgstr "Año"
 #: section/templates/section/inc/menu/_section_name.html:21
 msgid "Save"
 msgstr "Guardar"
+
+#: section/templates/section/inc/faq/_faq.html:2
+msgid "FAQ"
+msgstr "Preguntas frecuentes"
 
 #: section/templates/section/inc/main/_expenses.html:19
 #: section/templates/section/inc/main/feed/_header.html:17
@@ -118,37 +122,29 @@ msgstr ""
 msgid "Give it a try right now — it’s simple and even a bit fun!"
 msgstr "¡Pruébalo ahora mismo: es sencillo e incluso un poco divertido!"
 
-#: telegram/handlers/callback/language.py:21
+#: telegram/handlers/callback/language.py:22
 msgid "Choose language"
 msgstr "Elija el idioma"
 
-#: telegram/handlers/callback/language.py:42
+#: telegram/handlers/callback/language.py:46
 msgid "Language updated"
 msgstr "Idioma actualizado"
 
-#: telegram/handlers/callback/language.py:42
+#: telegram/handlers/callback/language.py:46
 msgid "Language not updated"
 msgstr "Idioma no actualizado"
 
-#: telegram/handlers/common.py:23
-msgid "Open the app"
-msgstr "Abre la aplicación"
-
-#: telegram/handlers/common.py:24
-msgid "Main page"
-msgstr "Página principal"
-
-#: telegram/handlers/common.py:25 user/models.py:35
-msgid "Language"
-msgstr "Idioma"
-
-#: telegram/handlers/messages/commands.py:20
+#: telegram/handlers/messages/commands.py:21
 msgid "Hello"
 msgstr "Hola"
 
 #: templates/i18n.html:5
 msgid "Used currencies"
 msgstr "Divisas usadas"
+
+#: user/models.py:35
+msgid "Language"
+msgstr "Idioma"
 
 #: user/templates/user/feedback_form.html:3
 msgid "Feedback"
@@ -161,3 +157,9 @@ msgstr "Mensaje"
 #: user/templates/user/feedback_form.html:14
 msgid "Send"
 msgstr "Enviar"
+
+#~ msgid "Open the app"
+#~ msgstr "Abre la aplicación"
+
+#~ msgid "Main page"
+#~ msgstr "Página principal"

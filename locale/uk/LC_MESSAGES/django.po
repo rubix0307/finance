@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-22 00:10+0200\n"
+"POT-Creation-Date: 2025-04-22 02:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,10 @@ msgstr "Рік"
 #: section/templates/section/inc/menu/_section_name.html:21
 msgid "Save"
 msgstr "Зберегти"
+
+#: section/templates/section/inc/faq/_faq.html:2
+msgid "FAQ"
+msgstr "Часті запитання"
 
 #: section/templates/section/inc/main/_expenses.html:19
 #: section/templates/section/inc/main/feed/_header.html:17
@@ -120,37 +124,29 @@ msgstr ""
 msgid "Give it a try right now — it’s simple and even a bit fun!"
 msgstr "Спробуйте прямо зараз — це просто і навіть трохи весело!"
 
-#: telegram/handlers/callback/language.py:21
+#: telegram/handlers/callback/language.py:22
 msgid "Choose language"
 msgstr "Обери мову"
 
-#: telegram/handlers/callback/language.py:42
+#: telegram/handlers/callback/language.py:46
 msgid "Language updated"
 msgstr "Мова оновлена"
 
-#: telegram/handlers/callback/language.py:42
+#: telegram/handlers/callback/language.py:46
 msgid "Language not updated"
 msgstr "Мова не оновлена"
 
-#: telegram/handlers/common.py:23
-msgid "Open the app"
-msgstr "Відкрити додаток"
-
-#: telegram/handlers/common.py:24
-msgid "Main page"
-msgstr "Головна сторінка"
-
-#: telegram/handlers/common.py:25 user/models.py:35
-msgid "Language"
-msgstr "Мова"
-
-#: telegram/handlers/messages/commands.py:20
+#: telegram/handlers/messages/commands.py:21
 msgid "Hello"
 msgstr "Привіт"
 
 #: templates/i18n.html:5
 msgid "Used currencies"
 msgstr "Використані валюти"
+
+#: user/models.py:35
+msgid "Language"
+msgstr "Мова"
 
 #: user/templates/user/feedback_form.html:3
 msgid "Feedback"
@@ -163,3 +159,9 @@ msgstr "Повідомлення"
 #: user/templates/user/feedback_form.html:14
 msgid "Send"
 msgstr "Надіслати"
+
+#~ msgid "Open the app"
+#~ msgstr "Відкрити додаток"
+
+#~ msgid "Main page"
+#~ msgstr "Головна сторінка"
