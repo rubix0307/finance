@@ -39,7 +39,7 @@ def start(query: Message | CallbackQuery, params: dict[str, str | int], **kwargs
     try:
         match params.get('action'):
             case 'add_member':
-                send_user_share(message=message, section_id=params.get('section_id'), **kwargs)
+                send_user_share(message, section_id=params.get('section_id'), **kwargs)
                 bot.delete_message(message.chat.id, message.message_id)
             case _:
                 default_start(message, **kwargs)
