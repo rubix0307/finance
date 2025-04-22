@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-22 02:26+0200\n"
+"POT-Creation-Date: 2025-04-22 02:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,17 +143,39 @@ msgstr "Открыть приложение"
 msgid "Main page"
 msgstr "Главная страница"
 
+#: telegram/handlers/common.py:25 user/models.py:35
+msgid "Language"
+msgstr "Язык"
+
 #: telegram/handlers/messages/commands.py:21
 msgid "Hello"
 msgstr "Привет"
 
+#: telegram/handlers/share/users.py:24
+msgid "You must be the owner of a room to add users to it"
+msgstr "Вы должны быть владельцем комнаты, чтобы добавлять в неё пользователей"
+
+#: telegram/handlers/share/users.py:32
+#, python-format
+msgid "Add to room \"%(section_name)s\""
+msgstr "Добавить в комнату \"%(section_name)s\""
+
+#: telegram/handlers/share/users.py:41
+#, python-format
+msgid "Use the button below to add users to the room \"%(section_name)s\""
+msgstr "Используйте кнопку ниже, чтобы добавить пользователей в комнату \"%(section_name)s\""
+
+#: telegram/handlers/share/users.py:50
+msgid "Room not found, users will not be added. Try again"
+msgstr "Комната не найдена, пользователи не будут добавлены. Попробуйте ещё раз"
+
+#: telegram/handlers/share/users.py:64
+msgid "Users added"
+msgstr "Пользователи добавлены"
+
 #: templates/i18n.html:5
 msgid "Used currencies"
 msgstr "Использованные валюты"
-
-#: user/models.py:35
-msgid "Language"
-msgstr "Язык"
 
 #: user/templates/user/feedback_form.html:3
 msgid "Feedback"

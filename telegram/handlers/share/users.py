@@ -1,16 +1,18 @@
 import logging
 from typing import Any
 
+from django.utils.translation import gettext as _
 from telebot import types
 from telebot.types import Message
 from section.models import Section
 from telegram.handlers.bot_instance import bot
+from telegram.handlers.utils import user_required
 from telegram.utils import get_or_create_user
 
 
 logger = logging.getLogger(__name__)
 
-
+@user_required
 def send_user_share(message: Message, section_id: int, **kwargs: dict[str, Any]) -> None:
     try:
         logger.debug(f'Find section {section_id} with owner_id={message.from_user.id}')
@@ -19,14 +21,15 @@ def send_user_share(message: Message, section_id: int, **kwargs: dict[str, Any])
         logger.debug(f'Section {section_id} does not exist')
         bot.send_message(
             message.from_user.id,
-            f'Вы должны быть владельцем комнаты, для добавления пользователей в нее',
+            _('You must be the owner of a room to add users to it'),
             reply_markup = types.ReplyKeyboardRemove(),
         )
         return
 
+
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True, is_persistent=False)
     keyboard.add(types.KeyboardButton(
-        text=f'Добавить в {section.name}',
+        text=_('Add to room "%(section_name)s"') % {'section_name': section.name},
         request_user=types.KeyboardButtonRequestUsers(
             request_id=section.id,
             user_is_bot=False,
@@ -35,8 +38,7 @@ def send_user_share(message: Message, section_id: int, **kwargs: dict[str, Any])
             request_username=True,
             request_photo=True,
         )))
-
-    bot.send_message(message.chat.id, f'Используйте кнопку ниже, что б добавить пользователей в комнату "{section.name}"', reply_markup=keyboard)
+    bot.send_message(message.chat.id, _('Use the button below to add users to the room "%(section_name)s"') % {'section_name': section.name}, reply_markup=keyboard)
     logger.debug(f'Send message {message.from_user.id} with invite keyboard to section {section.id}')
 
 @bot.message_handler(content_types=['users_shared'])
@@ -45,7 +47,7 @@ def handle_user_shared(message: Message) -> None:
         logger.debug(f'Find section {message.users_shared.request_id} from users_shared.request_id')
         section = Section.objects.get(id=message.users_shared.request_id)
     except Section.DoesNotExist:
-        bot.send_message('Комната не найдена, пользователи не будут добавлены. Попробуйте еще раз')
+        bot.send_message(_('Room not found, users will not be added. Try again'))
         logger.debug(f'Section {message.users_shared.request_id} does not exist')
         return
 
@@ -59,5 +61,5 @@ def handle_user_shared(message: Message) -> None:
         for user_data in message.users_shared.users
     ]])
 
-    bot.send_message(message.chat.id, f'Пользователи добавлены', reply_markup=types.ReplyKeyboardRemove())
+    bot.send_message(message.chat.id, _('Users added'), reply_markup=types.ReplyKeyboardRemove())
     logger.debug(f'Members added to section {message.users_shared.request_id}')
