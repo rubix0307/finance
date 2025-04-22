@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-22 02:11+0200\n"
+"POT-Creation-Date: 2025-04-22 02:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,6 +135,14 @@ msgstr "Язык обновлен"
 msgid "Language not updated"
 msgstr "Язык не обновлен"
 
+#: telegram/handlers/common.py:22
+msgid "Open the app"
+msgstr "Открыть приложение"
+
+#: telegram/handlers/common.py:24
+msgid "Main page"
+msgstr "Главная страница"
+
 #: telegram/handlers/messages/commands.py:21
 msgid "Hello"
 msgstr "Привет"
@@ -158,9 +166,3 @@ msgstr "Сообщение"
 #: user/templates/user/feedback_form.html:14
 msgid "Send"
 msgstr "Отправить"
-
-#~ msgid "Open the app"
-#~ msgstr "Открыть приложение"
-
-#~ msgid "Main page"
-#~ msgstr "Главная страница"
