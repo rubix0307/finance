@@ -44,7 +44,10 @@ svg {
         fill: var(--main_text_color);
     }
 }
-
+h1 {
+    text-align: center;
+    color: var(--main_text_color);
+}
 .dark {
     --header_text_color: #000000;
     --bg: #1a2430;
