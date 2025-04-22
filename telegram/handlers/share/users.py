@@ -42,6 +42,7 @@ def send_user_share(message: Message, section_id: int, **kwargs: dict[str, Any])
     logger.debug(f'Send message {message.from_user.id} with invite keyboard to section {section.id}')
 
 @bot.message_handler(content_types=['users_shared'])
+@user_required
 def handle_user_shared(message: Message) -> None:
     try:
         logger.debug(f'Find section {message.users_shared.request_id} from users_shared.request_id')
