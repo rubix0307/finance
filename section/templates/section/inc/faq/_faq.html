@@ -12,10 +12,34 @@
          x-init="setTimeout(() => show = true, 400)" x-show="show" x-transition.duration.700ms
          class="accordion">
 
-        {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
-        {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
-        {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
-        {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
+        <div class="caption">Аккаунт и поддержка</div>
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Как связаться с разработчиками?" faq_description="Через форму обратной связи в разделе «Аккаунт» → «Обратная связь»" %}
+
+        <div class="caption">Работа с ботом</div>
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Как начать работу с ботом?" faq_description="Просто отправьте фото чека в чат с ботом – он автоматически обработает изображение и вернёт статус" %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Как сменить язык в боте?" faq_description="В меню бота или в Веб-приложении, выберите раздел «Аккаунт» → «Язык» и укажите нужный" %}
+
+        <div class="caption">Веб-приложение </div>
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Как выбрать период для аналитики?" faq_description="На главной странице webapp доступны три фиксированных диапазона: неделя, месяц и год. По умолчанию активен один из них. В ближайшем обновлении появится выбор произвольного периода через календарь" %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Какие отчёты и графики есть сейчас?" faq_description="Общая сумма трат, круговая диаграмма" %}
+
+        <div class="caption">Комнаты</div>
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Что такое «комната»?" faq_description="Это общий чат-касса, где видно чеки всех участников и общие графики" %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Как создаётся комната?" faq_description="Первая комната автоматически создаётся при первом входе в бота. Новые комнаты пока создать нельзя, но вас могут пригласить в уже существующую" %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Как пригласить других в комнату?" faq_description="В меню раздела нажмите кнопку «Пригласить», откроется чат бота с кнопкой для выбора пользователей" %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Кто может добавлять и удалять участников?" faq_description="Только владелец комнаты. Обычные участники могут удалить себя сами." %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Как сменить комнату и установить её по умолчанию?" faq_description="Если у вас несколько комнат, появятся стрелки переключения. Кнопка «Установить по умолчанию» делает текущую комнату основной. Если вас удалили из чужой комнаты, по умолчанию восстановится ваша собственная" %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Можно ли переименовать комнату или сменить валюту?" faq_description="Любой участник может задать своё локальное название комнаты и выбрать валюту отображения графиков. Валюта никак не влияет на других. Название же комнаты, заданное владельцем, будет отображаться всем тем участникам, у которых не задано собственное название комнаты." %}
+
+        <div class="caption">Финансы и графики</div>
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Какие валюты поддерживаются?" faq_description="Поддерживаются все мировые валюты. Все суммы конвертируются в валюту по умолчанию с помощью актуальных курсов" %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Как увидеть детальную информацию по категории на диаграмме?" faq_description="Нажмите на сегмент — появится окошко с категорией, суммой в валюте комнаты и детализацией по исходным валютам" %}
+
+        <div class="caption">Чеки</div>
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Можно ли фильтровать чеки?" faq_description="Пока фильтрация только по периоду. В следующих обновлениях добавятся фильтры по людям и категориям" %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="Что можно отредактировать в чеке?" faq_description="Полноценное редактирование доступно любому участнику, а также удаление чека" %}
+
+
 
     </div>
 </div>
