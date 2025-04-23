@@ -4,8 +4,9 @@
 <div class="team"
      x-data="teamComponent"
      x-init="init()"
+     @click.outside="confirmationId = null"
 >
-    <template x-for="person in getSortedSectionUsers" :key="person.id">
+    <template x-for="person in getSortedSectionUsers()" :key="person.id">
         <div class="main_block person_card">
             <div class="top">
                 <div class="data">
@@ -13,36 +14,39 @@
                         <template x-if="person.is_owner">
                             <div class="owner">{% trans 'Owner' %}</div>
                         </template>
-                        <div class="name" x-text="[person.first_name, person.last_name]
-                                  .filter(Boolean)
-                                  .join(' ')">
+
+                        <div class="name"
+                             x-text="[person.first_name, person.last_name]
+                         .filter(Boolean)
+                         .join(' ')">
                         </div>
 
                         <template x-if="person.username">
                             <div class="username" @click.prevent="
-                                window.Telegram.WebApp.openTelegramLink('https://t.me/' + person.username);
-                                window.Telegram.WebApp.close();">@<span  x-text="person.username"></span></div>
+                   window.Telegram.WebApp.openTelegramLink('https://t.me/' + person.username);
+                   window.Telegram.WebApp.close();">
+                                @<span x-text="person.username"></span>
+                            </div>
                         </template>
 
-                        <template x-if="(meId === ownerId && person.id !== ownerId) || (meId !== ownerId && meId === person.id)">
+                        <template x-if="(meId === ownerId && person.id !== ownerId)
+                             || (meId !== ownerId && meId === person.id)">
                             <div class="delete"
-                                 @click="handleDelete(person.id)"
-                                 x-on:click.stop.outside="confirmationId = null"
-                                 x-text="confirmationId === person.id ? '{% trans 'Confirm' %}' : '{% trans 'Delete' %}'"
-                            >
-                                {% trans 'Delete' %}
+                                 @click.stop="handleDelete(person.id)"
+                                 x-text="confirmationId === person.id
+                           ? '{% trans "Confirm" %}'
+                           : '{% trans "Delete" %}'">
                             </div>
                         </template>
 
                     </div>
                 </div>
                 <div class="photo">
-                    <img :src="person?.photo || '{% static 'img/avatar.png' %}'" alt="">
+                    <img :src="person.photo || '{% static 'img/avatar.png' %}'" alt="">
                 </div>
             </div>
         </div>
     </template>
 
     {% include 'section/inc/menu/_add_member.html' %}
-
 </div>
