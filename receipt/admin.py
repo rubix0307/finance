@@ -13,7 +13,7 @@ from .forms import ReceiptItemCategoryForm
 from .models import Receipt, ReceiptItem, ReceiptItemCategory
 
 
-def update_receipt_data(modeladmin: admin.ModelAdmin, request: WSGIRequest, queryset: QuerySet[Receipt]) -> None:
+def receipt_admin_update_receipt_data(modeladmin: admin.ModelAdmin, request: WSGIRequest, queryset: QuerySet[Receipt]) -> None:
     for receipt in queryset:
         tasks.update_receipt_data.delay(receipt_pk=receipt.pk, user_pk=request.user.pk)
 
@@ -35,7 +35,7 @@ class ReceiptItemInline(admin.TabularInline):  # type: ignore
 class ReceiptAdmin(admin.ModelAdmin): # type: ignore
     list_display = ('id', 'photo', 'shop', 'owner', 'currency', 'date',)
     readonly_fields = ('photo_preview',)
-    actions = [update_receipt_data]
+    actions = [receipt_admin_update_receipt_data]
     inlines = [ReceiptItemInline]
 
     def save_model(self, request: WSGIRequest, obj, form, change):
