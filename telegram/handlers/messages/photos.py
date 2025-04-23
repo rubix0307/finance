@@ -24,7 +24,7 @@ def get_photo(message: Message, user: User, **kwargs: dict[str, Any]) -> None:
         owner=user,
         photo=ContentFile(downloaded_file, name=file_name),
     )
-    receipt.save(do_analyze_photo=True)
+    receipt.save()
 
     notification_message = bot.send_photo(message.chat.id, caption='Начат анализ фото...', photo=message.photo[-1].file_id)
 
@@ -35,7 +35,7 @@ def get_photo(message: Message, user: User, **kwargs: dict[str, Any]) -> None:
     )
     if notification_message:
         bot.delete_message(message.chat.id, message.message_id)
-
+    receipt.save(do_analyze_photo=True)
 
 def update_message(receipt_status: ReceiptStatusMessage) -> None:
     caption = None

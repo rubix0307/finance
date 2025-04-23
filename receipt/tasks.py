@@ -27,10 +27,10 @@ def update_receipt_data(self: Task, receipt_pk: int, user_pk: int) -> None | Pro
     try:
         user = User.objects.get(pk=user_pk)
         receipt = Receipt.objects.get(pk=receipt_pk)
-        try:
-            receipt_status = receipt.statuses.order_by('-message_id').first()
+        receipt_status = receipt.statuses.order_by('-message_id').first()
+        if receipt_status:
             receipt_status.update_status_and_notify(Status.IN_PROGRESS)
-        except ReceiptStatusMessage.DoesNotExist:
+        else:
             receipt_status = None
 
         ai_service = OpenAIService()
