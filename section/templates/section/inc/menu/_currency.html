@@ -66,10 +66,13 @@
       <div class="info">*{% trans 'to display charts' %}</div>
       <div class="search">
         <div class="id">{% include 'svg/search.svg' %}</div>
+
         <input
           type="search"
           inputmode="search"
           enterkeyhint="search"
+          name="search"
+          aria-label="Search"
           placeholder="{% trans 'Code of currency' %}"
           x-model="Alpine.store('currency').query"
         >
