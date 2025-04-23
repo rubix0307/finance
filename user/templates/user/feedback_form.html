@@ -1,15 +1,17 @@
 {% load i18n %}
-<form method="post" class="feedback" action="{% url 'feedback' %}">
+<div class="feedback">
     <div class="caption">{% trans 'Feedback' %}</div>
-    {% csrf_token %}
-    <div class="form-group">
-        <textarea name="message"
-                  cols="40"
-                  rows="5"
-                  maxlength="1000"
-                  required=""
-                  placeholder="{% trans 'Message' %}"
-        ></textarea>
-    </div>
-    <button type="submit">{% trans 'Send' %}</button>
-</form>
+    <form method="post" class="feedback" action="{% url 'feedback' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <textarea name="message"
+                      cols="40"
+                      rows="5"
+                      maxlength="1000"
+                      required=""
+                      placeholder="{% trans 'Message' %}"
+            ></textarea>
+        </div>
+        <button type="submit">{% trans 'Send' %}</button>
+    </form>
+</div>

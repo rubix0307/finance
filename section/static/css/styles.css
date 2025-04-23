@@ -1252,11 +1252,21 @@ input[type="checkbox"] {
       margin-top: 100px;
     }
 }
+
+.faq, .feedback {
+    & .caption {
+        font-size: 12px;
+        color: var(--main_text_color);
+        margin: 0 var(--default_block_margin_LR) calc(calc(var(--default_block_margin_bottom_int) / 3) * 1px) var(--default_block_margin_LR);
+        text-transform: uppercase;
+        padding: 0 var(--default_block_padding);
+    }
+}
 .accordion {
     --border-radius: 10px;
     display: flex;
     flex-direction: column;
-    margin: var(--default_block_margin_LR);
+    margin: 0 var(--default_block_margin_LR)  var(--default_block_margin_bottom) var(--default_block_margin_LR);
     border-radius: var(--border-radius);
     overflow: hidden;
     background-color: var(--second_block_bg);

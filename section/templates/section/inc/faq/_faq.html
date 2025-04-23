@@ -1,20 +1,21 @@
 {% load i18n %}
-<h1>{% trans "FAQ" %}</h1>
+<div class="faq">
+    <div class="caption">FAQ</div>
 
-<div x-data="{
-        activeAccordion: '',
-        setActiveAccordion(id) {
-            this.activeAccordion = (this.activeAccordion == id) ? '' : id
-        },
-        show: false
-    }"
-     x-init="setTimeout(() => show = true, 400)" x-show="show" x-transition.duration.700ms
+    <div x-data="{
+            activeAccordion: '',
+            setActiveAccordion(id) {
+                this.activeAccordion = (this.activeAccordion == id) ? '' : id
+            },
+            show: false
+        }"
+         x-init="setTimeout(() => show = true, 400)" x-show="show" x-transition.duration.700ms
+         class="accordion">
 
-     class="accordion">
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
+        {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
 
-    {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
-    {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
-    {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
-    {% include 'section/inc/faq/_faq_item.html' with faq_caption="" faq_description="" %}
-
+    </div>
 </div>
