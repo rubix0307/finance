@@ -1,6 +1,7 @@
 from typing import Any
 
 from django.core.files.base import ContentFile
+from django.utils.translation import gettext_lazy as _
 from telebot.types import LabeledPrice, Message
 
 from receipt.models import Receipt
@@ -26,7 +27,11 @@ def get_photo(message: Message, user: User, **kwargs: dict[str, Any]) -> None:
     )
     receipt.save()
 
-    notification_message = bot.send_photo(message.chat.id, caption='Начат анализ фото...', photo=message.photo[-1].file_id)
+    notification_message = bot.send_photo(
+        message.chat.id,
+        caption=_('In line'),
+        photo=message.photo[-1].file_id,
+    )
 
     ReceiptStatusMessage.objects.create(
         receipt=receipt,
@@ -37,14 +42,15 @@ def get_photo(message: Message, user: User, **kwargs: dict[str, Any]) -> None:
         bot.delete_message(message.chat.id, message.message_id)
     receipt.save(do_analyze_photo=True)
 
-def update_message(receipt_status: ReceiptStatusMessage) -> None:
+@user_required
+def update_message(user: User, receipt_status: ReceiptStatusMessage, **kwargs: dict[str, Any]) -> None:
     caption = None
     if receipt_status.status == Status.IN_PROGRESS:
-        caption = 'Анализируется'
+        caption = _('Analyzed')
     elif receipt_status.status == Status.PROCESSED:
-        caption = 'Анализ завершен'
+        caption = _('Analysis completed')
     elif receipt_status.status == Status.ERROR:
-        caption = 'Ошибка анализа'
+        caption = _('Analysis error')
 
     if caption:
         try:

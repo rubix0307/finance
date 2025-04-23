@@ -93,7 +93,7 @@ class Receipt(models.Model):
 
         if do_analyze_photo:
             self.refresh_from_db()
-            tasks.update_receipt_data(receipt_pk=self.pk, user_pk=self.owner.pk)
+            tasks.update_receipt_data.delay(receipt_pk=self.pk, user_pk=self.owner.pk)
 
     class Meta:
         db_table = 'receipt'

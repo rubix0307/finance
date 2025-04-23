@@ -24,7 +24,7 @@ class ReceiptStatusMessage(models.Model):
 
     def update_telegram_message(self) -> None:
         from telegram.handlers.messages.photos import update_message
-        update_message(receipt_status=self)
+        update_message(user=self.receipt.owner, receipt_status=self)
 
     def update_status_and_notify(self, new_status: Status):
         self.status = new_status
