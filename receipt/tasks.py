@@ -6,6 +6,7 @@ from celery.exceptions import MaxRetriesExceededError
 
 from ai.managers.schemas import ProcessPhotoResponse, ProcessPhotoError
 from ai.services.open_ai.service import OpenAIService
+from telegram.models import ReceiptStatusMessage, Status
 
 from .schemas import ReceiptSchema
 from user.models import User
@@ -26,14 +27,27 @@ def update_receipt_data(self: Task, receipt_pk: int, user_pk: int) -> None | Pro
     try:
         user = User.objects.get(pk=user_pk)
         receipt = Receipt.objects.get(pk=receipt_pk)
+        try:
+            receipt_status = receipt.statuses.order_by('-message_id').first()
+            receipt_status.update_status_and_notify(Status.IN_PROGRESS)
+        except ReceiptStatusMessage.DoesNotExist:
+            receipt_status = None
 
         ai_service = OpenAIService()
         schema: ReceiptSchema | None = ai_service.analyze_receipt(receipt=receipt)
 
         if schema:
+            new_status = Status.PROCESSED
+            answer = ProcessPhotoResponse(status="success")
             ReceiptSchemaService(receipt_schema=schema, user=user).update_receipt(receipt)
         else:
-            return ProcessPhotoError(error='Receipt schema is not available')
+            new_status = Status.ERROR
+            answer = ProcessPhotoError(error='Receipt schema is not available')
+
+        if receipt_status:
+            receipt_status.update_status_and_notify(new_status)
+
+        return answer
 
     except Receipt.DoesNotExist:
         logger.error("Receipt not found")
@@ -54,5 +68,3 @@ def update_receipt_data(self: Task, receipt_pk: int, user_pk: int) -> None | Pro
         except MaxRetriesExceededError:
             logger.error(f"Task {self.request.id} permanently failed after 5 attempts.")
             return {"error": "Permanent failure after max retries"}
-
-    return ProcessPhotoResponse(status="success")
