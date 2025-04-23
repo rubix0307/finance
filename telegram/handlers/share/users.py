@@ -43,7 +43,7 @@ def send_user_share(message: Message, section_id: int, **kwargs: dict[str, Any])
 
 @bot.message_handler(content_types=['users_shared'])
 @user_required
-def handle_user_shared(message: Message) -> None:
+def handle_user_shared(message: Message, **kwargs: dict[str, Any]) -> None:
     try:
         logger.debug(f'Find section {message.users_shared.request_id} from users_shared.request_id')
         section = Section.objects.get(id=message.users_shared.request_id)
