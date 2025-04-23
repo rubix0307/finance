@@ -1,7 +1,8 @@
 from typing import Any
 
 from django.core.files.base import ContentFile
-from django.utils.translation import gettext_lazy as _
+from django.utils import translation
+from django.utils.translation import gettext as _
 from telebot.types import LabeledPrice, Message
 
 from receipt.models import Receipt
@@ -42,22 +43,22 @@ def get_photo(message: Message, user: User, **kwargs: dict[str, Any]) -> None:
         bot.delete_message(message.chat.id, message.message_id)
     receipt.save(do_analyze_photo=True)
 
-@user_required
-def update_message(user: User, receipt_status: ReceiptStatusMessage, **kwargs: dict[str, Any]) -> None:
-    caption = None
-    if receipt_status.status == Status.IN_PROGRESS:
-        caption = _('In progress')
-    elif receipt_status.status == Status.PROCESSED:
-        caption = _('Analysis completed')
-    elif receipt_status.status == Status.ERROR:
-        caption = _('Analysis error')
+def update_message(receipt_status: ReceiptStatusMessage, **kwargs: dict[str, Any]) -> None:
+    with translation.override(receipt_status.receipt.owner.language_code):
+        caption = None
+        if receipt_status.status == Status.IN_PROGRESS:
+            caption = _('In progress')
+        elif receipt_status.status == Status.PROCESSED:
+            caption = _('Analysis completed')
+        elif receipt_status.status == Status.ERROR:
+            caption = _('Analysis error')
 
-    if caption:
-        try:
-            bot.edit_message_caption(
-                caption=caption,
-                chat_id=receipt_status.chat_id,
-                message_id=receipt_status.message_id,
-            )
-        except Exception as ex:
-            ...
+        if caption:
+            try:
+                bot.edit_message_caption(
+                    caption=caption,
+                    chat_id=receipt_status.chat_id,
+                    message_id=receipt_status.message_id,
+                )
+            except Exception as ex:
+                ...
