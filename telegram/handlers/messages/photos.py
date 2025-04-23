@@ -46,7 +46,7 @@ def get_photo(message: Message, user: User, **kwargs: dict[str, Any]) -> None:
 def update_message(user: User, receipt_status: ReceiptStatusMessage, **kwargs: dict[str, Any]) -> None:
     caption = None
     if receipt_status.status == Status.IN_PROGRESS:
-        caption = _('Analyzed')
+        caption = _('In progress')
     elif receipt_status.status == Status.PROCESSED:
         caption = _('Analysis completed')
     elif receipt_status.status == Status.ERROR:

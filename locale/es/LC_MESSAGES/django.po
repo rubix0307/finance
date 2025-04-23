@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-22 02:55+0200\n"
+"POT-Creation-Date: 2025-04-23 21:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,12 +32,12 @@ msgid "Year"
 msgstr "Año"
 
 #: section/templates/section/inc/_save.html:2
-#: section/templates/section/inc/menu/_currency.html:98
+#: section/templates/section/inc/menu/_currency.html:101
 #: section/templates/section/inc/menu/_section_name.html:21
 msgid "Save"
 msgstr "Guardar"
 
-#: section/templates/section/inc/faq/_faq.html:2
+#: section/templates/section/inc/faq/_faq.html:3
 msgid "FAQ"
 msgstr "Preguntas frecuentes"
 
@@ -71,7 +71,7 @@ msgstr "Moneda"
 msgid "to display charts"
 msgstr "para mostrar gráficos"
 
-#: section/templates/section/inc/menu/_currency.html:73
+#: section/templates/section/inc/menu/_currency.html:76
 msgid "Code of currency"
 msgstr "Código de la moneda"
 
@@ -87,16 +87,15 @@ msgstr "Habitación"
 msgid "Name"
 msgstr "Nombre"
 
-#: section/templates/section/inc/menu/_team.html:14
+#: section/templates/section/inc/menu/_team.html:15
 msgid "Owner"
 msgstr "Propietario"
 
-#: section/templates/section/inc/menu/_team.html:31
+#: section/templates/section/inc/menu/_team.html:37
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: section/templates/section/inc/menu/_team.html:31
-#: section/templates/section/inc/menu/_team.html:33
+#: section/templates/section/inc/menu/_team.html:38
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -150,6 +149,22 @@ msgstr "Idioma"
 msgid "Hello"
 msgstr "Hola"
 
+#: telegram/handlers/messages/photos.py:32
+msgid "In line"
+msgstr "En la cola"
+
+#: telegram/handlers/messages/photos.py:49 telegram/models.py:10
+msgid "In progress"
+msgstr "En progreso"
+
+#: telegram/handlers/messages/photos.py:51
+msgid "Analysis completed"
+msgstr "Análisis completado"
+
+#: telegram/handlers/messages/photos.py:53
+msgid "Analysis error"
+msgstr "Error de análisis"
+
 #: telegram/handlers/share/users.py:24
 msgid "You must be the owner of a room to add users to it"
 msgstr "Debes ser el propietario de una sala para añadir usuarios a ella"
@@ -162,15 +177,28 @@ msgstr "Agregar a la sala \"%(section_name)s\""
 #: telegram/handlers/share/users.py:41
 #, python-format
 msgid "Use the button below to add users to the room \"%(section_name)s\""
-msgstr "Usa el botón de abajo para añadir usuarios a la sala \"%(section_name)s\""
+msgstr ""
+"Usa el botón de abajo para añadir usuarios a la sala \"%(section_name)s\""
 
-#: telegram/handlers/share/users.py:50
+#: telegram/handlers/share/users.py:51
 msgid "Room not found, users will not be added. Try again"
 msgstr "Sala no encontrada, los usuarios no serán añadidos. Intenta de nuevo"
 
-#: telegram/handlers/share/users.py:64
+#: telegram/handlers/share/users.py:65
 msgid "Users added"
 msgstr "Usuarios añadidos"
+
+#: telegram/models.py:11
+msgid "Processed"
+msgstr "Procesado"
+
+#: telegram/models.py:12
+msgid "Error"
+msgstr "Error"
+
+#: telegram/models.py:20
+msgid "Status"
+msgstr "Estado"
 
 #: templates/i18n.html:5
 msgid "Used currencies"
@@ -180,10 +208,13 @@ msgstr "Divisas usadas"
 msgid "Feedback"
 msgstr "Comentarios"
 
-#: user/templates/user/feedback_form.html:11
+#: user/templates/user/feedback_form.html:12
 msgid "Message"
 msgstr "Mensaje"
 
-#: user/templates/user/feedback_form.html:14
+#: user/templates/user/feedback_form.html:15
 msgid "Send"
 msgstr "Enviar"
+
+#~ msgid "Analyzed"
+#~ msgstr "Analizado"
