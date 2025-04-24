@@ -58,7 +58,7 @@ class OpenAIService(BaseOpenAIMethods):
             self,
             usage: Optional[Usage],
             model: Type[OpenAIModelStrategy],
-            **log_usage_kwargs: dict[str, Any]
+            receipt: Receipt,
         ) -> None:
 
         if usage:
@@ -66,25 +66,8 @@ class OpenAIService(BaseOpenAIMethods):
             AIUsageLogger(model()).log_usage(
                 prompt_tokens=usage.prompt_tokens,
                 completion_tokens=usage.completion_tokens,
-                **log_usage_kwargs,
+                receipt=receipt,
             )
-
-    @handle_openai_errors
-    def run_tmp_thread(
-            self,
-            assistant_id: str,
-            poll_interval_ms: int,
-            additional_messages: Optional[Iterable[AdditionalMessage]]
-        ):
-
-        with TmpThreadManager(self.client) as tmp_thread:
-            run = self.client.beta.threads.runs.create_and_poll(
-                thread_id=tmp_thread.id,
-                assistant_id=assistant_id,
-                poll_interval_ms=poll_interval_ms,
-                additional_messages=additional_messages,
-            )
-        return run
 
     def request(self,
                 assistant_id: str,
@@ -93,19 +76,23 @@ class OpenAIService(BaseOpenAIMethods):
                 receipt: Receipt,
                 additional_messages: Optional[Iterable[AdditionalMessage]],
                 ):
-        run = self.run_tmp_thread(
-            assistant_id=assistant_id,
-            poll_interval_ms=poll_interval_ms,
-            additional_messages=additional_messages,
-        )
 
-        self.save_usage(
-            usage=run.usage,
-            model=model,
-            log_usage_kwargs={'receipt': receipt},
-        )
+        with TmpThreadManager(self.client) as tmp_thread:
+            run = self.client.beta.threads.runs.create_and_poll(
+                thread_id=tmp_thread.id,
+                assistant_id=assistant_id,
+                poll_interval_ms=poll_interval_ms,
+                additional_messages=additional_messages,
+            )
 
-        return self._get_response(run.thread_id)
+            self.save_usage(
+                usage=run.usage,
+                model=model,
+                receipt=receipt,
+            )
+            return self._get_response(run.thread_id)
+
+
 
     @handle_openai_errors
     def analyze_user_expenses_by_text(self,
