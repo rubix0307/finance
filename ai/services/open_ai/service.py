@@ -1,7 +1,7 @@
 import io
 import json
 import os
-from typing import Any, Type
+from typing import Any, Type, Optional, Iterable
 
 from openai import OpenAI
 from openai.types.beta import Assistant
@@ -17,7 +17,7 @@ from openai.types.beta.threads.run_create_params import AdditionalMessage
 from ai.logger import AIUsageLogger
 from ai.services.open_ai.decorators import handle_openai_errors
 from ai.services.open_ai.managers import TmpFileManager, TmpThreadManager
-from ai.services.open_ai.strategies import OpenAI41, OpenAIModelStrategy
+from ai.services.open_ai.strategies import OpenAI41, OpenAIModelStrategy, OpenAI41Nano
 from receipt.models import Receipt
 from receipt.schemas import ReceiptSchema
 
@@ -50,6 +50,7 @@ class OpenAIService(BaseOpenAIMethods):
     def __init__(self, **kwargs: dict[str, Any]) -> None:
         super().__init__(**kwargs)
         self.analyze_receipt_assistant: Assistant = self.client.beta.assistants.retrieve(os.getenv('OPENAI_ANALYZE_RECEIPT_ASSISTANT_ID', ''))
+        self.analyze_expenses_by_text_assistant: Assistant = self.client.beta.assistants.retrieve(os.getenv('OPENAI_ANALYZE_EXPENSES_BY_TEXT_ASSISTANT_ID', ''))
         self.usage: list[Usage] = []
 
 
@@ -134,18 +135,16 @@ class OpenAIService(BaseOpenAIMethods):
                     text_data: TextContentBlockParam = {'type': 'text', 'text': prompt}
                     content.append(text_data)
 
-                with TmpThreadManager(self.client) as tmp_thread:
-                    run = self.client.beta.threads.runs.create_and_poll(
-                        thread_id=tmp_thread.id,
-                        assistant_id=self.analyze_receipt_assistant.id,
-                        poll_interval_ms=poll_interval_ms,
-                        additional_messages=[AdditionalMessage(content=content, role='user')]
-                    )
-                    self.save_usage(
-                        usage=run.usage,
-                        model=model,
-                        log_usage_kwargs={'receipt': receipt},
-                    )
+                run = self.run_tmp_thread(
+                    assistant_id=self.analyze_expenses_by_text_assistant.id,
+                    poll_interval_ms=poll_interval_ms,
+                    additional_messages=[AdditionalMessage(content=content, role='user')],
+                )
+                self.save_usage(
+                    usage=run.usage,
+                    model=model,
+                    log_usage_kwargs={'receipt': receipt},
+                )
 
-                    response_message = self._get_response(run.thread_id)
-                    return ReceiptSchema(**json.loads(response_message or ''))
+                response_message = self._get_response(run.thread_id)
+                return ReceiptSchema(**json.loads(response_message or ''))
