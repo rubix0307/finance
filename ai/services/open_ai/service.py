@@ -1,7 +1,7 @@
 import io
 import json
 import os
-from typing import Any
+from typing import Any, Type
 
 from openai import OpenAI
 from openai.types.beta import Assistant
@@ -16,7 +16,7 @@ from openai.types.beta.threads.run import Usage
 from ai.logger import AIUsageLogger
 from ai.services.open_ai.decorators import handle_openai_errors
 from ai.services.open_ai.managers import TmpFileManager, TmpThreadManager
-from ai.services.open_ai.strategies import OpenAI41
+from ai.services.open_ai.strategies import OpenAI41, OpenAIModelStrategy
 from receipt.models import Receipt
 from receipt.schemas import ReceiptSchema
 
@@ -50,11 +50,16 @@ class OpenAIService(BaseOpenAIMethods):
         super().__init__(**kwargs)
         self.analyze_receipt_assistant: Assistant = self.client.beta.assistants.retrieve(os.getenv('OPENAI_ANALYZE_RECEIPT_ASSISTANT_ID', ''))
         self.usage: list[Usage] = []
-        self.logger = AIUsageLogger(OpenAI41())
 
 
     @handle_openai_errors
-    def analyze_receipt(self, receipt: Receipt, prompt: str = '', poll_interval_ms: int = 1000) -> ReceiptSchema:
+    def analyze_receipt(self,
+            receipt: Receipt,
+            prompt: str = '',
+            model: Type[OpenAIModelStrategy] = OpenAI41,
+            poll_interval_ms: int = 1000,
+        ) -> ReceiptSchema:
+
         with receipt.photo.open('rb') as photo_rb:
             file_obj = io.BytesIO(photo_rb.read())
             file_obj.name = photo_rb.name
@@ -82,7 +87,7 @@ class OpenAIService(BaseOpenAIMethods):
                     )
                     if run.usage:
                         self.usage.append(run.usage)
-                        self.logger.log_usage(
+                        AIUsageLogger(model()).log_usage(
                             prompt_tokens=run.usage.prompt_tokens,
                             completion_tokens=run.usage.completion_tokens,
                             receipt=receipt,
