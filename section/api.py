@@ -197,7 +197,7 @@ def get_section_receipts(
             currency=CurrencySchema(
                 code=r.currency.code
             ),
-            photo=r.photo.url,
+            photo=r.photo.url if r.photo else None,
             date=date(year=r.date.year, month=r.date.month, day=r.date.day),
             items=[
                 SectionReceiptItemSchema(

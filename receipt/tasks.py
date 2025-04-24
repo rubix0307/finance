@@ -25,10 +25,11 @@ logger = logging.getLogger(__name__)
 )
 def update_receipt_data(self: Task, receipt_pk: int, user_pk: int) -> None | ProcessPhotoResponse | ProcessPhotoError:
 
+    user = User.objects.get(pk=user_pk)
+    receipt = Receipt.objects.get(pk=receipt_pk)
+    receipt_status = receipt.statuses.order_by('-message_id').first()
+
     try:
-        user = User.objects.get(pk=user_pk)
-        receipt = Receipt.objects.get(pk=receipt_pk)
-        receipt_status = receipt.statuses.order_by('-message_id').first()
         if receipt_status:
             receipt_status.update_status_and_notify(Status.IN_PROGRESS)
         else:
@@ -47,25 +48,52 @@ def update_receipt_data(self: Task, receipt_pk: int, user_pk: int) -> None | Pro
 
         if receipt_status:
             receipt_status.update_status_and_notify(new_status)
+    except Exception as ex:
+        if receipt_status:
+            receipt_status.update_status_and_notify(Status.ERROR)
+        return None
 
-        return answer
+    return answer
 
-    except Receipt.DoesNotExist:
-        logger.error("Receipt not found")
-        return {"error": "Receipt not found"}
 
-    except User.DoesNotExist:
-        logger.error("User does not exist")
-        return {"error": "User does not exist"}
+@shared_task(  # type: ignore
+    bind=True,
+    autoretry_for=(Exception,),
+    retry_kwargs={"max_retries": 2, "countdown": 10},
+    acks_late=True,
+    reject_on_worker_lost=True,
+)
+def update_expenses_data_by_text(self: Task, receipt_pk: int, user_pk: int) -> bool:
 
-    except MaxRetriesExceededError:
-        logger.error(f"Task {self.request.id} failed after max retries")
-        return {"error": "Max retries exceeded. Task failed permanently."}
+    user = User.objects.get(pk=user_pk)
+    receipt = Receipt.objects.get(pk=receipt_pk)
+    receipt_status = receipt.statuses.order_by('-message_id').first()
 
-    except Exception as e:
-        logger.warning(f"Task {self.request.id} failed. Retrying... ({self.request.retries}/5)")
-        try:
-            raise self.retry(exc=e)
-        except MaxRetriesExceededError:
-            logger.error(f"Task {self.request.id} permanently failed after 5 attempts.")
-            return {"error": "Permanent failure after max retries"}
+    try:
+        if receipt_status:
+            receipt_status.update_status_and_notify(Status.IN_PROGRESS)
+        else:
+            receipt_status = None
+
+        ai_service = OpenAIService()
+        schema: ReceiptSchema | None = ai_service.analyze_user_expenses_by_text(receipt=receipt)
+
+        if schema:
+            new_status = Status.PROCESSED
+            ReceiptSchemaService(
+                receipt_schema=schema,
+                user=user,
+                currency=receipt.get_default_currency()
+            ).update_receipt(receipt)
+        else:
+            new_status = Status.ERROR
+
+        if receipt_status:
+            receipt_status.update_status_and_notify(new_status)
+
+    except Exception as ex:
+        if receipt_status:
+            receipt_status.update_status_and_notify(Status.ERROR)
+
+    return bool(schema)
+

@@ -69,6 +69,7 @@ class Receipt(models.Model):
     date_last_update = models.DateTimeField(auto_now=True, null=True, blank=True)
     date_add = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     is_processed = models.BooleanField(default=False)
+    input_text = models.TextField(blank=True, null=True)
 
     def __str__(self) -> str:
         return f'{self.pk}'
@@ -76,6 +77,7 @@ class Receipt(models.Model):
     def save(
         self,
         do_analyze_photo: bool = False,
+        do_analyze_input_text: bool = False,
         force_insert: bool | tuple[ModelBase, ...] = False,
         force_update: bool = False,
         using: str | None = None,
@@ -94,6 +96,16 @@ class Receipt(models.Model):
         if do_analyze_photo:
             self.refresh_from_db()
             tasks.update_receipt_data.delay(receipt_pk=self.pk, user_pk=self.owner.pk)
+
+        if do_analyze_input_text:
+            self.refresh_from_db()
+            tasks.update_expenses_data_by_text(receipt_pk=self.pk, user_pk=self.owner.pk)
+
+    def get_default_currency(self) -> Currency | None:
+        try:
+            return self.section.memberships.get(user=self.owner).currency
+        except Exception:
+            return None
 
     class Meta:
         db_table = 'receipt'

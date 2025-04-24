@@ -16,8 +16,8 @@ class ItemSchema(BaseModel):
 
 class ReceiptSchema(BaseModel):
     is_receipt: bool = Field(...)
-    shop: ShopSchema
+    shop: Optional[ShopSchema] = None
     items: List[ItemSchema]
     date: Optional[str] = Field(None)
     time: Optional[str] = Field(None)
-    currency: str = Field(...)
+    currency: Optional[str] = None

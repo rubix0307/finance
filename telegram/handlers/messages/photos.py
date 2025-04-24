@@ -44,25 +44,37 @@ def get_photo(message: Message, user: User, **kwargs: dict[str, Any]) -> None:
 
 def update_message(receipt_status: ReceiptStatusMessage, **kwargs: dict[str, Any]) -> None:
     with translation.override(receipt_status.receipt.owner.language_code):
-        caption = None
+        status_text = None
         markup = None
+        input_text = receipt_status.receipt.input_text or ''
         if receipt_status.status == Status.IN_PROGRESS:
-            caption = _('In progress')
+            status_text = _('In progress')
         elif receipt_status.status == Status.PROCESSED:
-            caption = _('Analysis completed')
+            status_text = _('Analysis completed')
             markup = InlineKeyboardMarkup()
             markup.add(ButtonStorage.web_app_main())
 
         elif receipt_status.status == Status.ERROR:
-            caption = _('Analysis error')
+            status_text = _('Analysis error')
 
-        if caption:
+        if status_text:
             try:
-                bot.edit_message_caption(
-                    caption=caption,
-                    chat_id=receipt_status.chat_id,
-                    message_id=receipt_status.message_id,
-                    reply_markup=markup,
-                )
+                send_data = {
+                    'chat_id': receipt_status.chat_id,
+                    'message_id': receipt_status.message_id,
+                    'reply_markup': markup,
+                }
+
+                if receipt_status.receipt.input_text:
+                    bot.edit_message_text(
+                        text='\n'.join(filter(None, [input_text, '-———'*3, status_text])),
+                        **send_data,
+                    )
+                else:
+                    bot.edit_message_caption(
+                        caption='\n'.join(filter(None, [input_text, status_text])),
+                        **send_data,
+                    )
+
             except Exception as ex:
                 ...

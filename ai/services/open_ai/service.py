@@ -97,7 +97,6 @@ class OpenAIService(BaseOpenAIMethods):
     @handle_openai_errors
     def analyze_user_expenses_by_text(self,
             receipt: Receipt,
-            text: str,
             model: Type[OpenAIModelStrategy] = OpenAI41Nano,
             poll_interval_ms: int = 1000,
         ) -> ReceiptSchema:
@@ -107,7 +106,7 @@ class OpenAIService(BaseOpenAIMethods):
             poll_interval_ms=poll_interval_ms,
             model=model,
             receipt=receipt,
-            additional_messages=[AdditionalMessage(content=text, role='user')],
+            additional_messages=[AdditionalMessage(content=receipt.input_text, role='user')],
         )
         return ReceiptSchema(**json.loads(response or ''))
 

@@ -11,20 +11,21 @@ from receipt.schemas import ReceiptSchema
 
 
 class ReceiptSchemaService:
-    def __init__(self, receipt_schema: ReceiptSchema, user: User):
+    def __init__(self, receipt_schema: ReceiptSchema, user: User, currency: Currency | None = None):
         self.receipt_schema = receipt_schema
         self.receipt_data = receipt_schema.model_dump()
         self.user = user
+        self.currency = currency
         self.item_categories: dict[int, ReceiptItemCategory] = {}
-
         self._validate_required_fields()
 
     def _validate_required_fields(self) -> None:
         currency_code = self.receipt_data.get('currency')
-        try:
-            self.currency = Currency.objects.get(code=currency_code)
-        except Currency.DoesNotExist:
-            raise MissingCurrencyError()
+        if currency_code:
+            try:
+                self.currency = Currency.objects.get(code=currency_code)
+            except Currency.DoesNotExist:
+                ...
 
         items = self.receipt_data.get("items")
         if not items or not isinstance(items, list) or len(items) == 0:
