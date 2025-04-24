@@ -86,18 +86,17 @@ class OpenAIService(BaseOpenAIMethods):
             )
         return run
 
-    @handle_openai_errors
-    def analyze_user_expenses_by_text(self,
-            receipt: Receipt,
-            text: str,
-            model: Type[OpenAIModelStrategy] = OpenAI41Nano,
-            poll_interval_ms: int = 1000,
-        ) -> None:
-
+    def request(self,
+                assistant_id: str,
+                poll_interval_ms: int,
+                model: Type[OpenAIModelStrategy],
+                receipt: Receipt,
+                additional_messages: Optional[Iterable[AdditionalMessage]],
+                ):
         run = self.run_tmp_thread(
-            assistant_id=self.analyze_expenses_by_text_assistant.id,
+            assistant_id=assistant_id,
             poll_interval_ms=poll_interval_ms,
-            additional_messages=[AdditionalMessage(content=text, role='user')],
+            additional_messages=additional_messages,
         )
 
         self.save_usage(
@@ -106,8 +105,24 @@ class OpenAIService(BaseOpenAIMethods):
             log_usage_kwargs={'receipt': receipt},
         )
 
-        response_message = self._get_response(run.thread_id)
-        return ReceiptSchema(**json.loads(response_message or ''))
+        return self._get_response(run.thread_id)
+
+    @handle_openai_errors
+    def analyze_user_expenses_by_text(self,
+            receipt: Receipt,
+            text: str,
+            model: Type[OpenAIModelStrategy] = OpenAI41Nano,
+            poll_interval_ms: int = 1000,
+        ) -> ReceiptSchema:
+
+        response = self.request(
+            assistant_id=self.analyze_expenses_by_text_assistant.id,
+            poll_interval_ms=poll_interval_ms,
+            model=model,
+            receipt=receipt,
+            additional_messages=[AdditionalMessage(content=text, role='user')],
+        )
+        return ReceiptSchema(**json.loads(response or ''))
 
     @handle_openai_errors
     def analyze_receipt(self,
@@ -135,16 +150,12 @@ class OpenAIService(BaseOpenAIMethods):
                     text_data: TextContentBlockParam = {'type': 'text', 'text': prompt}
                     content.append(text_data)
 
-                run = self.run_tmp_thread(
-                    assistant_id=self.analyze_expenses_by_text_assistant.id,
+                response = self.request(
+                    assistant_id=self.analyze_receipt_assistant.id,
                     poll_interval_ms=poll_interval_ms,
+                    model=model,
+                    receipt=receipt,
                     additional_messages=[AdditionalMessage(content=content, role='user')],
                 )
-                self.save_usage(
-                    usage=run.usage,
-                    model=model,
-                    log_usage_kwargs={'receipt': receipt},
-                )
 
-                response_message = self._get_response(run.thread_id)
-                return ReceiptSchema(**json.loads(response_message or ''))
+                return ReceiptSchema(**json.loads(response or ''))
