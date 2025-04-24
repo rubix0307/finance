@@ -12,6 +12,7 @@ from openai.types.beta.threads import (
     Text, Message, MessageContent,
 )
 from openai.types.beta.threads.run import Usage
+from openai.types.beta.threads.run_create_params import AdditionalMessage
 
 from ai.logger import AIUsageLogger
 from ai.services.open_ai.decorators import handle_openai_errors
@@ -138,7 +139,7 @@ class OpenAIService(BaseOpenAIMethods):
                         thread_id=tmp_thread.id,
                         assistant_id=self.analyze_receipt_assistant.id,
                         poll_interval_ms=poll_interval_ms,
-                        additional_messages=[{'content': content, 'role': 'user'}]
+                        additional_messages=[AdditionalMessage(content=content, role='user')]
                     )
                     self.save_usage(
                         usage=run.usage,
