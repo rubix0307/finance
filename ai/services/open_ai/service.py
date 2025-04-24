@@ -52,6 +52,61 @@ class OpenAIService(BaseOpenAIMethods):
         self.usage: list[Usage] = []
 
 
+    def save_usage(
+            self,
+            usage: Optional[Usage],
+            model: Type[OpenAIModelStrategy],
+            **log_usage_kwargs: dict[str, Any]
+        ) -> None:
+
+        if usage:
+            self.usage.append(usage)
+            AIUsageLogger(model()).log_usage(
+                prompt_tokens=usage.prompt_tokens,
+                completion_tokens=usage.completion_tokens,
+                **log_usage_kwargs,
+            )
+
+    @handle_openai_errors
+    def run_tmp_thread(
+            self,
+            assistant_id: str,
+            poll_interval_ms: int,
+            additional_messages: Optional[Iterable[AdditionalMessage]]
+        ):
+
+        with TmpThreadManager(self.client) as tmp_thread:
+            run = self.client.beta.threads.runs.create_and_poll(
+                thread_id=tmp_thread.id,
+                assistant_id=assistant_id,
+                poll_interval_ms=poll_interval_ms,
+                additional_messages=additional_messages,
+            )
+        return run
+
+    @handle_openai_errors
+    def analyze_user_expenses_by_text(self,
+            receipt: Receipt,
+            text: str,
+            model: Type[OpenAIModelStrategy] = OpenAI41Nano,
+            poll_interval_ms: int = 1000,
+        ) -> None:
+
+        run = self.run_tmp_thread(
+            assistant_id=self.analyze_expenses_by_text_assistant.id,
+            poll_interval_ms=poll_interval_ms,
+            additional_messages=[AdditionalMessage(content=text, role='user')],
+        )
+
+        self.save_usage(
+            usage=run.usage,
+            model=model,
+            log_usage_kwargs={'receipt': receipt},
+        )
+
+        response_message = self._get_response(run.thread_id)
+        return ReceiptSchema(**json.loads(response_message or ''))
+
     @handle_openai_errors
     def analyze_receipt(self,
             receipt: Receipt,
@@ -85,13 +140,11 @@ class OpenAIService(BaseOpenAIMethods):
                         poll_interval_ms=poll_interval_ms,
                         additional_messages=[{'content': content, 'role': 'user'}]
                     )
-                    if run.usage:
-                        self.usage.append(run.usage)
-                        AIUsageLogger(model()).log_usage(
-                            prompt_tokens=run.usage.prompt_tokens,
-                            completion_tokens=run.usage.completion_tokens,
-                            receipt=receipt,
-                        )
+                    self.save_usage(
+                        usage=run.usage,
+                        model=model,
+                        log_usage_kwargs={'receipt': receipt},
+                    )
 
                     response_message = self._get_response(run.thread_id)
                     return ReceiptSchema(**json.loads(response_message or ''))
