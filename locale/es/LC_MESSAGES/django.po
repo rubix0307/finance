@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-23 21:48+0200\n"
+"POT-Creation-Date: 2025-04-24 15:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,6 +40,153 @@ msgstr "Guardar"
 #: section/templates/section/inc/faq/_faq.html:3
 msgid "FAQ"
 msgstr "Preguntas frecuentes"
+
+#: section/templates/section/inc/faq/_faq.html:17
+msgid "Account and support"
+msgstr "Cuenta y asistencia"
+
+#: section/templates/section/inc/faq/_faq.html:18
+msgid "How to contact the developers?"
+msgstr "¿Cómo contactar con los desarrolladores?"
+
+#: section/templates/section/inc/faq/_faq.html:18
+msgid "Via the feedback form in “Account” → “Feedback” section"
+msgstr "A través del formulario de comentarios en “Cuenta” → “Comentarios”"
+
+#: section/templates/section/inc/faq/_faq.html:20
+msgid "Working with the bot"
+msgstr "Trabajo con el bot"
+
+#: section/templates/section/inc/faq/_faq.html:21
+msgid "How to get started with the bot?"
+msgstr "¿Cómo empezar a utilizar el bot?"
+
+#: section/templates/section/inc/faq/_faq.html:21
+msgid "Just send a photo of the receipt in the chat with the bot – it will automatically process the image and return the status"
+msgstr "Simplemente envía una foto del recibo en el chat con el bot: procesará automáticamente la imagen y devolverá el estado"
+
+#: section/templates/section/inc/faq/_faq.html:22
+msgid "How to change the language in the bot?"
+msgstr "¿Cómo cambiar el idioma en el bot?"
+
+#: section/templates/section/inc/faq/_faq.html:22
+msgid "In the bot menu or in the web application, select “Account” → “Language” and choose the desired one"
+msgstr "En el menú del bot o en la aplicación web, selecciona “Cuenta” → “Idioma” y elige el deseado"
+
+#: section/templates/section/inc/faq/_faq.html:24
+msgid "Web application"
+msgstr "Aplicación web"
+
+#: section/templates/section/inc/faq/_faq.html:25
+msgid "How to select a period for analytics?"
+msgstr "¿Cómo seleccionar un período para el análisis?"
+
+#: section/templates/section/inc/faq/_faq.html:25
+msgid "On the main page of the webapp there are three fixed ranges available: week, month, and year. One of them is active by default. In the upcoming update there will be a choice of a custom period via the calendar"
+msgstr "En la página principal de la aplicación web hay tres rangos fijos disponibles: semana, mes y año. Por defecto está activo uno de ellos. En la próxima actualización habrá opción de elegir un período personalizado mediante el calendario"
+
+#: section/templates/section/inc/faq/_faq.html:26
+msgid "Which reports and charts are currently available?"
+msgstr "¿Qué informes y gráficos están disponibles actualmente?"
+
+#: section/templates/section/inc/faq/_faq.html:26
+msgid "Total spending amount, pie chart"
+msgstr "Monto total de gastos, gráfico circular"
+
+#: section/templates/section/inc/faq/_faq.html:28
+#: section/templates/section/inc/menu/_header.html:4
+msgid "Rooms"
+msgstr "Salas"
+
+#: section/templates/section/inc/faq/_faq.html:29
+msgid "What is a “room”?"
+msgstr "¿Qué es una “sala”?"
+
+#: section/templates/section/inc/faq/_faq.html:29
+msgid "It's a shared chat-cash register, where you can see receipts from all participants and overall charts"
+msgstr "Es un chat-caja compartido, donde puedes ver los recibos de todos los participantes y gráficos generales"
+
+#: section/templates/section/inc/faq/_faq.html:30
+msgid "How is a room created?"
+msgstr "¿Cómo se crea una sala?"
+
+#: section/templates/section/inc/faq/_faq.html:30
+msgid "The first room is automatically created upon first entering the bot. New rooms cannot be created yet, but you can be invited to an existing one"
+msgstr "La primera sala se crea automáticamente al entrar por primera vez al bot. Aún no se pueden crear nuevas salas, pero puedes ser invitado a una ya existente"
+
+#: section/templates/section/inc/faq/_faq.html:31
+msgid "How to invite others to a room?"
+msgstr "¿Cómo invitar a otros a una sala?"
+
+#: section/templates/section/inc/faq/_faq.html:31
+msgid "In the section menu, click the “Invite” button. A bot chat will open with a button to select users"
+msgstr "En el menú de la sección, haz clic en el botón “Invitar”. Se abrirá un chat con el bot con un botón para seleccionar usuarios"
+
+#: section/templates/section/inc/faq/_faq.html:32
+msgid "Who can add and remove participants?"
+msgstr "¿Quién puede añadir y eliminar participantes?"
+
+#: section/templates/section/inc/faq/_faq.html:32
+msgid "Only the room owner. Regular participants can remove themselves."
+msgstr "Solo el propietario de la sala. Los participantes regulares pueden eliminarse a sí mismos."
+
+#: section/templates/section/inc/faq/_faq.html:33
+msgid "How to switch rooms and set one as default?"
+msgstr "¿Cómo cambiar de sala y establecer una como predeterminada?"
+
+#: section/templates/section/inc/faq/_faq.html:33
+msgid "If you have multiple rooms, switching arrows will appear. The “Set as default” button makes the current room the primary one. If you are removed from someone else's room, your own room will become the default again."
+msgstr "Si tienes varias salas, aparecerán flechas para cambiar. El botón “Establecer como predeterminada” convierte la sala actual en la principal. Si te eliminan de la sala de otro, tu propia sala volverá a ser la predeterminada."
+
+#: section/templates/section/inc/faq/_faq.html:34
+msgid "Can you rename a room or change the currency?"
+msgstr "¿Se puede renombrar una sala o cambiar la moneda?"
+
+#: section/templates/section/inc/faq/_faq.html:34
+msgid "Any participant can set their own local name for the room and choose the currency for display charts. The currency does not affect others. The room name set by the owner will be displayed to all participants who have not set their own room name."
+msgstr "Cualquier participante puede asignar su propio nombre local a la sala y elegir la moneda para mostrar los gráficos. La moneda no afecta a los demás. El nombre de la sala establecido por el propietario se mostrará a todos los participantes que no hayan establecido su propio nombre."
+
+#: section/templates/section/inc/faq/_faq.html:36
+msgid "Finance and charts"
+msgstr "Finanzas y gráficos"
+
+#: section/templates/section/inc/faq/_faq.html:37
+msgid "Which currencies are supported?"
+msgstr "¿Qué monedas son compatibles?"
+
+#: section/templates/section/inc/faq/_faq.html:37
+msgid "All world currencies are supported. All amounts are converted into the default currency using current exchange rates"
+msgstr "Se admiten todas las monedas del mundo. Todos los montos se convierten a la moneda predeterminada usando tipos de cambio actualizados"
+
+#: section/templates/section/inc/faq/_faq.html:38
+msgid "How to see detailed information for a category on the chart?"
+msgstr "¿Cómo ver información detallada de una categoría en el gráfico?"
+
+#: section/templates/section/inc/faq/_faq.html:38
+msgid "Click on a segment – a window will appear with the category, amount in the room's currency, and a breakdown by original currencies"
+msgstr "Haz clic en un segmento: aparecerá una ventana con la categoría, el monto en la moneda de la sala y un desglose por monedas originales"
+
+#: section/templates/section/inc/faq/_faq.html:40
+#, fuzzy
+#| msgid "Receipt"
+msgid "Receipts"
+msgstr "Recibos"
+
+#: section/templates/section/inc/faq/_faq.html:41
+msgid "Can receipts be filtered?"
+msgstr "¿Se pueden filtrar los recibos?"
+
+#: section/templates/section/inc/faq/_faq.html:41
+msgid "Currently filtering is only by period. In future updates, filters by people and categories will be added."
+msgstr "Actualmente el filtrado es solo por período. En futuras actualizaciones se añadirán filtros por personas y categorías."
+
+#: section/templates/section/inc/faq/_faq.html:42
+msgid "What can be edited in a receipt?"
+msgstr "¿Qué se puede editar en un recibo?"
+
+#: section/templates/section/inc/faq/_faq.html:42
+msgid "Full editing is available to any participant, as well as receipt deletion."
+msgstr "La edición completa está disponible para cualquier participante, así como la eliminación del recibo."
 
 #: section/templates/section/inc/main/_expenses.html:19
 #: section/templates/section/inc/main/feed/_header.html:17
@@ -74,10 +221,6 @@ msgstr "para mostrar gráficos"
 #: section/templates/section/inc/menu/_currency.html:76
 msgid "Code of currency"
 msgstr "Código de la moneda"
-
-#: section/templates/section/inc/menu/_header.html:4
-msgid "Rooms"
-msgstr "Habitaciones"
 
 #: section/templates/section/inc/menu/_header.html:25
 msgid "Room"
@@ -153,15 +296,15 @@ msgstr "Hola"
 msgid "In line"
 msgstr "En la cola"
 
-#: telegram/handlers/messages/photos.py:49 telegram/models.py:10
+#: telegram/handlers/messages/photos.py:50 telegram/models.py:10
 msgid "In progress"
 msgstr "En progreso"
 
-#: telegram/handlers/messages/photos.py:51
+#: telegram/handlers/messages/photos.py:52
 msgid "Analysis completed"
 msgstr "Análisis completado"
 
-#: telegram/handlers/messages/photos.py:53
+#: telegram/handlers/messages/photos.py:57
 msgid "Analysis error"
 msgstr "Error de análisis"
 
