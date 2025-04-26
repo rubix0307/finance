@@ -24,6 +24,7 @@ from ninja import NinjaAPI
 from config.views import permission_denied_view, faq_view
 from currency.api import router as currency_router
 from section.api import router as section_router
+from subscription.views import test_subscription
 from user.api import router as user_router
 from receipt.views import upload_receipts
 from user.views import feedback_view, user_language
@@ -36,6 +37,7 @@ api.add_router('/users/', user_router)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('section.urls')),
+    path('test_sub/', test_subscription),
     path('chart/', include('chart.urls')),
     path('upload/', upload_receipts, name='upload_receipts'),
     path('api/', api.urls),

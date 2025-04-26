@@ -1,0 +1,202 @@
+[
+{
+  "model": "subscription.plan",
+  "pk": 1,
+  "fields": {
+    "slug": "free",
+    "period": "monthly",
+    "is_active": true,
+    "price_stars": null
+  }
+},
+{
+  "model": "subscription.plan",
+  "pk": 2,
+  "fields": {
+    "slug": "base",
+    "period": "monthly",
+    "is_active": true,
+    "price_stars": 100
+  }
+},
+{
+  "model": "subscription.plan",
+  "pk": 3,
+  "fields": {
+    "slug": "family",
+    "period": "monthly",
+    "is_active": true,
+    "price_stars": 200
+  }
+},
+{
+  "model": "subscription.plan",
+  "pk": 4,
+  "fields": {
+    "slug": "business",
+    "period": "monthly",
+    "is_active": true,
+    "price_stars": 350
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 1,
+  "fields": {
+    "language_code": "ru",
+    "title": "Бесплатная",
+    "description": "Уже активна у всех пользователей",
+    "master": 1
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 2,
+  "fields": {
+    "language_code": "en",
+    "title": "Free",
+    "description": "Already active for all users",
+    "master": 1
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 3,
+  "fields": {
+    "language_code": "uk",
+    "title": "Безкоштовна",
+    "description": "Вже активна у всіх користувачів",
+    "master": 1
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 4,
+  "fields": {
+    "language_code": "es",
+    "title": "Gratis",
+    "description": "Ya activo para todos los usuarios",
+    "master": 1
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 5,
+  "fields": {
+    "language_code": "en",
+    "title": "Base",
+    "description": "Ideal for 1 person",
+    "master": 2
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 6,
+  "fields": {
+    "language_code": "es",
+    "title": "Básico",
+    "description": "Ideal para 1 persona",
+    "master": 2
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 7,
+  "fields": {
+    "language_code": "ru",
+    "title": "Базовая",
+    "description": "Идеально для 1 человека",
+    "master": 2
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 8,
+  "fields": {
+    "language_code": "uk",
+    "title": "Базова",
+    "description": "Ідеально для 1 людини",
+    "master": 2
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 9,
+  "fields": {
+    "language_code": "en",
+    "title": "Family",
+    "description": "Suitable for 3 people",
+    "master": 3
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 10,
+  "fields": {
+    "language_code": "es",
+    "title": "Familia",
+    "description": "Apto para 3 personas",
+    "master": 3
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 11,
+  "fields": {
+    "language_code": "ru",
+    "title": "Семейная",
+    "description": "Подходит для 3 людей",
+    "master": 3
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 12,
+  "fields": {
+    "language_code": "uk",
+    "title": "Сімейна",
+    "description": "Підходить для 3 людей",
+    "master": 3
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 13,
+  "fields": {
+    "language_code": "en",
+    "title": "Business",
+    "description": "Will cover any needs",
+    "master": 4
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 14,
+  "fields": {
+    "language_code": "ru",
+    "title": "Бизнес",
+    "description": "Закроет любые потребности",
+    "master": 4
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 15,
+  "fields": {
+    "language_code": "uk",
+    "title": "Бізнес",
+    "description": "Закриє будь-які потреби",
+    "master": 4
+  }
+},
+{
+  "model": "subscription.plantranslation",
+  "pk": 16,
+  "fields": {
+    "language_code": "es",
+    "title": "Negocio",
+    "description": "Cubrirá cualquier necesidad",
+    "master": 4
+  }
+}
+]

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'currency',
     'section',
     'user',
+    'subscription',
     'chart',
     'receipt',
     'ai',

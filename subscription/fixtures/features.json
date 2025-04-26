@@ -1,0 +1,92 @@
+[
+{
+  "model": "subscription.feature",
+  "pk": 1,
+  "fields": {
+    "code": "analyze_photo",
+    "is_boolean": false,
+    "description": ""
+  }
+},
+{
+  "model": "subscription.feature",
+  "pk": 2,
+  "fields": {
+    "code": "analyze_message",
+    "is_boolean": false,
+    "description": ""
+  }
+},
+{
+  "model": "subscription.featuretranslation",
+  "pk": 1,
+  "fields": {
+    "language_code": "en",
+    "name": "Аnalyze text message",
+    "master": 2
+  }
+},
+{
+  "model": "subscription.featuretranslation",
+  "pk": 2,
+  "fields": {
+    "language_code": "ru",
+    "name": "Анализ текстового сообщения",
+    "master": 2
+  }
+},
+{
+  "model": "subscription.featuretranslation",
+  "pk": 3,
+  "fields": {
+    "language_code": "uk",
+    "name": "Аналіз текстового повідомлення",
+    "master": 2
+  }
+},
+{
+  "model": "subscription.featuretranslation",
+  "pk": 4,
+  "fields": {
+    "language_code": "es",
+    "name": "Analizar mensaje de texto",
+    "master": 2
+  }
+},
+{
+  "model": "subscription.featuretranslation",
+  "pk": 5,
+  "fields": {
+    "language_code": "en",
+    "name": "Receipt photo analysis",
+    "master": 1
+  }
+},
+{
+  "model": "subscription.featuretranslation",
+  "pk": 6,
+  "fields": {
+    "language_code": "ru",
+    "name": "Анализ фото чека",
+    "master": 1
+  }
+},
+{
+  "model": "subscription.featuretranslation",
+  "pk": 7,
+  "fields": {
+    "language_code": "es",
+    "name": "Análisis de la foto del recibo",
+    "master": 1
+  }
+},
+{
+  "model": "subscription.featuretranslation",
+  "pk": 8,
+  "fields": {
+    "language_code": "uk",
+    "name": "Аналіз фото чека",
+    "master": 1
+  }
+}
+]
