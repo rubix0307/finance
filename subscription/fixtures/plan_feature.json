@@ -1,0 +1,74 @@
+[
+{
+  "model": "subscription.planfeature",
+  "pk": 1,
+  "fields": {
+    "plan": 1,
+    "feature": 1,
+    "limit": 10
+  }
+},
+{
+  "model": "subscription.planfeature",
+  "pk": 2,
+  "fields": {
+    "plan": 1,
+    "feature": 2,
+    "limit": 20
+  }
+},
+{
+  "model": "subscription.planfeature",
+  "pk": 3,
+  "fields": {
+    "plan": 2,
+    "feature": 1,
+    "limit": 50
+  }
+},
+{
+  "model": "subscription.planfeature",
+  "pk": 4,
+  "fields": {
+    "plan": 2,
+    "feature": 2,
+    "limit": 100
+  }
+},
+{
+  "model": "subscription.planfeature",
+  "pk": 5,
+  "fields": {
+    "plan": 3,
+    "feature": 1,
+    "limit": 150
+  }
+},
+{
+  "model": "subscription.planfeature",
+  "pk": 6,
+  "fields": {
+    "plan": 3,
+    "feature": 2,
+    "limit": 300
+  }
+},
+{
+  "model": "subscription.planfeature",
+  "pk": 7,
+  "fields": {
+    "plan": 4,
+    "feature": 1,
+    "limit": 350
+  }
+},
+{
+  "model": "subscription.planfeature",
+  "pk": 8,
+  "fields": {
+    "plan": 4,
+    "feature": 2,
+    "limit": 600
+  }
+}
+]
