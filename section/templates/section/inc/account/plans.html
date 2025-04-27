@@ -18,17 +18,30 @@
                 </template>
             </ul>
 
-            <div class="description" x-if="$store.plans.currentPlan.description">
-                <div class="description" x-text="$store.plans.currentPlan.description">{{ plan.description }}</div>
-                <hr x-show="$store.plans.currentPlan.price_stars != null">
-            </div>
+            <template x-if="$store.plans.currentPlan && $store.plans.currentPlan.description">
+                <div class="description">
+                    <div x-text="$store.plans.currentPlan.description"></div>
+                    <hr x-show="$store.plans.currentPlan.price_stars != null">
+                </div>
+            </template>
 
-            <div class="price_block" x-show="$store.plans.currentPlan.price_stars != null">
-                <div class="price">
-                    <div class="value"><div x-text="$store.plans.currentPlan.price_stars"></div><img
-                            src="{% static 'img/star.png' %}" alt=""></div>
-                    <div class="note">≈
-                        <div x-data x-text="0.02 * $store.plans.currentPlan.price_stars"></div>
+            <div
+                class="price_block"
+                x-show="$store.plans.currentPlan.price_stars !== null"
+                x-cloak
+            >
+                <div class="price" x-show="$store.plans.currentPlan.price_stars !== null">
+                    <div class="value">
+                        <div x-text="$store.plans.currentPlan.price_stars"></div>
+                        <img src="{% static 'img/star.png' %}" alt="">
+                    </div>
+                    <div class="note">
+                        ≈
+                        <div
+                          x-text="(0.02 * $store.plans.currentPlan.price_stars) % 1 === 0
+                                  ? (0.02 * $store.plans.currentPlan.price_stars)
+                                  : (0.02 * $store.plans.currentPlan.price_stars).toFixed(2)"
+                        ></div>
                         $
                     </div>
                 </div>
