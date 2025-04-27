@@ -182,7 +182,7 @@ def get_section_receipts(
                 queryset=ReceiptItem.objects.select_related("category")
             )
         )
-        .order_by("-date")
+        .order_by("-date", "-id")
     )
     paginator = Paginator(receipts_qs, size)
 
