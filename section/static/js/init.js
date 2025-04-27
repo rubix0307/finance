@@ -25,10 +25,11 @@ document.addEventListener('alpine:init', () => {
 
         async init_app() {
             try {
-                const [currenciesResponse, sectionsResponse, userResponse] = await Promise.all([
+                const [currenciesResponse, sectionsResponse, userResponse, plansResponse] = await Promise.all([
                     fetch('/api/currencies/'),
                     fetch('/api/sections/'),
                     fetch('/api/users/me/'),
+                    fetch('/api/plans/'),
                 ]);
 
                 if (currenciesResponse.ok) {
@@ -42,6 +43,11 @@ document.addEventListener('alpine:init', () => {
                 if (userResponse.ok) {
                     this.me = await userResponse.json();
                     this.current_section = this.sections.find(s => s.id == this.me.base_section) || null;
+                }
+                if (plansResponse.ok) {
+                    let plansData = await plansResponse.json();
+                    this.plans = plansData;
+                    Alpine.store('plans').plans = plansData;
                 }
             } catch (err) {
                 console.error('Ошибка при загрузке данных:', err);

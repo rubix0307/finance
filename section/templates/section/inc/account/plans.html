@@ -1,40 +1,40 @@
 {% load static %}
-<div class="plans">
-    <div class="caption">Ежемесячные подписки</div>
+<div x-data x-cloak>
 
-    <div class="list">
-        {% for plan in plans %}
-            <visibility-toggle class="main_block plan" threshold="0.3">
-                <div class="to-show">
-                    <div class="caption">{{ plan.title }}</div>
-                    <div class="features">
-                        <ul>
-                            {% for plan_feature in plan.features.all %}
-                                <li>
-                                    <div class="name">{{ plan_feature.feature.name }}</div>
-                                    <div class="limit">{{ plan_feature.limit }}</div>
-                                </li>
-                            {% endfor %}
-                        </ul>
+    <template x-if="$store.plans.plans.length">
+        <div class="main_block plans">
+            <div class="name">
+                <button @click="$store.plans.prev()">{% include 'svg/arrow_down.svg' %}</button>
+                <div class="title" x-text="$store.plans.currentPlan.title"></div>
+                <button @click="$store.plans.next()">{% include 'svg/arrow_down.svg' %}</button>
+            </div>
+
+            <ul class="features">
+                <template x-for="feat in $store.plans.currentPlan.features" :key="feat.feature.code">
+                    <li>
+                        <span x-text="feat.feature.name"></span>
+                        <span x-text="feat.limit"></span>
+                    </li>
+                </template>
+            </ul>
+
+            <div class="description" x-if="$store.plans.currentPlan.description">
+                <div class="description" x-text="$store.plans.currentPlan.description">{{ plan.description }}</div>
+                <hr x-show="$store.plans.currentPlan.price_stars != null">
+            </div>
+
+            <div class="price_block" x-show="$store.plans.currentPlan.price_stars != null">
+                <div class="price">
+                    <div class="value"><div x-text="$store.plans.currentPlan.price_stars"></div><img
+                            src="{% static 'img/star.png' %}" alt=""></div>
+                    <div class="note">≈
+                        <div x-data x-text="0.02 * $store.plans.currentPlan.price_stars"></div>
+                        $
                     </div>
-                    {% if plan.description %}
-                        <div class="description">{{ plan.description }}</div>
-                        {% if plan.price_stars %}
-                            <hr>
-                        {% endif %}
-                    {% endif %}
-                    {% if plan.price_stars %}
-                        <div class="price">
-                            <div class="value">{{ plan.price_stars }}<img src="{% static 'img/star.png' %}" alt=""></div>
-                            <div class="note">≈ <div x-data x-text="0.02 * {{ plan.price_stars }}"></div>$</div>
-                        </div>
-                        <button>Оформить</button>
-                        {% else %}
-                        <div style="padding: 10px"></div>
-                    {% endif %}
                 </div>
-            </visibility-toggle>
-        {% endfor %}
-    </div>
+            </div>
+
+        </div>
+    </template>
 
 </div>

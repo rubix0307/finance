@@ -26,6 +26,7 @@ from currency.api import router as currency_router
 from section.api import router as section_router
 from subscription.views import test_subscription
 from user.api import router as user_router
+from subscription.api import router as subscription_router
 from receipt.views import upload_receipts
 from user.views import feedback_view, user_language
 
@@ -33,6 +34,7 @@ api = NinjaAPI()
 api.add_router('/currencies/', currency_router)
 api.add_router('/sections/', section_router)
 api.add_router('/users/', user_router)
+api.add_router('/plans/', subscription_router)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

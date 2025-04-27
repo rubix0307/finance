@@ -194,114 +194,71 @@ header {
     }
 }
 .plans {
-    background-color: transparent;
-    height: max-content;
-    & .caption {
-        margin: var(--default_block_margin_bottom) var(--default_block_margin_LR) calc(calc(var(--default_block_margin_bottom_int) / 3) * 1px) var(--default_block_margin_LR);
-        padding: 0 var(--default_block_padding);
+    & .name {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
         text-transform: uppercase;
+
+        & button {
+            border: none;
+            background-color: transparent;
+            & svg {
+                width: 15px;
+                height: 15px;
+            }
+        }
+        & button:first-of-type svg {
+            transform: rotate(90deg);
+        }
+        & button:last-of-type svg {
+            transform: rotate(-90deg);
+        }
+    }
+    & .features {
+        list-style: none;
+        padding: 0;
+
+        & li {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    & .description {
         font-size: 12px;
     }
+    & .price_block {
+        & .price {
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
 
-    & .list {
-        padding: 0 var(--default_block_margin_LR) var(--default_block_margin_bottom) var(--default_block_margin_LR);
-        max-width: 100%;
-        height: max-content;
-        overflow-x: scroll;
-        display: flex;
-        flex-direction: row;
-        align-items: stretch;
-        scroll-snap-type: x mandatory;
-        box-sizing: content-box;
+            & .value, & .note {
+                display:flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 22px;
 
-
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-        &::-webkit-scrollbar {
-            display: none;
-        }
-
-        & .caption {
-            text-align: center;
-            margin: 15px 0;
-            font-size: 16px;
-        }
-        & .plan {
-            min-width: 90%;
-            height: auto;
-            scroll-snap-align: center;
-            margin-right: 5px;
-            margin-left: 5px;
-            padding-bottom: 0;
-
-            &:first-of-type {
-                min-width: 85%;
-                margin-left: 0;
-            }
-            &:last-of-type {
-                margin-right: 50%;
-            }
-            &:only-of-type {
-                min-width: calc(100% - var(--default_block_margin_LR) - var(--default_block_margin_LR));
-            }
-            & .caption {
-                font-weight: bold;
-            }
-            & ul {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-
-                & li {
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-
-                    & svg {
-                        width: 10px;
-                        height: 10px;
-                    }
-                }
-            }
-            & .description {
-                margin-top: 20px;
-                font-size: 12px;
-            }
-            & .price {
-                padding: 20px;
                 & img {
-                    width: 20px;
-                    padding: 5px ;
-
+                    width: 16px;
+                    height: 16px;
+                    padding: 0 0 2px 5px;
                 }
-
-                & .value {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 23px;
-                    padding: 0;
-                }
-
-                & .note {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    font-size: 12px;
-                }
-
             }
-            & button {
-                width: 100%;
-                padding: 10px;
-                margin-bottom: var(--default_block_padding);
-                border-radius: 5px;
-                border: none;
-                outline: none;
-                text-transform: uppercase;
+            & .note {
+                font-size: 10px;
             }
+        }
+        & button {
+            width: 100%;
+            height: 35px;
+            border: none;
+            background-color: var(--main_purple);
+            color: var(--header_margin_bottom);
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-size: 14px;
         }
     }
 }
