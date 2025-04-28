@@ -15,4 +15,4 @@ class Command(BaseCommand):
         bot.remove_webhook()
         url = settings.BASE_URL + reverse_lazy('telegram_webhook')
         print(url)
-        print(bot.set_webhook(url=url))
+        print(bot.set_webhook(url=url, allowed_updates=['message', 'edited_message', 'callback_query','pre_checkout_query', 'successful_payment']))
