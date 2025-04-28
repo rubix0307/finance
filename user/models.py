@@ -119,8 +119,8 @@ class User(AbstractUser):
                         limit=p_feature.limit,
                     ) for p_feature in sub.plan.features.all()],
                 ),
-                started_at=str(sub.started_at),
-                expires_at=str(sub.expires_at) if sub.expires_at else None,
+                started_at=str(sub.started_at.strftime("%d.%m.%Y %H:%M")),
+                expires_at=str(sub.expires_at.strftime("%d.%m.%Y %H:%M")) if sub.expires_at else None,
             ) for sub in user_subs.active_subs]
         )
 

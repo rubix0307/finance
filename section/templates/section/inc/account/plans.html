@@ -13,7 +13,7 @@
       <template x-if="$store.plans.currentSubscription">
         <div class="subscription-info">
           <div>{% trans "Start" %}: <span x-text="$store.plans.currentSubscription.started_at"></span></div>
-          <div>{% trans "End" %}:   <span x-text="$store.plans.currentSubscription.expires_at ?? '{% trans "No expiration" %}'"></span></div>
+          <div>{% trans "End" %}: <span x-text="$store.plans.currentSubscription.expires_at ?? '{% trans "No expiration" %}'"></span></div>
         </div>
       </template>
 
