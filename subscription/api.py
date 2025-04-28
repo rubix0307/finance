@@ -10,6 +10,7 @@ router = Router(auth=django_auth)
 @router.get("/", response=list[PlanSchema])
 def get_plans(request: WSGIRequest) -> list[PlanSchema]:
     return [PlanSchema(
+        slug=plan.slug,
         title=plan.title,
         description=plan.description,
         price_stars=plan.price_stars,

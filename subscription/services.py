@@ -5,13 +5,14 @@ from django.conf import settings
 from django.db import transaction
 from django.db.models import Sum, Q
 
+from user.models import User
 from .models import Plan, Subscription, FeatureUsage
 
 
 class SubscriptionManager:
     FREE_PLAN_SLUG = getattr(settings, 'FREE_PLAN_SLUG', 'free')
 
-    def __init__(self, user):
+    def __init__(self, user: User):
         self.user = user
 
     @cached_property

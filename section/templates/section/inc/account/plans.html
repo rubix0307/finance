@@ -1,53 +1,72 @@
 {% load static %}
 <div x-data x-cloak>
 
-    <template x-if="$store.plans.plans.length">
-        <div class="main_block plans">
-            <div class="name">
-                <button @click="$store.plans.prev()">{% include 'svg/arrow_down.svg' %}</button>
-                <div class="title" x-text="$store.plans.currentPlan.title"></div>
-                <button @click="$store.plans.next()">{% include 'svg/arrow_down.svg' %}</button>
-            </div>
+  <template x-if="$store.plans.plans.length">
+    <div class="main_block plans">
+      <div class="name">
+        <button @click="$store.plans.prev()">{% include 'svg/arrow_down.svg' %}</button>
+        <div class="title" x-text="$store.plans.currentPlan.title"></div>
+        <button @click="$store.plans.next()">{% include 'svg/arrow_down.svg' %}</button>
+      </div>
 
-            <ul class="features">
-                <template x-for="feat in $store.plans.currentPlan.features" :key="feat.feature.code">
-                    <li>
-                        <span x-text="feat.feature.name"></span>
-                        <span x-text="feat.limit"></span>
-                    </li>
-                </template>
-            </ul>
+      <template x-if="$store.plans.currentSubscription">
+        <div class="subscription-info">
+          <div>Start: <span x-text="$store.plans.currentSubscription.started_at"></span></div>
+          <div>End:   <span x-text="$store.plans.currentSubscription.expires_at ?? 'No expiration'"></span></div>
+        </div>
+      </template>
 
-            <template x-if="$store.plans.currentPlan && $store.plans.currentPlan.description">
-                <div class="description">
-                    <div x-text="$store.plans.currentPlan.description"></div>
-                    <hr x-show="$store.plans.currentPlan.price_stars != null">
-                </div>
+      <ul class="features">
+        <template x-for="feat in $store.plans.currentPlan.features" :key="feat.feature.code">
+          <li>
+            <span x-text="feat.feature.name"></span>
+
+            <template x-if="$store.plans.currentSubscription">
+              <span>
+                <span x-text="
+                  $store.plans.currentSubscription.plan.features
+                    .find(f => f.feature.code === feat.feature.code).limit
+                "></span>
+                /
+                <span x-text="feat.limit"></span>
+              </span>
             </template>
 
-            <div
-                class="price_block"
-                x-show="$store.plans.currentPlan.price_stars !== null"
-                x-cloak
-            >
-                <div class="price" x-show="$store.plans.currentPlan.price_stars !== null">
-                    <div class="value">
-                        <div x-text="$store.plans.currentPlan.price_stars"></div>
-                        <img src="{% static 'img/star.png' %}" alt="">
-                    </div>
-                    <div class="note">
-                        ≈
-                        <div
-                          x-text="(0.02 * $store.plans.currentPlan.price_stars) % 1 === 0
-                                  ? (0.02 * $store.plans.currentPlan.price_stars)
-                                  : (0.02 * $store.plans.currentPlan.price_stars).toFixed(2)"
-                        ></div>
-                        $
-                    </div>
-                </div>
-            </div>
+            <template x-if="!$store.plans.currentSubscription">
+              <span x-text="feat.limit"></span>
+            </template>
+          </li>
+        </template>
+      </ul>
 
+      <template x-if="$store.plans.currentPlan.description">
+        <div class="description">
+          <div x-text="$store.plans.currentPlan.description"></div>
+          <hr x-show="$store.plans.currentPlan.price_stars !== null">
         </div>
-    </template>
+      </template>
+
+      <div class="price_block" x-show="$store.plans.currentPlan.price_stars !== null" x-cloak>
+        <div class="price">
+          <div class="value">
+            <div x-text="$store.plans.currentPlan.price_stars"></div>
+            <img src="{% static 'img/star.png' %}" alt="">
+          </div>
+          <div class="note">
+            ≈
+            <div
+              x-text="
+                (0.02 * $store.plans.currentPlan.price_stars) % 1 === 0
+                  ? 0.02 * $store.plans.currentPlan.price_stars
+                  : (0.02 * $store.plans.currentPlan.price_stars).toFixed(2)
+              "
+            ></div>
+            $
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </template>
 
 </div>

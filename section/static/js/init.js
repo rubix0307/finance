@@ -2,6 +2,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.store('appData', {
         sections: [],
         currencies: [],
+        plans: [],
         current_section: null,
         me: {},
         loading: true,
@@ -47,7 +48,6 @@ document.addEventListener('alpine:init', () => {
                 if (plansResponse.ok) {
                     let plansData = await plansResponse.json();
                     this.plans = plansData;
-                    Alpine.store('plans').plans = plansData;
                 }
             } catch (err) {
                 console.error('Ошибка при загрузке данных:', err);
