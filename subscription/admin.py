@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from parler.admin import TranslatableAdmin
 
+from .admin_actions import create_invoice_links
 from .models import Feature, Plan, PlanFeature, Subscription, FeatureUsage
 
 
@@ -24,7 +25,9 @@ class PlanAdmin(TranslatableAdmin):
     list_display = ('slug', 'title', 'period', 'feature_summary')
     list_filter = ('period', 'is_active',)
     search_fields = ('slug', 'translations__title')
+    readonly_fields = ('link',)
     inlines = [PlanFeatureInline]
+    actions = [create_invoice_links]
 
     def feature_summary(self, obj):
         items = []

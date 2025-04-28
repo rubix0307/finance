@@ -14,6 +14,7 @@ def get_plans(request: WSGIRequest) -> list[PlanSchema]:
         title=plan.title,
         description=plan.description,
         price_stars=plan.price_stars,
+        link=plan.link,
         features=[PlanFeatureSchema(
             feature=FeatureSchema(
                 code=p_feature.feature.code,
@@ -22,4 +23,4 @@ def get_plans(request: WSGIRequest) -> list[PlanSchema]:
             ),
             limit=p_feature.limit,
         ) for p_feature in plan.features.all()],
-    ) for plan in Plan.objects.filter(is_active=True)]
+    ) for plan in Plan.objects.filter(is_active=True, translations__link__isnull=False)]

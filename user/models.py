@@ -109,6 +109,7 @@ class User(AbstractUser):
                     title=sub.plan.title,
                     description=sub.plan.description,
                     price_stars=sub.plan.price_stars,
+                    link=sub.plan.link,
                     features=[PlanFeatureSchema(
                         feature=FeatureSchema(
                             code=p_feature.feature.code,

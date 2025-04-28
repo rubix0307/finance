@@ -28,6 +28,7 @@ class Plan(TranslatableModel):
     translations = TranslatedFields(
         title=models.CharField(max_length=255),
         description=models.TextField(blank=True),
+        link=models.URLField(null=True, blank=True)
     )
     period = models.CharField(
         max_length=12,

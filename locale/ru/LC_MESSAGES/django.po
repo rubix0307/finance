@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 15:22+0200\n"
+"POT-Creation-Date: 2025-04-28 19:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,22 @@ msgstr "Год"
 msgid "Save"
 msgstr "Сохранить"
 
+#: section/templates/section/inc/account/plans.html:15
+msgid "Start"
+msgstr "Начало"
+
+#: section/templates/section/inc/account/plans.html:16
+msgid "End"
+msgstr "Конец"
+
+#: section/templates/section/inc/account/plans.html:16
+msgid "No expiration"
+msgstr "Без срока"
+
+#: section/templates/section/inc/account/plans.html:72
+msgid "Subscribe"
+msgstr "Подписаться"
+
 #: section/templates/section/inc/faq/_faq.html:3
 msgid "FAQ"
 msgstr "Часто задаваемые вопросы"
@@ -63,16 +79,23 @@ msgid "How to get started with the bot?"
 msgstr "Как начать работу с ботом?"
 
 #: section/templates/section/inc/faq/_faq.html:21
-msgid "Just send a photo of the receipt in the chat with the bot – it will automatically process the image and return the status"
-msgstr "Просто отправьте фото чека в чат с ботом — он автоматически обработает изображение и вернёт статус"
+msgid ""
+"Just send a photo of the receipt in the chat with the bot – it will "
+"automatically process the image and return the status"
+msgstr ""
+"Просто отправьте фото чека в чат с ботом — он автоматически обработает "
+"изображение и вернёт статус"
 
 #: section/templates/section/inc/faq/_faq.html:22
 msgid "How to change the language in the bot?"
 msgstr "Как сменить язык в боте?"
 
 #: section/templates/section/inc/faq/_faq.html:22
-msgid "In the bot menu or in the web application, select “Account” → “Language” and choose the desired one"
-msgstr "В меню бота или в веб-приложении выберите «Аккаунт» → «Язык» и укажите нужный"
+msgid ""
+"In the bot menu or in the web application, select “Account” → “Language” and "
+"choose the desired one"
+msgstr ""
+"В меню бота или в веб-приложении выберите «Аккаунт» → «Язык» и укажите нужный"
 
 #: section/templates/section/inc/faq/_faq.html:24
 msgid "Web application"
@@ -83,8 +106,14 @@ msgid "How to select a period for analytics?"
 msgstr "Как выбрать период для аналитики?"
 
 #: section/templates/section/inc/faq/_faq.html:25
-msgid "On the main page of the webapp there are three fixed ranges available: week, month, and year. One of them is active by default. In the upcoming update there will be a choice of a custom period via the calendar"
-msgstr "На главной странице webapp доступны три фиксированных диапазона: неделя, месяц и год. По умолчанию активен один из них. В ближайшем обновлении появится возможность выбрать произвольный период через календарь"
+msgid ""
+"On the main page of the webapp there are three fixed ranges available: week, "
+"month, and year. One of them is active by default. In the upcoming update "
+"there will be a choice of a custom period via the calendar"
+msgstr ""
+"На главной странице webapp доступны три фиксированных диапазона: неделя, "
+"месяц и год. По умолчанию активен один из них. В ближайшем обновлении "
+"появится возможность выбрать произвольный период через календарь"
 
 #: section/templates/section/inc/faq/_faq.html:26
 msgid "Which reports and charts are currently available?"
@@ -104,7 +133,9 @@ msgid "What is a “room”?"
 msgstr "Что такое «комната»?"
 
 #: section/templates/section/inc/faq/_faq.html:29
-msgid "It's a shared chat-cash register, where you can see receipts from all participants and overall charts"
+msgid ""
+"It's a shared chat-cash register, where you can see receipts from all "
+"participants and overall charts"
 msgstr "Это общий чат-касса, где видны чеки всех участников и общие графики"
 
 #: section/templates/section/inc/faq/_faq.html:30
@@ -112,16 +143,24 @@ msgid "How is a room created?"
 msgstr "Как создаётся комната?"
 
 #: section/templates/section/inc/faq/_faq.html:30
-msgid "The first room is automatically created upon first entering the bot. New rooms cannot be created yet, but you can be invited to an existing one"
-msgstr "Первая комната создаётся автоматически при первом входе в бот. Новые комнаты пока создать нельзя, но вас могут пригласить в уже существующую"
+msgid ""
+"The first room is automatically created upon first entering the bot. New "
+"rooms cannot be created yet, but you can be invited to an existing one"
+msgstr ""
+"Первая комната создаётся автоматически при первом входе в бот. Новые комнаты "
+"пока создать нельзя, но вас могут пригласить в уже существующую"
 
 #: section/templates/section/inc/faq/_faq.html:31
 msgid "How to invite others to a room?"
 msgstr "Как пригласить других в комнату?"
 
 #: section/templates/section/inc/faq/_faq.html:31
-msgid "In the section menu, click the “Invite” button. A bot chat will open with a button to select users"
-msgstr "В меню раздела нажмите кнопку «Пригласить», откроется чат бота с кнопкой для выбора пользователей"
+msgid ""
+"In the section menu, click the “Invite” button. A bot chat will open with a "
+"button to select users"
+msgstr ""
+"В меню раздела нажмите кнопку «Пригласить», откроется чат бота с кнопкой для "
+"выбора пользователей"
 
 #: section/templates/section/inc/faq/_faq.html:32
 msgid "Who can add and remove participants?"
@@ -136,16 +175,30 @@ msgid "How to switch rooms and set one as default?"
 msgstr "Как сменить комнату и установить её по умолчанию?"
 
 #: section/templates/section/inc/faq/_faq.html:33
-msgid "If you have multiple rooms, switching arrows will appear. The “Set as default” button makes the current room the primary one. If you are removed from someone else's room, your own room will become the default again."
-msgstr "Если у вас несколько комнат, появятся стрелки переключения. Кнопка «Установить по умолчанию» делает текущую комнату основной. Если вас удалили из чужой комнаты, по умолчанию восстановится ваша собственная"
+msgid ""
+"If you have multiple rooms, switching arrows will appear. The “Set as "
+"default” button makes the current room the primary one. If you are removed "
+"from someone else's room, your own room will become the default again."
+msgstr ""
+"Если у вас несколько комнат, появятся стрелки переключения. Кнопка "
+"«Установить по умолчанию» делает текущую комнату основной. Если вас удалили "
+"из чужой комнаты, по умолчанию восстановится ваша собственная"
 
 #: section/templates/section/inc/faq/_faq.html:34
 msgid "Can you rename a room or change the currency?"
 msgstr "Можно ли переименовать комнату или сменить валюту?"
 
 #: section/templates/section/inc/faq/_faq.html:34
-msgid "Any participant can set their own local name for the room and choose the currency for display charts. The currency does not affect others. The room name set by the owner will be displayed to all participants who have not set their own room name."
-msgstr "Любой участник может задать своё локальное название комнаты и выбрать валюту отображения графиков. Валюта никак не влияет на других. Название комнаты, заданное владельцем, будет отображаться тем участникам, у которых не задано собственное название."
+msgid ""
+"Any participant can set their own local name for the room and choose the "
+"currency for display charts. The currency does not affect others. The room "
+"name set by the owner will be displayed to all participants who have not set "
+"their own room name."
+msgstr ""
+"Любой участник может задать своё локальное название комнаты и выбрать валюту "
+"отображения графиков. Валюта никак не влияет на других. Название комнаты, "
+"заданное владельцем, будет отображаться тем участникам, у которых не задано "
+"собственное название."
 
 #: section/templates/section/inc/faq/_faq.html:36
 msgid "Finance and charts"
@@ -156,16 +209,24 @@ msgid "Which currencies are supported?"
 msgstr "Какие валюты поддерживаются?"
 
 #: section/templates/section/inc/faq/_faq.html:37
-msgid "All world currencies are supported. All amounts are converted into the default currency using current exchange rates"
-msgstr "Поддерживаются все мировые валюты. Все суммы конвертируются в валюту по умолчанию с помощью актуальных курсов"
+msgid ""
+"All world currencies are supported. All amounts are converted into the "
+"default currency using current exchange rates"
+msgstr ""
+"Поддерживаются все мировые валюты. Все суммы конвертируются в валюту по "
+"умолчанию с помощью актуальных курсов"
 
 #: section/templates/section/inc/faq/_faq.html:38
 msgid "How to see detailed information for a category on the chart?"
 msgstr "Как увидеть детальную информацию по категории на диаграмме?"
 
 #: section/templates/section/inc/faq/_faq.html:38
-msgid "Click on a segment – a window will appear with the category, amount in the room's currency, and a breakdown by original currencies"
-msgstr "Нажмите на сегмент — появится окошко с категорией, суммой в валюте комнаты и детализацией по исходным валютам"
+msgid ""
+"Click on a segment – a window will appear with the category, amount in the "
+"room's currency, and a breakdown by original currencies"
+msgstr ""
+"Нажмите на сегмент — появится окошко с категорией, суммой в валюте комнаты и "
+"детализацией по исходным валютам"
 
 #: section/templates/section/inc/faq/_faq.html:40
 msgid "Receipts"
@@ -176,16 +237,22 @@ msgid "Can receipts be filtered?"
 msgstr "Можно ли фильтровать чеки?"
 
 #: section/templates/section/inc/faq/_faq.html:41
-msgid "Currently filtering is only by period. In future updates, filters by people and categories will be added."
-msgstr "Пока фильтрация только по периоду. В следующих обновлениях добавятся фильтры по людям и категориям"
+msgid ""
+"Currently filtering is only by period. In future updates, filters by people "
+"and categories will be added."
+msgstr ""
+"Пока фильтрация только по периоду. В следующих обновлениях добавятся фильтры "
+"по людям и категориям"
 
 #: section/templates/section/inc/faq/_faq.html:42
 msgid "What can be edited in a receipt?"
 msgstr "Что можно отредактировать в чеке?"
 
 #: section/templates/section/inc/faq/_faq.html:42
-msgid "Full editing is available to any participant, as well as receipt deletion."
-msgstr "Полноценное редактирование доступно любому участнику, а также удаление чека."
+msgid ""
+"Full editing is available to any participant, as well as receipt deletion."
+msgstr ""
+"Полноценное редактирование доступно любому участнику, а также удаление чека."
 
 #: section/templates/section/inc/main/_expenses.html:19
 #: section/templates/section/inc/main/feed/_header.html:17
@@ -263,6 +330,21 @@ msgstr ""
 msgid "Give it a try right now — it’s simple and even a bit fun!"
 msgstr "Попробуй прямо сейчас — это просто и даже немного интересно!"
 
+#: subscription/admin_actions.py:14
+msgid "Create payment links for selected tariffs in all languages (atomically)"
+msgstr "Создать ссылки для оплаты выбранных тарифов на всех языках (атомарно)"
+
+#: subscription/admin_actions.py:38
+msgid ""
+"Payment links for all selected plans in all languages have been created "
+"successfully"
+msgstr "Ссылки на оплату для всех выбранных планов на всех языках были созданы "
+"успешно"
+
+#: subscription/admin_actions.py:44
+msgid "Error creating links: "
+msgstr "Ошибка создания ссылок"
+
 #: telegram/handlers/callback/language.py:22
 msgid "Choose language"
 msgstr "Выбери язык"
@@ -291,19 +373,20 @@ msgstr "Язык"
 msgid "Hello"
 msgstr "Привет"
 
+#: telegram/handlers/messages/messages.py:24
 #: telegram/handlers/messages/photos.py:32
 msgid "In line"
 msgstr "В очереди"
 
-#: telegram/handlers/messages/photos.py:50 telegram/models.py:10
+#: telegram/handlers/messages/photos.py:51 telegram/models.py:10
 msgid "In progress"
 msgstr "В процессе"
 
-#: telegram/handlers/messages/photos.py:52
+#: telegram/handlers/messages/photos.py:53
 msgid "Analysis completed"
 msgstr "Анализ завершён"
 
-#: telegram/handlers/messages/photos.py:57
+#: telegram/handlers/messages/photos.py:58
 msgid "Analysis error"
 msgstr "Ошибка анализа"
 

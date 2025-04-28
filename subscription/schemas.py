@@ -1,16 +1,19 @@
+from typing import Optional
+
 from ninja import Schema
 
 class PlanSchema(Schema):
     slug: str
     title: str
-    description: str | None
-    price_stars: int | None
+    description: Optional[str]
+    price_stars: Optional[int]
+    link: Optional[str]
     features: list['PlanFeatureSchema']
 
 class FeatureSchema(Schema):
     code: str
     name: str
-    description: str | None
+    description: Optional[str]
 
 class PlanFeatureSchema(Schema):
     feature: FeatureSchema
@@ -19,4 +22,4 @@ class PlanFeatureSchema(Schema):
 class SubscriptionSchema(Schema):
     plan: PlanSchema
     started_at: str
-    expires_at: str | None
+    expires_at: Optional[str]

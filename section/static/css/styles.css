@@ -261,6 +261,16 @@ header {
             font-size: 14px;
         }
     }
+    & .order {
+        & button {
+            width: 100%;
+            height: 35px;
+            border: none;
+            border-radius: max(calc(var(--default_block_border_radius) - var(--default_block_padding)), 5px);
+            text-transform: uppercase;
+            color: var(--main_text_color);
+        }
+    }
 }
 .main_block {
     &.base_section {
