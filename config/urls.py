@@ -21,7 +21,7 @@ from django.contrib import admin
 from django.urls import URLPattern, path, include
 from ninja import NinjaAPI
 
-from config.views import permission_denied_view, faq_view
+from config.views import permission_denied_view, faq_view, trigger_error
 from currency.api import router as currency_router
 from section.api import router as section_router
 from subscription.views import test_subscription
@@ -48,6 +48,7 @@ urlpatterns = [
     path('403/', permission_denied_view, name='403'),
     path('user/language/', user_language, name='set_language'),
     path('faq/', faq_view, name='faq'),
+    path('sentry-send-debug/', trigger_error),
 ]
 
 if settings.DEBUG:

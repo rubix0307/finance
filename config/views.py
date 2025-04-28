@@ -8,3 +8,6 @@ def permission_denied_view(request: WSGIRequest) -> HttpResponse:
 
 def faq_view(request: WSGIRequest) -> HttpResponse:
     return render(request, 'faq.html')
+
+def trigger_error(request: WSGIRequest) -> HttpResponse:
+    division_by_zero = 1 / 0
