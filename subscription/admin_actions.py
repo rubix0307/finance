@@ -3,7 +3,7 @@ from django.contrib import admin, messages
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import transaction
 from django.db.models import QuerySet
-from django.utils.translation import get_language, activate, gettext as _
+from django.utils.translation import get_language, activate, gettext_lazy as _
 from parler.utils.context import switch_language
 from telebot.types import LabeledPrice
 
@@ -18,7 +18,7 @@ def create_invoice_links(modeladmin: admin.ModelAdmin, request: WSGIRequest, que
     try:
         with transaction.atomic():
             for plan in queryset:
-                for lang_code, _ in settings.LANGUAGES:
+                for lang_code, *name in settings.LANGUAGES:
                     with switch_language(plan, lang_code):
                         title = plan.title
 
