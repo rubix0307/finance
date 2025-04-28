@@ -3,7 +3,7 @@ from django.contrib import admin, messages
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import transaction
 from django.db.models import QuerySet
-from django.utils.translation import get_language, activate, gettext_lazy as _
+from django.utils.translation import get_language, activate, gettext as _
 from parler.utils.context import switch_language
 from telebot.types import LabeledPrice
 
