@@ -25,7 +25,7 @@ def create_invoice_links(modeladmin: admin.ModelAdmin, request: WSGIRequest, que
                         link = bot.create_invoice_link(
                             title=title,
                             description=f'-{plan.description}',
-                            payload=f'plan_{plan.slug}',
+                            payload=f'plan:{plan.slug}',
                             provider_token='',
                             currency='XTR',
                             prices=[LabeledPrice(label=title, amount=plan.price_stars)],

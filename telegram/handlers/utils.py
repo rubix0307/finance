@@ -4,7 +4,7 @@ from functools import wraps
 from typing import Callable, Any
 
 from django.utils import translation
-from telebot.types import Message, CallbackQuery
+from telebot.types import Message, CallbackQuery, PreCheckoutQuery
 
 from telegram.handlers.bot_instance import bot
 from telegram.utils import get_or_create_user
@@ -14,7 +14,7 @@ from user.models import User
 def user_required(func: Callable[..., Any]) -> Callable[..., Any]:
 
     @wraps(func)
-    def wrapper(query: Message| CallbackQuery, *args: Any, **kwargs: Any) -> Any:
+    def wrapper(query: Message| CallbackQuery | PreCheckoutQuery, *args: Any, **kwargs: Any) -> Any:
         user = kwargs.get('user')
 
         if not isinstance(user, User):

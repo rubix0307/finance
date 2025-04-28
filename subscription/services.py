@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from functools import cached_property
 from collections import defaultdict
 from django.conf import settings
@@ -16,12 +16,12 @@ class SubscriptionManager:
 
     @cached_property
     def active_subs(self):
-        today = date.today()
+        now = datetime.now()
         qs = Subscription.objects.filter(
             user=self.user,
-            started_at__lte=today
+            started_at__lte=now
         ).filter(
-            Q(expires_at__isnull=True) | Q(expires_at__gte=today)
+            Q(expires_at__isnull=True) | Q(expires_at__gte=now)
         ).select_related('plan').prefetch_related('plan__features__feature')
 
         subs = list(qs)
@@ -37,7 +37,7 @@ class SubscriptionManager:
         sub = Subscription.objects.create(
             user=self.user,
             plan=free_plan,
-            started_at=today,
+            started_at=now.date(),
             expires_at=None
         )
         return [sub]
@@ -70,9 +70,9 @@ class SubscriptionManager:
             used = used_map.get(code, 0)
             remaining = None if (limit is None or features[code].is_boolean) else max(limit - used, 0)
             result[code] = {
-                'feature':   features[code],
-                'limit':     limit,
-                'used':      used,
+                'feature': features[code],
+                'limit': limit,
+                'used': used,
                 'remaining': remaining,
             }
         return result

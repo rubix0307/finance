@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-28 19:24+0200\n"
+"POT-Creation-Date: 2025-04-28 22:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -342,15 +342,19 @@ msgstr "¡Pruébalo ahora mismo: es sencillo e incluso un poco divertido!"
 
 #: subscription/admin_actions.py:14
 msgid "Create payment links for selected tariffs in all languages (atomically)"
-msgstr "Crear enlaces de pago para las tarifas seleccionadas en todos los idiomas (atómicamente)"
+msgstr ""
+"Crear enlaces de pago para las tarifas seleccionadas en todos los idiomas "
+"(atómicamente)"
 
-#: subscription/admin_actions.py:38
+#: subscription/admin_actions.py:39
 msgid ""
 "Payment links for all selected plans in all languages have been created "
 "successfully"
-msgstr "Los enlaces de pago para todos los planes seleccionados en todos los idiomas se han creado con éxito"
+msgstr ""
+"Los enlaces de pago para todos los planes seleccionados en todos los idiomas "
+"se han creado con éxito"
 
-#: subscription/admin_actions.py:44
+#: subscription/admin_actions.py:45
 msgid "Error creating links: "
 msgstr "Error al crear los enlaces: "
 
@@ -398,6 +402,18 @@ msgstr "Análisis completado"
 #: telegram/handlers/messages/photos.py:58
 msgid "Analysis error"
 msgstr "Error de análisis"
+
+#: telegram/handlers/payments/base.py:34
+msgid "The specified tariff plan was not found."
+msgstr "No se encontró el plan tarifario especificado"
+
+#: telegram/handlers/payments/base.py:61
+msgid "Subscription successfully completed"
+msgstr "Suscripción completada con éxito"
+
+#: telegram/models.py:48
+msgid "Successful"
+msgstr "Exitoso"
 
 #: telegram/handlers/share/users.py:24
 msgid "You must be the owner of a room to add users to it"
