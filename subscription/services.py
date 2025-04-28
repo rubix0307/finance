@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from functools import cached_property
 from collections import defaultdict
 from django.conf import settings
@@ -38,7 +38,7 @@ class SubscriptionManager:
             user=self.user,
             plan=free_plan,
             started_at=now.date(),
-            expires_at=None
+            expires_at=(now + timedelta(days=30)).date(),
         )
         return [sub]
 
