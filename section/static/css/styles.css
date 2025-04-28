@@ -269,6 +269,7 @@ header {
             border-radius: max(calc(var(--default_block_border_radius) - var(--default_block_padding)), 5px);
             text-transform: uppercase;
             color: var(--main_text_color);
+            background-color: var(--second_block_bg);
         }
     }
 }
