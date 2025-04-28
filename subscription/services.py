@@ -2,13 +2,12 @@ from datetime import date
 from functools import cached_property
 from collections import defaultdict
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.db.models import Sum, Q
-
-from user.models import User
 from .models import Plan, Subscription, FeatureUsage
 
-
+User = get_user_model()
 class SubscriptionManager:
     FREE_PLAN_SLUG = getattr(settings, 'FREE_PLAN_SLUG', 'free')
 

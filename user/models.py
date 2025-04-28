@@ -92,6 +92,37 @@ class User(AbstractUser):
 
         return sections
 
+    def get_schema(self):
+        from user.schemas import UserSchema
+        from subscription.schemas import SubscriptionSchema, PlanSchema, PlanFeatureSchema, FeatureSchema
+        from subscription.services import SubscriptionManager
+
+        user_subs = SubscriptionManager(self)
+        return UserSchema(
+            id=self.id,
+            username=self.username,
+            photo=self.photo,
+            base_section=self.base_section.id,
+            active_subs=[SubscriptionSchema(
+                plan=PlanSchema(
+                    slug=sub.plan.slug,
+                    title=sub.plan.title,
+                    description=sub.plan.description,
+                    price_stars=sub.plan.price_stars,
+                    features=[PlanFeatureSchema(
+                        feature=FeatureSchema(
+                            code=p_feature.feature.code,
+                            name=p_feature.feature.name,
+                            description=p_feature.feature.description,
+                        ),
+                        limit=p_feature.limit,
+                    ) for p_feature in sub.plan.features.all()],
+                ),
+                started_at=str(sub.started_at),
+                expires_at=str(sub.expires_at) if sub.expires_at else None,
+            ) for sub in user_subs.active_subs]
+        )
+
 
 class Feedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='feedbacks')
