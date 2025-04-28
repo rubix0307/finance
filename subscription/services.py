@@ -37,8 +37,8 @@ class SubscriptionManager:
         sub = Subscription.objects.create(
             user=self.user,
             plan=free_plan,
-            started_at=now.date(),
-            expires_at=(now + timedelta(days=30)).date(),
+            started_at=now,
+            expires_at=now + timedelta(days=30),
         )
         return [sub]
 
