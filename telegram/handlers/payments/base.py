@@ -33,6 +33,7 @@ def process_pre_checkout_query(query: PreCheckoutQuery, **kwargs: dict[str, Any]
         status = Plan.objects.filter(
             slug=payload_detail,
             price_stars=query.total_amount,
+            is_active=True,
         ).exists()
     except Exception as e:
         error_message = _('The specified tariff plan was not found.')
