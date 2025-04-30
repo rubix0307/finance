@@ -86,6 +86,7 @@ def update_expenses_data_by_text(self: Task, receipt_pk: int, user_pk: int) -> b
                 user=user,
                 currency=receipt.get_default_currency()
             ).update_receipt(receipt)
+            user.subscription_manager.register('analyze_message')
         else:
             new_status = Status.ERROR
 
