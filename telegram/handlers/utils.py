@@ -42,6 +42,8 @@ def feature_required(code: str) -> Callable[..., Any]:
         def wrapper(*args, user: User, **kwargs: Any) -> Any:
             if not user.subscription_manager.can(code):
                 return
+
+            kwargs.update({'user': user})
             return func(*args, **kwargs)
 
         return wrapper
