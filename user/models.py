@@ -7,7 +7,6 @@ from django.db import models
 from django.apps import apps
 from django.db.models import Value, BooleanField, QuerySet
 
-
 T = TypeVar('T', bound='User')
 
 class CustomUserManager[T](UserManager[T]):
@@ -123,6 +122,11 @@ class User(AbstractUser):
                 expires_at=str(sub.expires_at.strftime("%d.%m.%Y %H:%M")) if sub.expires_at else None,
             ) for sub in user_subs.active_subs]
         )
+
+    @property
+    def subscription_manager(self):
+        from subscription.services import SubscriptionManager
+        return SubscriptionManager(self)
 
 
 class Feedback(models.Model):

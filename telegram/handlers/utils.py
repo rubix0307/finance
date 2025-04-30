@@ -6,6 +6,7 @@ from typing import Callable, Any
 from django.utils import translation
 from telebot.types import Message, CallbackQuery, PreCheckoutQuery
 
+from subscription.services import SubscriptionManager
 from telegram.handlers.bot_instance import bot
 from telegram.utils import get_or_create_user
 from user.models import User

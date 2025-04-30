@@ -5,7 +5,7 @@ from .services import SubscriptionManager
 
 
 def test_subscription(request):
-    mgr = SubscriptionManager(request.user)
+    mgr = request.user.subscription_manager
     if not mgr.can('photo_analyze'):
         return JsonResponse({'status': 'Error'})
     mgr.register('message_analyze')
