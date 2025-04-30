@@ -26,7 +26,7 @@
               <span>
                 <span x-text="
                   $store.plans.currentSubscription.plan.features
-                    .find(f => f.feature.code === feat.feature.code).limit
+                    .find(f => f.feature.code === feat.feature.code).remaining
                 "></span>
                 /
                 <span x-text="feat.limit"></span>

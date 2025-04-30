@@ -18,6 +18,7 @@ class FeatureSchema(Schema):
 class PlanFeatureSchema(Schema):
     feature: FeatureSchema
     limit: int | None
+    remaining: Optional[int]
 
 class SubscriptionSchema(Schema):
     plan: PlanSchema

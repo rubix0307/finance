@@ -116,6 +116,7 @@ class User(AbstractUser):
                             description=p_feature.feature.description,
                         ),
                         limit=p_feature.limit,
+                        remaining=user_subs.aggregated.get(p_feature.feature.code, {}).get('remaining', 0),
                     ) for p_feature in sub.plan.features.all()],
                 ),
                 started_at=str(sub.started_at.strftime("%d.%m.%Y %H:%M")),
