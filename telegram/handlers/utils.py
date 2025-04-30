@@ -34,6 +34,20 @@ def user_required(func: Callable[..., Any]) -> Callable[..., Any]:
 
     return wrapper
 
+def feature_required(code: str) -> Callable[..., Any]:
+    def deco(func: Callable[..., Any]) -> Callable[..., Any]:
+
+        @wraps(func)
+        @user_required
+        def wrapper(*args, user: User, **kwargs: Any) -> Any:
+            if not user.subscription_manager.can(code):
+                return
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return deco
+
 def parse_start_param(func: Callable[..., Any]) -> Callable[..., Any]:
 
     @wraps(func)
