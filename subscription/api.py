@@ -23,4 +23,4 @@ def get_plans(request: WSGIRequest) -> list[PlanSchema]:
             ),
             limit=p_feature.limit,
         ) for p_feature in plan.features.all()],
-    ) for plan in Plan.objects.filter(is_active=True, translations__link__isnull=False)]
+    ) for plan in Plan.objects.filter(is_active=True, translations__link__isnull=False).distinct()]
