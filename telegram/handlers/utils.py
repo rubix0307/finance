@@ -1,12 +1,10 @@
 import base64
 import json
 from functools import wraps
-from typing import Callable, Any
+from typing import Callable, Any, Union
 
 from django.utils import translation
 from telebot.types import Message, CallbackQuery, PreCheckoutQuery
-
-from subscription.services import SubscriptionManager
 from telegram.handlers.bot_instance import bot
 from telegram.utils import get_or_create_user
 from user.models import User
@@ -34,16 +32,17 @@ def user_required(func: Callable[..., Any]) -> Callable[..., Any]:
 
     return wrapper
 
-def feature_required(code: str) -> Callable[..., Any]:
+def feature_required(code: str, forbidden: Callable[[Union[Message, CallbackQuery]], Any]) -> Callable[..., Any]:
     def deco(func: Callable[..., Any]) -> Callable[..., Any]:
 
         @wraps(func)
         @user_required
         def wrapper(*args, user: User, **kwargs: Any) -> Any:
-            if not user.subscription_manager.can(code):
-                return
-
             kwargs.update({'user': user})
+
+            if not user.subscription_manager.can(code):
+                return forbidden(*args, **kwargs)
+
             return func(*args, **kwargs)
 
         return wrapper

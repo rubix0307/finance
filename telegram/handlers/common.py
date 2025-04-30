@@ -3,9 +3,6 @@ from django.utils.translation import gettext as _
 from telebot.callback_data import CallbackData, CallbackDataFilter
 from telebot.types import CallbackQuery, InlineKeyboardButton as IKB, Message, WebAppInfo
 
-from telegram.handlers.bot_instance import bot
-
-
 class F:
     def __init__(self, data_filter: CallbackDataFilter):
         self.data_filter = data_filter

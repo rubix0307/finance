@@ -8,6 +8,7 @@ from telebot.types import LabeledPrice, Message, InlineKeyboardMarkup
 from receipt.models import Receipt
 from telegram.handlers.bot_instance import bot
 from telegram.handlers.common import ButtonStorage
+from telegram.handlers.default.common import default_forbidden
 from telegram.handlers.utils import user_required, feature_required
 from telegram.models import ReceiptStatusMessage, Status
 from user.models import User
@@ -15,7 +16,7 @@ from user.models import User
 
 @bot.message_handler(content_types=['photo'])
 @user_required
-@feature_required('analyze_photo')
+@feature_required('analyze_photo', forbidden=default_forbidden)
 def get_photo(message: Message, user: User, **kwargs: dict[str, Any]) -> None:
     photo = message.photo[-1]
     file_info = bot.get_file(photo.file_id)

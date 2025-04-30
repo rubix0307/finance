@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-28 22:57+0200\n"
+"POT-Creation-Date: 2025-04-30 18:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,6 +30,18 @@ msgstr "Mes"
 #: chart/api.py:131
 msgid "Year"
 msgstr "Año"
+
+#: receipt/admin.py:46
+msgid "Preview"
+msgstr "Vista previa"
+
+#: receipt/admin.py:82
+msgid "Color preview"
+msgstr "Vista previa del color"
+
+#: section/admin.py:20
+msgid "Count of users"
+msgstr "Cantidad de usuarios"
 
 #: section/templates/section/inc/_save.html:2
 #: section/templates/section/inc/menu/_currency.html:101
@@ -286,10 +298,6 @@ msgstr "Añadir miembro"
 msgid "Default"
 msgstr "Predeterminado"
 
-#: section/templates/section/inc/menu/_currency.html:54
-msgid "Currency"
-msgstr "Moneda"
-
 #: section/templates/section/inc/menu/_currency.html:66
 msgid "to display charts"
 msgstr "para mostrar gráficos"
@@ -340,6 +348,10 @@ msgstr ""
 msgid "Give it a try right now — it’s simple and even a bit fun!"
 msgstr "¡Pruébalo ahora mismo: es sencillo e incluso un poco divertido!"
 
+#: subscription/admin.py:33
+msgid "Features & Limits"
+msgstr "Funciones y límites"
+
 #: subscription/admin_actions.py:14
 msgid "Create payment links for selected tariffs in all languages (atomically)"
 msgstr ""
@@ -370,50 +382,52 @@ msgstr "Idioma actualizado"
 msgid "Language not updated"
 msgstr "Idioma no actualizado"
 
-#: telegram/handlers/common.py:22
+#: telegram/handlers/common.py:23
 msgid "Open the app"
 msgstr "Abre la aplicación"
 
-#: telegram/handlers/common.py:24
+#: telegram/handlers/common.py:25
 msgid "Main page"
 msgstr "Página principal"
 
-#: telegram/handlers/common.py:25 user/models.py:35
+#: telegram/handlers/common.py:26 user/models.py:34
 msgid "Language"
 msgstr "Idioma"
+
+#: telegram/handlers/default/common.py:15
+msgid ""
+"You can't perform this action, please check your subscription limits and "
+"capabilities"
+msgstr ""
 
 #: telegram/handlers/messages/commands.py:21
 msgid "Hello"
 msgstr "Hola"
 
 #: telegram/handlers/messages/messages.py:24
-#: telegram/handlers/messages/photos.py:32
+#: telegram/handlers/messages/photos.py:34
 msgid "In line"
 msgstr "En la cola"
 
-#: telegram/handlers/messages/photos.py:51 telegram/models.py:10
+#: telegram/handlers/messages/photos.py:53 telegram/models.py:10
 msgid "In progress"
 msgstr "En progreso"
 
-#: telegram/handlers/messages/photos.py:53
+#: telegram/handlers/messages/photos.py:55
 msgid "Analysis completed"
 msgstr "Análisis completado"
 
-#: telegram/handlers/messages/photos.py:58
+#: telegram/handlers/messages/photos.py:60
 msgid "Analysis error"
 msgstr "Error de análisis"
 
-#: telegram/handlers/payments/base.py:34
+#: telegram/handlers/payments/base.py:39
 msgid "The specified tariff plan was not found."
 msgstr "No se encontró el plan tarifario especificado"
 
-#: telegram/handlers/payments/base.py:61
+#: telegram/handlers/payments/base.py:76
 msgid "Subscription successfully completed"
 msgstr "Suscripción completada con éxito"
-
-#: telegram/models.py:48
-msgid "Successful"
-msgstr "Exitoso"
 
 #: telegram/handlers/share/users.py:24
 msgid "You must be the owner of a room to add users to it"
@@ -449,6 +463,10 @@ msgstr "Error"
 #: telegram/models.py:20
 msgid "Status"
 msgstr "Estado"
+
+#: telegram/models.py:48
+msgid "Successful"
+msgstr "Exitoso"
 
 #: templates/i18n.html:5
 msgid "Used currencies"
