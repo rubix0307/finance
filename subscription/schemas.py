@@ -1,6 +1,8 @@
 from typing import Optional
 
 from ninja import Schema
+from pydantic import Field
+
 
 class PlanSchema(Schema):
     slug: str
@@ -18,7 +20,7 @@ class FeatureSchema(Schema):
 class PlanFeatureSchema(Schema):
     feature: FeatureSchema
     limit: int | None
-    remaining: Optional[int]
+    remaining: Optional[int] = Field(default=None)
 
 class SubscriptionSchema(Schema):
     plan: PlanSchema
