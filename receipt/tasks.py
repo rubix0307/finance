@@ -41,8 +41,8 @@ def update_receipt_data(self: Task, receipt_pk: int, user_pk: int) -> None | Pro
         if schema:
             new_status = Status.PROCESSED
             answer = ProcessPhotoResponse(status="success")
-            user.subscription_manager.register('analyze_photo')
             ReceiptSchemaService(receipt_schema=schema, user=user).update_receipt(receipt)
+            user.subscription_manager.register('analyze_photo')
         else:
             new_status = Status.ERROR
             answer = ProcessPhotoError(error='Receipt schema is not available')
