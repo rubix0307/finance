@@ -1,20 +1,19 @@
 from typing import Any
 
-from django.core.files.base import ContentFile
-from django.utils import translation
 from django.utils.translation import gettext as _
-from telebot.types import LabeledPrice, Message, InlineKeyboardMarkup
+from telebot.types import Message
 
 from receipt.models import Receipt
 from telegram.handlers.bot_instance import bot
-from telegram.handlers.common import ButtonStorage
-from telegram.handlers.utils import user_required
-from telegram.models import ReceiptStatusMessage, Status
+from telegram.handlers.default.common import default_forbidden
+from telegram.handlers.utils import user_required, feature_required
+from telegram.models import ReceiptStatusMessage
 from user.models import User
 
 
 @bot.message_handler(content_types=['text'])
 @user_required
+@feature_required('analyze_message', forbidden=default_forbidden)
 def get_expenses(message: Message, user: User, **kwargs: dict[str, Any]) -> None:
     receipt = Receipt(
         owner=user,

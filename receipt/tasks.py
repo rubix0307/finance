@@ -60,7 +60,7 @@ def update_receipt_data(self: Task, receipt_pk: int, user_pk: int) -> None | Pro
 @shared_task(  # type: ignore
     bind=True,
     autoretry_for=(Exception,),
-    retry_kwargs={"max_retries": 2, "countdown": 10},
+    retry_kwargs={"max_retries": 1, "countdown": 10},
     acks_late=True,
     reject_on_worker_lost=True,
 )

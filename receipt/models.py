@@ -99,7 +99,7 @@ class Receipt(models.Model):
 
         if do_analyze_input_text:
             self.refresh_from_db()
-            tasks.update_expenses_data_by_text(receipt_pk=self.pk, user_pk=self.owner.pk)
+            tasks.update_expenses_data_by_text.delay(receipt_pk=self.pk, user_pk=self.owner.pk)
 
     def get_default_currency(self) -> Currency | None:
         try:
