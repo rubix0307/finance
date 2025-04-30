@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 from parler.admin import TranslatableAdmin
 
 from .admin_actions import create_invoice_links
@@ -29,13 +30,13 @@ class PlanAdmin(TranslatableAdmin):
     inlines = [PlanFeatureInline]
     actions = [create_invoice_links]
 
+    @admin.display(description=_('Features & Limits'))
     def feature_summary(self, obj):
         items = []
         for pf in obj.features.all():
             limit = '∞' if pf.limit is None else pf.limit
             items.append(f"{pf.feature.code}: {limit}")
         return mark_safe('<br>'.join(items))
-    feature_summary.short_description = 'Features & Limits'
 
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):

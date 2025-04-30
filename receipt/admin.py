@@ -6,6 +6,7 @@ from django.db.models import QuerySet
 from django.http import HttpResponse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 from parler.admin import TranslatableAdmin
 
 from receipt import tasks
@@ -26,9 +27,9 @@ class ReceiptItemInline(admin.TabularInline):  # type: ignore
     readonly_fields = ('id', 'name', 'category', 'price', 'currency')
     can_delete = False
 
+    @admin.display(description=_('Currency'))
     def currency(self, obj: ReceiptItem) -> str:
         return str(obj.receipt.currency) if obj.receipt else '-'
-    currency.short_description = 'Currency'
 
 
 @admin.register(Receipt)
@@ -42,12 +43,12 @@ class ReceiptAdmin(admin.ModelAdmin): # type: ignore
         obj.owner = request.user
         super().save_model(request, obj, form, change)
 
+    @admin.display(description=_('Preview'))
     def photo_preview(self, obj: Receipt) -> str:
         if obj.photo:
             return mark_safe(
                 f'<img id="photo_preview" src="{obj.photo.url}" style="width: 500; max-width: 100%; max-height: 1000px; object-fit: contain;" />')
         return '---'
-    photo_preview.short_description = 'Preview'
 
     def change_view(self, request: WSGIRequest, object_id: str, form_url: str ='', extra_context: dict[str, Any] | None = None) -> HttpResponse:
         extra_context = extra_context or {}
@@ -78,7 +79,7 @@ class ReceiptItemCategoryAdmin(TranslatableAdmin): # type: ignore
     list_display = ('id', 'name', 'color', 'get_color_preview')
     search_fields = ('translations__name',)
 
+    @admin.display(description=_('Color preview'))
     def get_color_preview(self, obj: ReceiptItem) -> str:
         return format_html(f'<div style="background-color: {obj.color}; min-width: 50px; min-height: 20px;"></div>')
-    get_color_preview.short_description = 'Color preview'
 
