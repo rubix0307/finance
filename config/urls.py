@@ -27,7 +27,7 @@ from section.api import router as section_router
 from subscription.views import test_subscription
 from user.api import router as user_router
 from subscription.api import router as subscription_router
-from receipt.views import upload_receipts
+from receipt.views import receipt_edit, receipt_delete
 from user.views import feedback_view, user_language
 
 api = NinjaAPI()
@@ -41,7 +41,8 @@ urlpatterns = [
     path('', include('section.urls')),
     path('test_sub/', test_subscription),
     path('chart/', include('chart.urls')),
-    path('upload/', upload_receipts, name='upload_receipts'),
+    path('receipts/<int:pk>/', receipt_edit, name='receipt_detail'),
+    path('receipts/<int:pk>/delete/', receipt_delete, name='receipt_delete'),
     path('api/', api.urls),
     path('telegram/', include('telegram.urls')),
     path('feedback/', feedback_view, name='feedback'),

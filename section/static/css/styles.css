@@ -1460,3 +1460,136 @@ form.feedback {
         font-size: 13px;
     }
 }
+
+.receipt-edit {
+    --item_min-height: 40px;
+    & select {
+        border: none;
+        padding: 0 10px;
+        border-radius: var(--default_block_border_radius);
+        outline: none;
+    }
+
+    & .receipt {
+        color: var(--main_text_color);
+        & .photo img{
+            width: 100%;
+            border-radius: 10px;
+        }
+        & .section, .shop {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: var(--default_block_margin_bottom);
+            max-width: 100%;
+
+            & select {
+                max-width: 100%;
+                background-color: var(--second_block_bg);
+                min-height: var(--item_min-height);
+            }
+        }
+        & ul.items {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 10px;
+
+            & li {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                background-color: var(--second_block_bg);
+                border-radius: var(--default_block_border_radius);
+                min-height: var(--item_min-height);
+                padding: 5px;
+                &.del .col{
+                    opacity: 0.3;
+                    & input[type='checkbox'] {
+                        margin-left: 10px;
+                        &:checked {
+                            background-color: red;
+                        }
+                    }
+                    & svg {
+                        & g {
+                            fill: red;
+                        }
+                    }
+                }
+
+                & .col {
+                    display: flex;
+                    max-width: 50%;
+                    &:first-of-type {
+
+                        flex-direction: column;
+                        justify-content: center;
+                        & select {
+                            max-width: 100%;
+                            text-align: left;
+                            padding: 0;
+                        }
+                        & input[type='text'] {
+
+                            font-size: 16px;
+                        }
+                    }
+                    &:last-of-type {
+
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: end;
+                        min-width: 40%;
+                        & .price {
+                            width: 40%;
+                            text-align: right;
+                        }
+                        & input[type='number'] {
+                            max-width: 100%;
+                            text-align: right;
+                            padding-right: 10px;
+                            font-size: 16px;
+                        }
+                        & input[type='checkbox'] {
+                            margin-left: 10px;
+                        }
+                        & .delete-toggle {
+                            display: flex;
+                            align-items: center;
+                        }
+                    }
+                }
+                & svg {
+                    width: 20px;
+                    height: 20px;
+                }
+
+            }
+        }
+        & button#add-item {
+            color: var(--main_text_color);
+            background-color: var(--second_block_bg);
+            text-transform: uppercase;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: var(--default_block_border_radius);
+            outline: none;
+            height: var(--item_min-height);
+        }
+    }
+    & button[type='submit'] {
+        max-width: 100%;
+        width: 100%;
+        color: var(--main_text_color);
+        background-color: var(--block_bg);
+        text-transform: uppercase;
+        outline: none;
+        border: none;
+    }
+}
+
+
+
+
+
+

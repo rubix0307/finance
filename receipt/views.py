@@ -1,14 +1,32 @@
-from django.shortcuts import render, redirect
-from django.utils.timezone import now
-
+from django.core.handlers.wsgi import WSGIRequest
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Receipt
+from .forms import ReceiptForm, ReceiptItemFormSet
 
+def receipt_edit(request: WSGIRequest, pk: int) -> HttpResponse:
+    receipt = get_object_or_404(Receipt, pk=pk)
 
-
-def upload_receipts(request):
     if request.method == 'POST':
-        files = request.FILES.getlist('photos')
-        for f in files:
-            Receipt.objects.create(photo=f, owner=request.user, date=now())
-        return redirect('admin')
-    return render(request, 'receipt/upload.html')
+        form = ReceiptForm(request.POST, instance=receipt, user=request.user)
+        formset = ReceiptItemFormSet(request.POST, instance=receipt)
+        if form.is_valid() and formset.is_valid():
+            form.save()
+            formset.save()
+            return redirect('receipt_detail', pk=receipt.pk)
+    else:
+        form = ReceiptForm(instance=receipt, user=request.user)
+        formset = ReceiptItemFormSet(instance=receipt)
+
+    return render(request, 'receipt/receipt_form.html', {
+        'form': form,
+        'formset': formset,
+        'receipt': receipt,
+    })
+
+
+def receipt_delete(request: WSGIRequest, pk: int) -> HttpResponse:
+    if request.method == 'POST':
+        receipt = get_object_or_404(Receipt, pk=pk)
+        receipt.delete()
+    return redirect('index')

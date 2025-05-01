@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-30 18:58+0200\n"
+"POT-Creation-Date: 2025-05-01 20:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,8 @@ msgstr "Месяц"
 msgid "Year"
 msgstr "Год"
 
-#: receipt/admin.py:30 section/templates/section/inc/menu/_currency.html:54
+#: receipt/admin.py:30 receipt/forms.py:32
+#: section/templates/section/inc/menu/_currency.html:54
 msgid "Currency"
 msgstr "Валюта"
 
@@ -44,15 +45,58 @@ msgstr "Предпросмотр"
 msgid "Color preview"
 msgstr "Предпросмотр цвета"
 
-#: section/admin.py:20
-msgid "Count of users"
-msgstr "Количество пользователей"
+#: receipt/forms.py:21
+msgid "Date"
+msgstr "Дата"
 
+#: receipt/forms.py:30
+msgid "Section"
+msgstr "Комната"
+
+#: receipt/forms.py:31
+msgid "Shop"
+msgstr "Магазин"
+
+#: receipt/forms.py:61
+msgid "The Date field is required"
+msgstr "Поле даты обязательно для заполнения"
+
+#: receipt/forms.py:65
+msgid "The date cannot be in the future"
+msgstr "Дата не может быть в будущем"
+
+#: receipt/forms.py:88
+msgid "The receipt must contain at least one item"
+msgstr "Чек должен содержать хотя бы один товар"
+
+#: receipt/templates/receipt/receipt_form.html:53
+#: section/templates/section/inc/main/feed/_receipts.html:30
+#: templates/i18n.html:4
+msgid "Total"
+msgstr "Всего"
+
+#: receipt/templates/receipt/receipt_form.html:62
+msgid "Add item"
+msgstr "Добавить товар"
+
+#: receipt/templates/receipt/receipt_form.html:71
 #: section/templates/section/inc/_save.html:2
 #: section/templates/section/inc/menu/_currency.html:101
 #: section/templates/section/inc/menu/_section_name.html:21
 msgid "Save"
 msgstr "Сохранить"
+
+#: receipt/templates/receipt/receipt_form.html:78
+msgid "Delete this receipt?"
+msgstr "Удалить этот чек?"
+
+#: receipt/templates/receipt/receipt_form.html:79
+msgid "Delete receipt"
+msgstr "Удалить чек"
+
+#: section/admin.py:20
+msgid "Count of users"
+msgstr "Количество пользователей"
 
 #: section/templates/section/inc/account/plans.html:15
 msgid "Start"
@@ -275,11 +319,6 @@ msgstr ""
 msgid "Expenses"
 msgstr "Траты"
 
-#: section/templates/section/inc/main/feed/_receipts.html:30
-#: templates/i18n.html:4
-msgid "Total"
-msgstr "Всего"
-
 #: section/templates/section/inc/main/feed/_receipts_empty.html:4
 msgid "No available spending"
 msgstr "Нет доступных трат"
@@ -374,15 +413,15 @@ msgstr "Язык обновлен"
 msgid "Language not updated"
 msgstr "Язык не обновлен"
 
-#: telegram/handlers/common.py:23
+#: telegram/handlers/common.py:19
 msgid "Open the app"
 msgstr "Открыть приложение"
 
-#: telegram/handlers/common.py:25
+#: telegram/handlers/common.py:21
 msgid "Main page"
 msgstr "Главная страница"
 
-#: telegram/handlers/common.py:26 user/models.py:34
+#: telegram/handlers/common.py:22 user/models.py:34
 msgid "Language"
 msgstr "Язык"
 
@@ -390,13 +429,15 @@ msgstr "Язык"
 msgid ""
 "You can't perform this action, please check your subscription limits and "
 "capabilities"
-msgstr "Вы не можете выполнить это действие. Пожалуйста, проверьте ограничения и возможности вашей подписки."
+msgstr ""
+"Вы не можете выполнить это действие. Пожалуйста, проверьте ограничения и "
+"возможности вашей подписки."
 
 #: telegram/handlers/messages/commands.py:21
 msgid "Hello"
 msgstr "Привет"
 
-#: telegram/handlers/messages/messages.py:24
+#: telegram/handlers/messages/messages.py:23
 #: telegram/handlers/messages/photos.py:34
 msgid "In line"
 msgstr "В очереди"
