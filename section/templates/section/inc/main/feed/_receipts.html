@@ -37,9 +37,15 @@
                 </ul>
             </div>
             {% get_current_language as LANGUAGE_CODE %}
-            <div x-show="receipt?.date"
+            <div class="bottom">
+
+                <a :href="`/receipts/${receipt?.id}/`">{% trans 'Edit' %}</a>
+
+                <div x-show="receipt?.date"
                  x-text="new Date(receipt.date).toLocaleDateString('{{ LANGUAGE_CODE }}', { day: '2-digit', month: 'long', year: 'numeric' })"
                  class="date"></div>
+            </div>
+
         </div>
     </template>
 </template>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-01 20:41+0200\n"
+"POT-Creation-Date: 2025-05-01 20:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -318,6 +318,10 @@ msgstr ""
 #: section/templates/section/inc/main/feed/_header.html:17
 msgid "Expenses"
 msgstr "Траты"
+
+#: section/templates/section/inc/main/feed/_receipts.html:42
+msgid "Edit"
+msgstr "Изменить"
 
 #: section/templates/section/inc/main/feed/_receipts_empty.html:4
 msgid "No available spending"
