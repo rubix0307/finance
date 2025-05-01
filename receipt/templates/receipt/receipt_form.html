@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    {% include 'section/inc/_header.html' %}
+    <div class="receipt-edit">
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="main_block receipt">
+
+                <div class="section">
+                    {{ form.section.label_tag }}
+                    {{ form.section }}{{ form.section.errors }}
+                </div>
+
+                <div class="shop">
+                    {{ form.shop.label_tag }}
+                    {{ form.shop }}{{ form.shop.errors }}
+                </div>
+
+                {% if receipt.photo %}
+                    <div class="photo">
+                        <img src="{{ receipt.photo.url }}" style="max-width:100%; height:auto;">
+                    </div>
+                {% endif %}
+
+                {{ formset.management_form }}
+
+                <ul class="items" id="items-body">
+                    {% for item_form in formset %}
+                        {% for hidden in item_form.hidden_fields %}{{ hidden }}{% endfor %}
+                        <li class="item-row">
+                            <div class="col">
+                                <div class="name">{{ item_form.name }}</div>
+                                <div class="category">{{ item_form.category }}</div>
+                            </div>
+                            <div class="col">
+                                <div class="price">
+                                    {{ item_form.price }}
+                                </div>
+                                <label class="delete-toggle">
+                                    {{ item_form.DELETE }}
+                                    {% include 'svg/trash_can.svg' %}
+                                </label>
+                            </div>
+                        </li>
+                    {% endfor %}
+
+                    <li class="total">
+                        <div class="col">
+                            <div class="name">
+                                {% trans 'Total' %} {{ form.currency }}:
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="price total_value"></div>
+                        </div>
+                    </li>
+                </ul>
+
+                <button type="button" id="add-item">{% trans 'Add item' %}</button>
+
+                <p>
+                    {{ form.date_only.label_tag }}
+                    {{ form.date_only }}{{ form.date_only.errors }}
+                </p>
+
+            </div>
+            <div class="main_block">
+                <button type="submit">{% trans 'Save' %}</button>
+            </div>
+        </form>
+
+        <form method="post" action="{% url 'receipt_delete' receipt.pk %}">
+            {% csrf_token %}
+            <div class="main_block">
+                <button type="submit" onclick="return confirm('{% trans 'Delete this receipt?' %}');">
+                    {% trans 'Delete receipt' %}
+                </button>
+            </div>
+        </form>
+
+        <ul style="display:none;" id="empty-form-template">
+            <li class="item-row">
+                {% for hidden in formset.empty_form.hidden_fields %}{{ hidden }}{% endfor %}
+                <div class="col">
+                    <div class="name">{{ formset.empty_form.name }}</div>
+                    <div class="category">{{ formset.empty_form.category }}</div>
+                </div>
+                <div class="col">
+                    <div class="price">
+                        {{ formset.empty_form.price }}
+                    </div>
+                    <label class="delete-toggle">
+                        {{ formset.empty_form.DELETE }}
+                        {% include 'svg/trash_can.svg' %}
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        (function () {
+            const list = document.getElementById('items-body');
+            const totalLi = list.querySelector('li.total');
+            const totalField = totalLi.querySelector('.total_value');
+            const addBtn = document.getElementById('add-item');
+            const totalForms = document.querySelector('input[name="{{ formset.prefix }}-TOTAL_FORMS"]');
+            const tplHtml = document.getElementById('empty-form-template').innerHTML;
+
+            function recalcTotal() {
+                let sum = 0;
+                list.querySelectorAll('li.item-row').forEach(li => {
+                    const delBox = li.querySelector('input[type="checkbox"]');
+                    if (delBox) {
+                        if (delBox.checked) {
+                            li.classList.add('del');
+                            return;
+                        } else {
+                            li.classList.remove('del');
+                        }
+                    }
+                    const inp = li.querySelector('.price input');
+                    const v = parseFloat(inp.value.replace(',', '.')) || 0;
+                    sum += v;
+                });
+                totalField.textContent = sum.toFixed(2);
+            }
+
+            list.addEventListener('input', e => {
+                if (e.target.matches('.price input')) {
+                    recalcTotal();
+                }
+            });
+
+            list.addEventListener('change', e => {
+                if (e.target.matches('input[type="checkbox"]')) {
+                    recalcTotal();
+                }
+            });
+
+            recalcTotal();
+
+            addBtn.addEventListener('click', () => {
+                const idx = parseInt(totalForms.value, 10);
+                const html = tplHtml.replace(/__prefix__/g, idx);
+                const wrapper = document.createElement('div');
+                wrapper.innerHTML = html.trim();
+                const newLi = wrapper.firstElementChild;
+                list.insertBefore(newLi, totalLi);
+                totalForms.value = idx + 1;
+                recalcTotal();
+            });
+        })();
+    </script>
+{% endblock %}
