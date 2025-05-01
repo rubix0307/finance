@@ -1523,6 +1523,7 @@ form.feedback {
                 & .col {
                     display: flex;
                     max-width: 50%;
+
                     &:first-of-type {
 
                         flex-direction: column;
@@ -1533,8 +1534,9 @@ form.feedback {
                             padding: 0;
                         }
                         & input[type='text'] {
-
+                            color: var(--main_text_color);
                             font-size: 16px;
+
                         }
                     }
                     &:last-of-type {
@@ -1552,9 +1554,10 @@ form.feedback {
                             text-align: right;
                             padding-right: 10px;
                             font-size: 16px;
+                            color: var(--main_text_color);
                         }
                         & input[type='checkbox'] {
-                            margin-left: 10px;
+                            margin-left: 20px;
                         }
                         & .delete-toggle {
                             display: flex;
