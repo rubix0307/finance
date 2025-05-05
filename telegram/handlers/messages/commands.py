@@ -34,7 +34,6 @@ def start(query: Message | CallbackQuery, params: dict[str, str | int], **kwargs
 
     if kwargs.get('user_created'):
         start_new_user(message, **kwargs)
-        return
 
     try:
         match params.get('action'):
