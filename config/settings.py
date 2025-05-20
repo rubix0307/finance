@@ -192,4 +192,7 @@ if not DEBUG:
     sentry_sdk.init(
         dsn=os.getenv('SENTRY_DSN', ''),
         send_default_pii=True,
+        _experiments={
+            "enable_logs": True
+        },
     )
