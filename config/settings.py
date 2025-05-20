@@ -193,6 +193,10 @@ if not DEBUG:
         dsn=os.getenv('SENTRY_DSN', ''),
         send_default_pii=True,
         _experiments={
-            "enable_logs": True
+            'enable_logs': True
         },
+        environment='production',
+        traces_sample_rate=1.0,
+        profile_session_sample_rate=1.0,
+        profile_lifecycle='trace'
     )
