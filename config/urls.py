@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.urls import path, include
 from ninja import NinjaAPI
 
-from info.views import permission_denied_view, faq_view, trigger_error
+from info import views as info
 from currency.api import router as currency_router
 from section.api import router as section_router
 from subscription.views import test_subscription
@@ -36,19 +36,21 @@ api.add_router('/users/', user_router)
 api.add_router('/plans/', subscription_router)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('section.urls')),
-    path('test_sub/', test_subscription),
+    path('api/', api.urls),
+    path('admin/', admin.site.urls),
     path('chart/', include('chart.urls')),
     path('receipts/<int:pk>/', receipt_edit, name='receipt_detail'),
     path('receipts/<int:pk>/delete/', receipt_delete, name='receipt_delete'),
-    path('api/', api.urls),
     path('telegram/', include('telegram.urls')),
     path('feedback/', feedback_view, name='feedback'),
-    path('403/', permission_denied_view, name='403'),
     path('user/language/', user_language, name='set_language'),
-    path('faq/', faq_view, name='faq'),
-    path('sentry-send-debug/', trigger_error),
+
+    path('403/', info.permission_denied_view, name='403'),
+    path('faq/', info.faq_view, name='faq'),
+    path('sentry-send-debug/', info.trigger_error),
+
+    path('test_sub/', test_subscription),
 ]
 
 if settings.DEBUG:
