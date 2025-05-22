@@ -83,7 +83,7 @@ pie_data AS (
 	      'original', total_price_original,
 	      'converted', total_price_converted
 	    )
-	  ) AS currencies
+	  ) FILTER (WHERE currency_id_original IS NOT NULL) AS currencies
 	FROM grouped_converted_items_by_category_and_currency
 	GROUP BY category_id
 )
