@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 
 load_dotenv('.env')
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = False
 
