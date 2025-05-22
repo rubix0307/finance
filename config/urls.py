@@ -15,13 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 '''
 from django.conf import settings
-from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import URLPattern, path, include
+from django.urls import path, include
 from ninja import NinjaAPI
 
-from config.views import permission_denied_view, faq_view, trigger_error
+from info.views import permission_denied_view, faq_view, trigger_error
 from currency.api import router as currency_router
 from section.api import router as section_router
 from subscription.views import test_subscription
