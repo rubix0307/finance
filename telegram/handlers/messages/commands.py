@@ -1,3 +1,4 @@
+import os
 from typing import Any
 
 from django.conf import settings
@@ -24,21 +25,27 @@ def default_start(message: Message, **kwargs: dict[str, Any]) -> None:
     markup.add(ButtonStorage.menu_language())
 
     text = _(
-        'Hello!\n'
+        'Hello!\n\n'
         'Finance Lens is a bot for tracking your expenses.\n\n'
-        'Send me a photo of a receipt or a free-form text description of your expense, and I will analyze it and show a chart in the web app via the button below.'
-    )
+        'Send me a photo of a receipt or a free-form text description of your expense, and I will analyze it and show a chart in the web app via the button below.\n\n'
+    ) + f'<a href="{os.getenv("TELEGRAM_BOT_INGO_GROUP_URL")}">{_("Got questions?")}</a>'
+
+    message_common_settings = {
+        'chat_id': message.chat.id,
+        'reply_markup': markup,
+        'parse_mode': 'HTML',
+    }
+
     try:
         bot.send_photo(
             caption=text,
             photo=settings.BASE_URL + static('img/start_img.png'),
-            reply_markup=markup,
+            **message_common_settings,
         )
-    except:
+    except Exception as e:
         bot.send_message(
-            message.chat.id,
             text=text,
-            reply_markup=markup,
+            **message_common_settings,
         )
 
 

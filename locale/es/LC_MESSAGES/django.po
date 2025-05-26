@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-26 22:39+0200\n"
+"POT-Creation-Date: 2025-05-26 23:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -447,20 +447,27 @@ msgid ""
 "capabilities"
 msgstr ""
 
-#: telegram/handlers/messages/commands.py:27
+#: telegram/handlers/messages/commands.py:28
 msgid ""
 "Hello!\n"
+"\n"
 "Finance Lens is a bot for tracking your expenses.\n"
 "\n"
 "Send me a photo of a receipt or a free-form text description of your "
 "expense, and I will analyze it and show a chart in the web app via the "
-"button below."
-msgstr ""
-"¡Hola!\n"
-"Finance Lens es un bot para el seguimiento de tus gastos.\n"
+"button below.\n"
 "\n"
-"Envíame una foto de un recibo o una descripción libre del gasto, "
-"y lo analizaré y te mostraré un gráfico en la aplicación web mediante el botón de abajo."
+msgstr ""
+"¡Hola!\n\n"
+"Finance Lens es un bot para hacer un seguimiento de tus gastos.\n\n"
+"Envíame una foto de un recibo o una descripción libre de tu gasto, y lo "
+"analizaré y te mostraré un gráfico en la aplicación web a través del botón "
+"de abajo.\n"
+"\n"
+
+#: telegram/handlers/messages/commands.py:31
+msgid "Got questions?"
+msgstr "¿Tienes preguntas?"
 
 #: telegram/handlers/messages/messages.py:23
 #: telegram/handlers/messages/photos.py:34
