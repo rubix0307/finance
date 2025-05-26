@@ -13,7 +13,7 @@ def receipt_edit(request: WSGIRequest, pk: int) -> HttpResponse:
         if form.is_valid() and formset.is_valid():
             form.save()
             formset.save()
-            return redirect('receipt_detail', pk=receipt.pk)
+            return redirect('index')
     else:
         form = ReceiptForm(instance=receipt, user=request.user)
         formset = ReceiptItemFormSet(instance=receipt)
