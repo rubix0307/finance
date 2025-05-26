@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-01 20:56+0200\n"
+"POT-Creation-Date: 2025-05-26 22:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -447,9 +447,20 @@ msgid ""
 "capabilities"
 msgstr ""
 
-#: telegram/handlers/messages/commands.py:21
-msgid "Hello"
-msgstr "Hola"
+#: telegram/handlers/messages/commands.py:27
+msgid ""
+"Hello!\n"
+"Finance Lens is a bot for tracking your expenses.\n"
+"\n"
+"Send me a photo of a receipt or a free-form text description of your "
+"expense, and I will analyze it and show a chart in the web app via the "
+"button below."
+msgstr ""
+"¡Hola!\n"
+"Finance Lens es un bot para el seguimiento de tus gastos.\n"
+"\n"
+"Envíame una foto de un recibo o una descripción libre del gasto, "
+"y lo analizaré y te mostraré un gráfico en la aplicación web mediante el botón de abajo."
 
 #: telegram/handlers/messages/messages.py:23
 #: telegram/handlers/messages/photos.py:34
@@ -530,6 +541,9 @@ msgstr "Mensaje"
 #: user/templates/user/feedback_form.html:15
 msgid "Send"
 msgstr "Enviar"
+
+#~ msgid "Hello"
+#~ msgstr "Hola"
 
 #~ msgid "Analyzed"
 #~ msgstr "Analizado"

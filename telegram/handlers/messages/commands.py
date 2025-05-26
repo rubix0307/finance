@@ -1,6 +1,10 @@
 from typing import Any
-from telebot.types import Message, InlineKeyboardMarkup, CallbackQuery
+
+from django.conf import settings
+from django.templatetags.static import static
 from django.utils.translation import gettext as _
+
+from telebot.types import Message, InlineKeyboardMarkup, CallbackQuery
 
 from telegram.handlers.bot_instance import bot
 from telegram.handlers.share.users import send_user_share
@@ -18,7 +22,25 @@ def default_start(message: Message, **kwargs: dict[str, Any]) -> None:
     markup.add(ButtonStorage.web_app_main())
     markup.add(ButtonStorage.web_app_faq())
     markup.add(ButtonStorage.menu_language())
-    bot.send_message(message.chat.id, _("Hello"), reply_markup=markup)
+
+    text = _(
+        'Hello!\n'
+        'Finance Lens is a bot for tracking your expenses.\n\n'
+        'Send me a photo of a receipt or a free-form text description of your expense, and I will analyze it and show a chart in the web app via the button below.'
+    )
+    try:
+        bot.send_photo(
+            caption=text,
+            photo=settings.BASE_URL + static('img/start_img.png'),
+            reply_markup=markup,
+        )
+    except:
+        bot.send_message(
+            message.chat.id,
+            text=text,
+            reply_markup=markup,
+        )
+
 
 
 @bot.message_handler(commands=['start'])

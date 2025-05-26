@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-01 20:56+0200\n"
+"POT-Creation-Date: 2025-05-26 22:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -437,9 +437,20 @@ msgstr ""
 "Вы не можете выполнить это действие. Пожалуйста, проверьте ограничения и "
 "возможности вашей подписки."
 
-#: telegram/handlers/messages/commands.py:21
-msgid "Hello"
-msgstr "Привет"
+#: telegram/handlers/messages/commands.py:27
+msgid ""
+"Hello!\n"
+"Finance Lens is a bot for tracking your expenses.\n"
+"\n"
+"Send me a photo of a receipt or a free-form text description of your "
+"expense, and I will analyze it and show a chart in the web app via the "
+"button below."
+msgstr ""
+"Привет!\n"
+"Finance Lens — это бот для отслеживания ваших расходов.\n"
+"\n"
+"Пришлите мне фото чека или текстовое описание траты в свободной форме, "
+"я проанализирую его и покажу график в веб-приложении по кнопке ниже."
 
 #: telegram/handlers/messages/messages.py:23
 #: telegram/handlers/messages/photos.py:34
@@ -522,3 +533,6 @@ msgstr "Сообщение"
 #: user/templates/user/feedback_form.html:15
 msgid "Send"
 msgstr "Отправить"
+
+#~ msgid "Hello"
+#~ msgstr "Привет"
