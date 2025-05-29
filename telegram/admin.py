@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import QuerySet
 
-from telegram.models import ReceiptStatusMessage
+from telegram.models import ReceiptStatusMessage, PreCheckoutLog, Payment
 
 
 def update_telegram_message(modeladmin: admin.ModelAdmin, request: WSGIRequest, queryset: QuerySet[ReceiptStatusMessage]) -> None:
@@ -13,3 +13,11 @@ def update_telegram_message(modeladmin: admin.ModelAdmin, request: WSGIRequest, 
 class ReceiptStatusMessageAdmin(admin.ModelAdmin): # type: ignore
     list_display = ('id', 'receipt', 'status', 'chat_id', 'message_id',)
     actions = [update_telegram_message]
+
+@admin.register(PreCheckoutLog)
+class PreCheckoutLogAdmin(admin.ModelAdmin):
+    list_display = ('user_id', 'total_amount', 'currency', )
+
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ('user_id', 'total_amount', 'currency', )
