@@ -1,130 +1,654 @@
 [
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": -1,
-    "fields": {
-      "name": "Другое",
-      "color": "#9f9f9f"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 1,
-    "fields": {
-      "name": "Продукты",
-      "color": "#c2b5ff"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 2,
-    "fields": {
-      "name": "Электроника",
-      "color": "#f4ff65"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 3,
-    "fields": {
-      "name": "Связь и интернет",
-      "color": "#18a762"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 4,
-    "fields": {
-      "name": "Общественный транспорт",
-      "color": "#2b81ba"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 5,
-    "fields": {
-      "name": "Авто и бензин",
-      "color": "#7eb860"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 6,
-    "fields": {
-      "name": "Красота и здоровье",
-      "color": "#f6b8ba"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 7,
-    "fields": {
-      "name": "Одежда",
-      "color": "#45b78d"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 8,
-    "fields": {
-      "name": "Алкоголь",
-      "color": "#dfdfdf"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 9,
-    "fields": {
-      "name": "Табачные изделия",
-      "color": "#8f5b2d"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 10,
-    "fields": {
-      "name": "Развлечения",
-      "color": "#ffca38"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 11,
-    "fields": {
-      "name": "Здоровье",
-      "color": "#0076a8"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 12,
-    "fields": {
-      "name": "Дети",
-      "color": "#3db3ab"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 13,
-    "fields": {
-      "name": "Образование",
-      "color": "#2f2a46"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 14,
-    "fields": {
-      "name": "Домашние животные",
-      "color": "#aaa174"
-    }
-  },
-  {
-    "model": "receipt.receiptitemcategory",
-    "pk": 15,
-    "fields": {
-      "name": "Дом и уют",
-      "color": "#aaa174"
-    }
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": -1,
+  "fields": {
+    "color": "#9f9f9f"
   }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 1,
+  "fields": {
+    "color": "#c2b5ff"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 2,
+  "fields": {
+    "color": "#f4ff65"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 3,
+  "fields": {
+    "color": "#18a762"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 4,
+  "fields": {
+    "color": "#2b81ba"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 5,
+  "fields": {
+    "color": "#7eb860"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 6,
+  "fields": {
+    "color": "#f6b8ba"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 7,
+  "fields": {
+    "color": "#45b78d"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 8,
+  "fields": {
+    "color": "#dfdfdf"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 9,
+  "fields": {
+    "color": "#8f5b2d"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 10,
+  "fields": {
+    "color": "#ffca38"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 11,
+  "fields": {
+    "color": "#0076a8"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 12,
+  "fields": {
+    "color": "#3db3ab"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 13,
+  "fields": {
+    "color": "#2f2a46"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 14,
+  "fields": {
+    "color": "#aaa174"
+  }
+},
+{
+  "model": "receipt.receiptitemcategory",
+  "pk": 15,
+  "fields": {
+    "color": "#aaa174"
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 4,
+  "fields": {
+    "language_code": "ru",
+    "name": "Другое",
+    "master": -1
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 5,
+  "fields": {
+    "language_code": "ru",
+    "name": "Продукты",
+    "master": 1
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 6,
+  "fields": {
+    "language_code": "ru",
+    "name": "Электроника",
+    "master": 2
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 7,
+  "fields": {
+    "language_code": "ru",
+    "name": "Связь и интернет",
+    "master": 3
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 8,
+  "fields": {
+    "language_code": "ru",
+    "name": "Общественный транспорт",
+    "master": 4
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 9,
+  "fields": {
+    "language_code": "ru",
+    "name": "Авто и бензин",
+    "master": 5
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 10,
+  "fields": {
+    "language_code": "ru",
+    "name": "Красота и здоровье",
+    "master": 6
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 11,
+  "fields": {
+    "language_code": "ru",
+    "name": "Одежда",
+    "master": 7
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 12,
+  "fields": {
+    "language_code": "ru",
+    "name": "Алкоголь",
+    "master": 8
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 13,
+  "fields": {
+    "language_code": "ru",
+    "name": "Табачные изделия",
+    "master": 9
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 14,
+  "fields": {
+    "language_code": "ru",
+    "name": "Развлечения",
+    "master": 10
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 15,
+  "fields": {
+    "language_code": "ru",
+    "name": "Здоровье",
+    "master": 11
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 16,
+  "fields": {
+    "language_code": "ru",
+    "name": "Дети",
+    "master": 12
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 17,
+  "fields": {
+    "language_code": "ru",
+    "name": "Образование",
+    "master": 13
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 18,
+  "fields": {
+    "language_code": "ru",
+    "name": "Домашние животные",
+    "master": 14
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 19,
+  "fields": {
+    "language_code": "en",
+    "name": "Other",
+    "master": -1
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 20,
+  "fields": {
+    "language_code": "en",
+    "name": "Groceries",
+    "master": 1
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 21,
+  "fields": {
+    "language_code": "en",
+    "name": "Electronics",
+    "master": 2
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 22,
+  "fields": {
+    "language_code": "en",
+    "name": "Communication and Internet",
+    "master": 3
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 23,
+  "fields": {
+    "language_code": "en",
+    "name": "Public Transport",
+    "master": 4
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 24,
+  "fields": {
+    "language_code": "en",
+    "name": "Auto and Gasoline",
+    "master": 5
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 25,
+  "fields": {
+    "language_code": "en",
+    "name": "Beauty and Health",
+    "master": 6
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 26,
+  "fields": {
+    "language_code": "en",
+    "name": "Clothing",
+    "master": 7
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 27,
+  "fields": {
+    "language_code": "en",
+    "name": "Alcohol",
+    "master": 8
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 28,
+  "fields": {
+    "language_code": "en",
+    "name": "Tobacco Products",
+    "master": 9
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 29,
+  "fields": {
+    "language_code": "en",
+    "name": "Entertainment",
+    "master": 10
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 30,
+  "fields": {
+    "language_code": "en",
+    "name": "Health",
+    "master": 11
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 31,
+  "fields": {
+    "language_code": "en",
+    "name": "Children",
+    "master": 12
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 32,
+  "fields": {
+    "language_code": "en",
+    "name": "Education",
+    "master": 13
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 33,
+  "fields": {
+    "language_code": "en",
+    "name": "Pets",
+    "master": 14
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 34,
+  "fields": {
+    "language_code": "es",
+    "name": "Otro",
+    "master": -1
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 35,
+  "fields": {
+    "language_code": "es",
+    "name": "Comestibles",
+    "master": 1
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 36,
+  "fields": {
+    "language_code": "es",
+    "name": "Electrónica",
+    "master": 2
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 37,
+  "fields": {
+    "language_code": "es",
+    "name": "Comunicaciones e Internet",
+    "master": 3
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 38,
+  "fields": {
+    "language_code": "es",
+    "name": "Transporte público",
+    "master": 4
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 39,
+  "fields": {
+    "language_code": "es",
+    "name": "Automóvil y gasolina",
+    "master": 5
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 40,
+  "fields": {
+    "language_code": "es",
+    "name": "Belleza y salud",
+    "master": 6
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 41,
+  "fields": {
+    "language_code": "es",
+    "name": "Ropa",
+    "master": 7
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 42,
+  "fields": {
+    "language_code": "es",
+    "name": "Alcohol",
+    "master": 8
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 43,
+  "fields": {
+    "language_code": "es",
+    "name": "Productos de tabaco",
+    "master": 9
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 44,
+  "fields": {
+    "language_code": "es",
+    "name": "Entretenimiento",
+    "master": 10
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 45,
+  "fields": {
+    "language_code": "es",
+    "name": "Salud",
+    "master": 11
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 46,
+  "fields": {
+    "language_code": "es",
+    "name": "Niños",
+    "master": 12
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 47,
+  "fields": {
+    "language_code": "es",
+    "name": "Educación",
+    "master": 13
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 48,
+  "fields": {
+    "language_code": "es",
+    "name": "Mascotas",
+    "master": 14
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 49,
+  "fields": {
+    "language_code": "uk",
+    "name": "Інше",
+    "master": -1
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 50,
+  "fields": {
+    "language_code": "uk",
+    "name": "Продукти",
+    "master": 1
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 51,
+  "fields": {
+    "language_code": "uk",
+    "name": "Електроніка",
+    "master": 2
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 52,
+  "fields": {
+    "language_code": "uk",
+    "name": "Зв’язок та інтернет",
+    "master": 3
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 53,
+  "fields": {
+    "language_code": "uk",
+    "name": "Громадський транспорт",
+    "master": 4
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 54,
+  "fields": {
+    "language_code": "uk",
+    "name": "Авто і бензин",
+    "master": 5
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 55,
+  "fields": {
+    "language_code": "uk",
+    "name": "Краса та здоров’я",
+    "master": 6
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 56,
+  "fields": {
+    "language_code": "uk",
+    "name": "Одяг",
+    "master": 7
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 57,
+  "fields": {
+    "language_code": "uk",
+    "name": "Алкоголь",
+    "master": 8
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 58,
+  "fields": {
+    "language_code": "uk",
+    "name": "Тютюнові вироби",
+    "master": 9
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 59,
+  "fields": {
+    "language_code": "uk",
+    "name": "Розваги",
+    "master": 10
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 60,
+  "fields": {
+    "language_code": "uk",
+    "name": "Здоров’я",
+    "master": 11
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 61,
+  "fields": {
+    "language_code": "uk",
+    "name": "Діти",
+    "master": 12
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 62,
+  "fields": {
+    "language_code": "uk",
+    "name": "Освіта",
+    "master": 13
+  }
+},
+{
+  "model": "receipt.receiptitemcategorytranslation",
+  "pk": 63,
+  "fields": {
+    "language_code": "uk",
+    "name": "Домашні тварини",
+    "master": 14
+  }
+}
 ]
