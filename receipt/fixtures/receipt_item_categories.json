@@ -91,7 +91,7 @@
     "model": "receipt.receiptitemcategory",
     "pk": 11,
     "fields": {
-      "name": "Благотворительность",
+      "name": "Здоровье",
       "color": "#0076a8"
     }
   },
@@ -116,6 +116,14 @@
     "pk": 14,
     "fields": {
       "name": "Домашние животные",
+      "color": "#aaa174"
+    }
+  },
+  {
+    "model": "receipt.receiptitemcategory",
+    "pk": 15,
+    "fields": {
+      "name": "Дом и уют",
       "color": "#aaa174"
     }
   }
